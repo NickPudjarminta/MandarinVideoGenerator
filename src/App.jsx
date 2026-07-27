@@ -4,6 +4,7 @@ import AssetSelector from './components/AssetSelector.jsx'
 import StyleTransfer from './components/StyleTransfer.jsx'
 import SubtitleCustomizer from './components/SubtitleCustomizer.jsx'
 import ExportPanel from './components/ExportPanel.jsx'
+import WorkbookPanel from './components/WorkbookPanel.jsx'
 import PromptEditor from './components/PromptEditor.jsx'
 import {
   DEFAULT_BRAVE_SEARCH_QUERY,
@@ -17,10 +18,28 @@ import {
   getVideoSize,
   remapPromptsAspect,
 } from './constants/video.js'
-import { abortErrorMessage, apiPost } from './utils/api.js'
+import { abortErrorMessage, apiGet, apiPost } from './utils/api.js'
 import { renderSubtitleOverlay } from './utils/canvasOverlayGenerator.js'
 import { splitLines, toPinyinLine } from './utils/pinyin.js'
+import { OUTRO_BUMPER } from './constants/bumpers.js'
 import './App.css'
+
+function newSessionId() {
+  const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19)
+  return `run-${stamp}-${Math.random().toString(36).slice(2, 6)}`
+}
+
+async function urlToDataUrl(url) {
+  const res = await fetch(url)
+  if (!res.ok) throw new Error(`Failed to load ${url}`)
+  const blob = await res.blob()
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => resolve(reader.result)
+    reader.onerror = () => reject(new Error('Failed to read image'))
+    reader.readAsDataURL(blob)
+  })
+}
 
 const STEPS = [
   { id: 'ideas', label: 'Ideas' },
@@ -29,6 +48,7 @@ const STEPS = [
   { id: 'style', label: 'Style' },
   { id: 'subtitles', label: 'Subtitles' },
   { id: 'render', label: 'Render' },
+  { id: 'workbook', label: 'Workbook' },
   { id: 'export', label: 'Export' },
 ]
 
@@ -70,6 +90,13 @@ export default function App() {
   const [style, setStyle] = useState(DEFAULT_STYLE)
   const [videoUrl, setVideoUrl] = useState('')
   const [youtubeMeta, setYoutubeMeta] = useState(null)
+  const [workbookPdfUrl, setWorkbookPdfUrl] = useState('')
+  const [workbookData, setWorkbookData] = useState(null)
+  const [workbookImport, setWorkbookImport] = useState(null)
+  const [metaImport, setMetaImport] = useState(null)
+  const [sessionId, setSessionId] = useState(() => newSessionId())
+  const [sessionsList, setSessionsList] = useState([])
+  const [loadingSession, setLoadingSession] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState('')
   const [loadingBeatIndex, setLoadingBeatIndex] = useState(null)
@@ -209,10 +236,142 @@ export default function App() {
     }))
   }
 
+  async function refreshSessionsList() {
+    try {
+      const data = await apiGet('/api/sessions')
+      setSessionsList(data.sessions || [])
+    } catch {
+      /* ignore list errors */
+    }
+  }
+
+  async function persistSession(extra = {}) {
+    try {
+      const id = sessionId || newSessionId()
+      if (!sessionId) setSessionId(id)
+      await apiPost('/api/sessions', {
+        sessionId: id,
+        concept,
+        englishScript,
+        mandarinScript,
+        keyNounRows,
+        prompts,
+        aspectId,
+        style,
+        videoUrl: extra.videoUrl ?? videoUrl,
+        beats: (extra.beats || beats).map((b) => ({
+          mandarin: b.mandarin,
+          english: b.english,
+          pinyin: b.pinyin,
+          keyNoun: b.keyNoun,
+          keyNounEn: b.keyNounEn,
+          keyNounPinyin: b.keyNounPinyin,
+          keyword: b.keyword,
+          query: b.query,
+          selectedImageUrl: b.selectedImageUrl,
+          selectedImageThumbnail: b.selectedImageThumbnail,
+          durationSec: b.durationSec,
+          styledImageBase64: b.styledImageBase64 || null,
+        })),
+      })
+      refreshSessionsList()
+    } catch (err) {
+      console.warn('Session save failed:', err.message)
+    }
+  }
+
+  function startNewRun() {
+    setSessionId(newSessionId())
+    setConcept(null)
+    setIdeas([])
+    setArticles([])
+    setEnglishScript('')
+    setMandarinScript('')
+    setKeyNounRows([])
+    setBeats([])
+    setVideoUrl('')
+    setYoutubeMeta(null)
+    setWorkbookPdfUrl('')
+    setWorkbookData(null)
+    setWorkbookImport(null)
+    setMetaImport(null)
+    setRunLog({ promptEvents: [], generationEvents: [] })
+    setStep(0)
+    setError('')
+  }
+
+  async function restoreSession(id) {
+    setError('')
+    setLoadingSession(true)
+    try {
+      const data = await apiGet(`/api/sessions/${id}`)
+      const m = data.manifest || {}
+      setSessionId(id)
+      if (m.aspectId) setAspectId(m.aspectId)
+      if (m.prompts) setPrompts((prev) => ({ ...prev, ...m.prompts }))
+      if (m.style) setStyle(m.style)
+      setConcept(m.concept || null)
+      setEnglishScript(m.englishScript || '')
+      setMandarinScript(m.mandarinScript || '')
+      setKeyNounRows(Array.isArray(m.keyNounRows) ? m.keyNounRows : [])
+
+      const styledByIndex = Object.fromEntries(
+        (data.styledFiles || []).map((f) => [f.index, f.url]),
+      )
+      const restoredBeats = []
+      for (const b of m.beats || []) {
+        let styledImageBase64 = ''
+        if (styledByIndex[b.index]) {
+          try {
+            styledImageBase64 = await urlToDataUrl(styledByIndex[b.index])
+          } catch {
+            /* skip */
+          }
+        }
+        restoredBeats.push({
+          mandarin: b.mandarin || '',
+          english: b.english || '',
+          pinyin: b.pinyin || '',
+          keyNoun: b.keyNoun || '',
+          keyNounEn: b.keyNounEn || '',
+          keyNounPinyin: b.keyNounPinyin || '',
+          keyword: b.keyword || '',
+          query: b.query || '',
+          selectedImageUrl: b.selectedImageUrl || '',
+          selectedImageThumbnail: b.selectedImageThumbnail || '',
+          images: [],
+          audioBase64: '',
+          durationSec: b.audioDurationSec || undefined,
+          styledImageBase64,
+        })
+      }
+      setBeats(restoredBeats)
+      setVideoUrl(data.videoUrl || '')
+
+      const hasStyled = restoredBeats.some((b) => b.styledImageBase64)
+      const hasImages = restoredBeats.some((b) => b.selectedImageUrl)
+      const hasScript = Boolean(m.mandarinScript?.trim())
+      if (data.videoUrl) setStep(STEPS.findIndex((s) => s.id === 'workbook'))
+      else if (hasStyled) setStep(STEPS.findIndex((s) => s.id === 'subtitles'))
+      else if (hasImages) setStep(STEPS.findIndex((s) => s.id === 'assets'))
+      else if (hasScript) setStep(STEPS.findIndex((s) => s.id === 'script'))
+      else setStep(0)
+    } catch (e) {
+      setError(e.message || String(e))
+    } finally {
+      setLoadingSession(false)
+    }
+  }
+
+  useEffect(() => {
+    refreshSessionsList()
+  }, [])
+
   async function loadIdeas() {
     setError('')
     setLoading('ideas')
     try {
+      setSessionId(newSessionId())
       const searchQuery = braveQuery.trim() || DEFAULT_BRAVE_SEARCH_QUERY
       logPrompt({
         step: 'ideas',
@@ -676,14 +835,16 @@ export default function App() {
       ? buildBeatsFromScripts()
       : beats
 
-    const incomplete = workingBeats.filter((b) => !b.selectedImageUrl || !b.audioBase64)
-    if (incomplete.length) {
-      setError('Every beat needs TTS audio and a selected image.')
-      return
-    }
+    // TTS is regenerated during render — do not require audioBase64 (loaded sessions omit it).
     const unstyled = workingBeats.filter((b) => !b.styledImageBase64)
     if (unstyled.length) {
-      setError('Style all beats before rendering (Style step).')
+      setError(
+        'Every beat needs a styled image before rendering. Load a session that saved styled frames, or finish the Style step.',
+      )
+      return
+    }
+    if (!workingBeats.length) {
+      setError('No beats to render.')
       return
     }
 
@@ -766,7 +927,18 @@ export default function App() {
       }
 
       if (signal.aborted) throw new Error('Render cancelled by user')
-      const ffmpegLabel = `Encoding ${payloadBeats.length} segments (3× ${workingBeats.length} beats) + 3s speed transitions with FFmpeg — this can take a while`
+
+      setRenderStatus('Ensuring outro bumper audio…')
+      await apiPost('/api/ensure-bumper-audio', {}, { signal })
+
+      const outroBeat = {
+        mandarin: OUTRO_BUMPER.mandarin,
+        english: OUTRO_BUMPER.english,
+        pinyin: toPinyinLine(OUTRO_BUMPER.mandarin),
+      }
+      const outroOverlayBase64 = await renderSubtitleOverlay(outroBeat, style, aspectId, '')
+
+      const ffmpegLabel = `Encoding ${payloadBeats.length} segments (3× ${workingBeats.length} beats) + transitions + BGM with FFmpeg — this can take a while`
       setRenderStatus(`${ffmpegLabel}…`)
       setRenderProgress({
         phase: 'ffmpeg',
@@ -781,13 +953,22 @@ export default function App() {
           style,
           aspectId,
           beatsPerPass: workingBeats.length,
+          outroOverlayBase64,
+          sessionId,
         },
         { signal },
       )
       setVideoUrl(result.outputUrl)
-      setRenderStatus('Done.')
+      const skipped = Number(result.segmentsSkipped) || 0
+      const encoded = Number(result.segmentsEncoded) || 0
+      setRenderStatus(
+        skipped
+          ? `Done. Reused ${skipped} cached FFmpeg clip${skipped === 1 ? '' : 's'}; encoded ${encoded} new.`
+          : 'Done.',
+      )
       setRenderProgress({ phase: 'done', current: 1, total: 1, label: 'Done' })
-      setStep(STEPS.findIndex((s) => s.id === 'export'))
+      await persistSession({ videoUrl: result.outputUrl, beats: workingBeats })
+      setStep(STEPS.findIndex((s) => s.id === 'workbook'))
     } catch (e) {
       const msg = abortErrorMessage(e)
       setError(msg)
@@ -800,27 +981,87 @@ export default function App() {
     }
   }
 
+  function buildWorkbookEntries(sourceBeats) {
+    const seen = new Set()
+    const entries = []
+    for (const b of sourceBeats || []) {
+      const keyNoun = String(b.keyNoun || '').trim()
+      if (!keyNoun || seen.has(keyNoun) || !/[\u4e00-\u9fff]/.test(keyNoun)) continue
+      seen.add(keyNoun)
+      entries.push({
+        keyNoun,
+        keyNounEn: String(b.keyNounEn || '').trim(),
+        pinyin: String(b.keyNounPinyin || '').trim() || toPinyinLine(keyNoun),
+        mandarin: String(b.mandarin || '').trim(),
+        english: String(b.english || '').trim(),
+      })
+    }
+    return entries
+  }
+
+  async function generateWorkbook() {
+    setError('')
+    setLoading('workbook')
+    try {
+      const sourceBeats = workbookImport?.beats || beats
+      const sourceConcept = workbookImport?.concept || concept
+      const entries = buildWorkbookEntries(sourceBeats)
+      if (!entries.length) {
+        throw new Error('No Mandarin key nouns available for the workbook.')
+      }
+      logPrompt({
+        step: 'workbook',
+        kind: 'gemini_workbook',
+        prompt: prompts.workbook,
+        conceptTitle: sourceConcept?.title || '',
+        entryCount: entries.length,
+        fromImport: Boolean(workbookImport),
+      })
+      const data = await apiPost('/api/workbook', {
+        prompt: prompts.workbook,
+        concept: sourceConcept,
+        entries,
+      })
+      setWorkbookPdfUrl(data.pdfUrl || '')
+      setWorkbookData(data.workbook || null)
+    } catch (e) {
+      setError(e.message || String(e))
+    } finally {
+      setLoading('')
+    }
+  }
+
   async function generateYoutubeMeta() {
     setError('')
     setLoading('youtube')
     try {
+      const sourceConcept = metaImport?.concept || concept
+      const sourceEn = metaImport?.englishScript || englishScript
+      const sourceZh = metaImport?.mandarinScript || mandarinScript
+      const sourceBeats = metaImport?.beats || beats
+      if (!sourceZh?.trim() && !sourceEn?.trim() && !sourceBeats.some((b) => b.keyNoun)) {
+        throw new Error(
+          'No scripts or key nouns available. Import a run-generations.json from a past video.',
+        )
+      }
       logPrompt({
         step: 'export',
         kind: 'gemini_youtube_meta',
         prompt: prompts.youtubeMeta,
-        concept,
-        englishScript,
-        mandarinScript,
+        concept: sourceConcept,
+        englishScript: sourceEn,
+        mandarinScript: sourceZh,
+        fromImport: Boolean(metaImport),
       })
       const data = await apiPost('/api/youtube-meta', {
         prompt: prompts.youtubeMeta,
-        concept,
-        englishScript,
-        mandarinScript,
-        keyNouns: beats.map((b) => ({
+        concept: sourceConcept,
+        englishScript: sourceEn,
+        mandarinScript: sourceZh,
+        keyNouns: sourceBeats.map((b) => ({
           keyNoun: b.keyNoun,
           keyNounEn: b.keyNounEn,
-          pinyin: b.keyNounPinyin,
+          pinyin: b.keyNounPinyin || b.pinyin,
         })),
       })
       setYoutubeMeta(data)
@@ -830,6 +1071,7 @@ export default function App() {
         title: data.title || '',
         description: data.description || '',
         boldedVocabulary: data.boldedVocabulary || [],
+        fromImport: Boolean(metaImport),
       })
     } catch (e) {
       setError(e.message)
@@ -849,6 +1091,7 @@ export default function App() {
         imageQuery: prompts.imageQuery,
         styleImage: prompts.styleImage,
         youtubeMeta: prompts.youtubeMeta,
+        workbook: prompts.workbook,
         braveSearchQuery: braveQuery,
         refine,
         freshness,
@@ -919,19 +1162,28 @@ export default function App() {
       return zh.length > 0 && missingKeyNounLines.length === 0
     }
     if (stepId === 'assets') {
-      return beats.length > 0 && beats.every((b) => b.selectedImageUrl && b.audioBase64)
+      // audioBase64 is optional here — render regenerates TTS; restored sessions often lack it
+      return (
+        beats.length > 0 &&
+        beats.every((b) => b.selectedImageUrl || b.styledImageBase64)
+      )
     }
     if (stepId === 'style') {
       return beats.length > 0 && beats.every((b) => b.styledImageBase64)
     }
     if (stepId === 'subtitles') return true
     if (stepId === 'render') return Boolean(videoUrl)
+    if (stepId === 'workbook') return true
     return true
   }, [stepId, concept, mandarinScript, missingKeyNounLines, beats, videoUrl])
 
   function goNext() {
     const next = step + 1
     if (!ensureBeatsSyncedFromScript(next)) return
+    // Auto-save snapshot when leaving script / assets / style / subtitles / render
+    if (['script', 'assets', 'style', 'subtitles', 'render'].includes(stepId)) {
+      persistSession()
+    }
     if (step < STEPS.length - 1) setStep(next)
   }
 
@@ -973,6 +1225,50 @@ export default function App() {
       <main className="panel">
         {stepId === 'ideas' && (
           <section>
+            <div className="tts-regen-panel" style={{ marginBottom: 16 }}>
+              <h3 style={{ marginTop: 0 }}>Previous work</h3>
+              <p className="muted" style={{ marginTop: 0 }}>
+                Active session: <code>{sessionId}</code> (auto-saved under <code>.tmp/sessions</code>)
+              </p>
+              <div className="export-actions">
+                <label className="refine compact" style={{ minWidth: 280 }}>
+                  Load previous work
+                  <select
+                    defaultValue=""
+                    disabled={loadingSession}
+                    onChange={(e) => {
+                      const id = e.target.value
+                      e.target.value = ''
+                      if (id) restoreSession(id)
+                    }}
+                  >
+                    <option value="">
+                      {sessionsList.length ? 'Select a saved run…' : 'No saved runs yet'}
+                    </option>
+                    {sessionsList.map((s) => (
+                      <option key={s.id} value={s.id}>
+                        {(s.title || s.id).slice(0, 60)}
+                        {s.hasVideo ? ' · video' : ''}
+                        {s.updatedAt ? ` · ${String(s.updatedAt).slice(0, 16).replace('T', ' ')}` : ''}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <button type="button" className="btn ghost" onClick={startNewRun}>
+                  New run
+                </button>
+                <button
+                  type="button"
+                  className="btn ghost"
+                  onClick={refreshSessionsList}
+                  disabled={loadingSession}
+                >
+                  Refresh list
+                </button>
+              </div>
+              {loadingSession && <p className="status">Loading session…</p>}
+            </div>
+
             <div className="aspect-toggle">
               <span>Video aspect ratio</span>
               <div className="aspect-toggle-options">
@@ -1236,14 +1532,12 @@ export default function App() {
 
             <div className="tts-regen-panel">
               <p className="tts-regen-hint" style={{ marginTop: 0 }}>
-                The export plays the full video <strong>three times</strong> in a row at{' '}
-                <strong>70%</strong>, <strong>85%</strong>, then <strong>100%</strong> speech speed
-                (Azure TTS rate 0.7 / 0.85 / default). A top-left badge shows{' '}
-                <code>70% Speed (1/3)</code>, <code>85% Speed (2/3)</code>,{' '}
-                <code>100% Speed (3/3)</code>. A 3s card opens with{' '}
-                <code>70Speed_Transition.png</code>, then between passes{' '}
-                <code>85Speed_Transition.png</code> and <code>FullSpeed_Transition.png</code>.
-                Render takes longer because audio is generated for each pass.
+                Opens with a 3s <code>70Speed_Transition.png</code> card (no speech), then the full
+                video <strong>three times</strong> at <strong>70%</strong> / <strong>85%</strong> /{' '}
+                <strong>100%</strong>, with 3s mid-cards, workbook outro (≥5s), and{' '}
+                <code>BackgroundMusic.mp3</code> mixed under the whole timeline. Restart reuses
+                cached FFmpeg segments for this session under <code>.tmp/render/</code> when inputs
+                are unchanged.
               </p>
             </div>
 
@@ -1263,9 +1557,9 @@ export default function App() {
                 <button
                   type="button"
                   className="btn ghost"
-                  onClick={() => setStep(STEPS.findIndex((s) => s.id === 'export'))}
+                  onClick={() => setStep(STEPS.findIndex((s) => s.id === 'workbook'))}
                 >
-                  Go to export
+                  Go to workbook
                 </button>
               )}
             </div>
@@ -1330,6 +1624,37 @@ export default function App() {
           </section>
         )}
 
+        {stepId === 'workbook' && (
+          <WorkbookPanel
+            prompts={prompts}
+            onPromptChange={updatePrompt}
+            liveConcept={concept}
+            liveBeats={beats}
+            workbookImport={workbookImport}
+            onImport={(parsed, importError) => {
+              if (importError) {
+                setError(importError)
+                setWorkbookImport(null)
+                return
+              }
+              setError('')
+              setWorkbookImport(parsed)
+              setWorkbookPdfUrl('')
+              setWorkbookData(null)
+            }}
+            onClearImport={() => {
+              setWorkbookImport(null)
+              setWorkbookPdfUrl('')
+              setWorkbookData(null)
+            }}
+            onGenerate={generateWorkbook}
+            loading={loading === 'workbook'}
+            pdfUrl={workbookPdfUrl}
+            workbookData={workbookData}
+            error={null}
+          />
+        )}
+
         {stepId === 'export' && (
           <ExportPanel
             videoUrl={videoUrl}
@@ -1340,6 +1665,23 @@ export default function App() {
             loadingMeta={loading === 'youtube'}
             promptsExport={promptsExport}
             generationsExport={generationsExport}
+            metaImport={metaImport}
+            onMetaImport={(parsed, importError) => {
+              if (importError) {
+                setError(importError)
+                setMetaImport(null)
+                return
+              }
+              setError('')
+              setMetaImport(parsed)
+              setYoutubeMeta(null)
+            }}
+            onClearMetaImport={() => {
+              setMetaImport(null)
+            }}
+            liveHasContent={Boolean(
+              (englishScript || mandarinScript || beats.some((b) => b.keyNoun)),
+            )}
           />
         )}
       </main>

@@ -6,6 +6,7 @@ export default function PromptEditor({
   onRun,
   runLabel = 'Run',
   running = false,
+  runDisabled = false,
   collapsedDefault = true,
 }) {
   return (
@@ -28,7 +29,12 @@ export default function PromptEditor({
             Reset default
           </button>
           {onRun && (
-            <button type="button" className="btn primary" onClick={onRun} disabled={running}>
+            <button
+              type="button"
+              className="btn primary"
+              onClick={onRun}
+              disabled={running || runDisabled}
+            >
               {running ? 'Running…' : runLabel}
             </button>
           )}

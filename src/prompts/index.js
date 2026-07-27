@@ -60,6 +60,17 @@ Create an optimized title and description for a ~60s vertical video.
 Ground everything in the provided concept, scripts, and key-noun list.
 
 Respond ONLY with JSON: { "title": string, "description": string }`,
+  workbook: `You create an HSK Level 3 printable practice workbook from a list of key nouns and their example sentences (from a Mandarin-learning video).
+
+Build ALL four sections. Ground every exercise ONLY in the provided entries — do not invent new vocabulary or change the Mandarin example sentences.
+
+Rules:
+- Section A: one card per entry. Include pinyin, English gloss, rough POS (Noun/Verb/etc), per-character stroke counts (best estimate), and handwriting layout (guidedBoxes=2, emptyBoxes=4 for 1–2 character words; emptyBoxes=2 per character when 3+ characters). Keep exampleZh/exampleEn exactly from the entry.
+- Section B: HSK-style 选词填空. Word bank letters A, B, C… covering every keyNoun (shuffled). Questions: replace the keyNoun in each Mandarin sentence with ______ ; shuffle question order vs Section A. answerLetter/answerWord must match.
+- Section C: 连词成句. Split each Mandarin sentence into 4–7 scrambled bracket chunks (keep English names as whole chunks). answerZh must equal the original Mandarin sentence.
+- Section D: answer keys. For B include a short syntactic clue; for C list the full Mandarin sentences in question order matching Section C.
+
+Respond ONLY with JSON matching the schema in the context.`,
 }
 
 export const DEFAULT_BRAVE_SEARCH_QUERY = FALLBACK_PROMPTS.braveSearchQuery
@@ -70,6 +81,7 @@ export const KEY_NOUNS_PROMPT = FALLBACK_PROMPTS.keyNouns
 export const IMAGE_QUERY_PROMPT = FALLBACK_PROMPTS.imageQuery
 export const STYLE_IMAGE_PROMPT = FALLBACK_PROMPTS.styleImage
 export const YOUTUBE_META_PROMPT = FALLBACK_PROMPTS.youtubeMeta
+export const WORKBOOK_PROMPT = FALLBACK_PROMPTS.workbook
 
 export const DEFAULT_PROMPTS = {
   ideas: FALLBACK_PROMPTS.ideas,
@@ -79,6 +91,7 @@ export const DEFAULT_PROMPTS = {
   imageQuery: FALLBACK_PROMPTS.imageQuery,
   styleImage: FALLBACK_PROMPTS.styleImage,
   youtubeMeta: FALLBACK_PROMPTS.youtubeMeta,
+  workbook: FALLBACK_PROMPTS.workbook,
 }
 
 /** Load editable defaults from /prompts.json (public folder). */
@@ -96,6 +109,7 @@ export async function loadPromptsFromJson() {
       imageQuery: data.imageQuery || FALLBACK_PROMPTS.imageQuery,
       styleImage: data.styleImage || FALLBACK_PROMPTS.styleImage,
       youtubeMeta: data.youtubeMeta || FALLBACK_PROMPTS.youtubeMeta,
+      workbook: data.workbook || FALLBACK_PROMPTS.workbook,
     },
   }
 }

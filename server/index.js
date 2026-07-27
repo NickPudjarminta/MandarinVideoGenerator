@@ -13,6 +13,14 @@ import { renderHandler } from './routes/render.js'
 import { fetchImageHandler } from './routes/fetch-image.js'
 import { styleImageHandler } from './routes/style-image.js'
 import { keyNounsHandler } from './routes/key-nouns.js'
+import { workbookHandler } from './routes/workbook.js'
+import { ensureBumperAudioHandler } from './lib/ensureBumperAudio.js'
+import {
+  listSessionsHandler,
+  getSessionHandler,
+  getSessionFileHandler,
+  saveSessionHandler,
+} from './routes/sessions.js'
 
 ensureDirs()
 
@@ -43,18 +51,25 @@ app.post('/api/render', (c) => wrap(renderHandler, c))
 app.post('/api/fetch-image', (c) => wrap(fetchImageHandler, c))
 app.post('/api/style-image', (c) => wrap(styleImageHandler, c))
 app.post('/api/key-nouns', (c) => wrap(keyNounsHandler, c))
+app.post('/api/workbook', (c) => wrap(workbookHandler, c))
+app.post('/api/ensure-bumper-audio', (c) => wrap(ensureBumperAudioHandler, c))
+app.get('/api/sessions', (c) => wrap(listSessionsHandler, c))
+app.get('/api/sessions/:id', (c) => wrap(getSessionHandler, c))
+app.get('/api/sessions/:id/files/:name', (c) => wrap(getSessionFileHandler, c))
+app.post('/api/sessions', (c) => wrap(saveSessionHandler, c))
 
 app.get('/output/:name', (c) => {
   const name = path.basename(c.req.param('name'))
   const filePath = path.join(OUTPUT_DIR, name)
   if (!fs.existsSync(filePath)) return c.json({ error: 'Not found' }, 404)
   const buf = fs.readFileSync(filePath)
+  const isPdf = name.toLowerCase().endsWith('.pdf')
   return new Response(buf, {
     status: 200,
     headers: {
-      'Content-Type': 'video/mp4',
+      'Content-Type': isPdf ? 'application/pdf' : 'video/mp4',
       'Content-Length': String(buf.length),
-      'Content-Disposition': `inline; filename="${name}"`,
+      'Content-Disposition': `${isPdf ? 'attachment' : 'inline'}; filename="${name}"`,
     },
   })
 })

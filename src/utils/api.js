@@ -12,6 +12,15 @@ export async function apiPost(path, body, { signal } = {}) {
   return data
 }
 
+export async function apiGet(path, { signal } = {}) {
+  const res = await fetch(path, { method: 'GET', signal })
+  const data = await res.json().catch(() => ({}))
+  if (!res.ok) {
+    throw new Error(data.error || `Request failed: ${res.status}`)
+  }
+  return data
+}
+
 export function abortErrorMessage(err) {
   if (!err) return 'Request failed'
   if (err.name === 'AbortError' || err.message?.includes('aborted')) {

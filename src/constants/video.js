@@ -69,7 +69,16 @@ export function remapPromptAspect(text, fromId, toId) {
 
 export function remapPromptsAspect(prompts, fromId, toId) {
   if (fromId === toId) return prompts
-  const keys = ['ideas', 'scriptEn', 'scriptZh', 'keyNouns', 'imageQuery', 'styleImage', 'youtubeMeta']
+  const keys = [
+    'ideas',
+    'scriptEn',
+    'scriptZh',
+    'keyNouns',
+    'imageQuery',
+    'styleImage',
+    'youtubeMeta',
+    'workbook',
+  ]
   const next = { ...prompts }
   for (const key of keys) {
     if (next[key]) next[key] = remapPromptAspect(next[key], fromId, toId)
