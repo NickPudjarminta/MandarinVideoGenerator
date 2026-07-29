@@ -22,8 +22,8 @@ export default function ListeningApp() {
   const [step, setStep] = useState(0)
   const [rawText, setRawText] = useState('')
   const [sentences, setSentences] = useState([])
-  const [gapSec, setGapSec] = useState(1)
-  const [transitionSec, setTransitionSec] = useState(3)
+  const [gapSec, setGapSec] = useState(2)
+  const [revealGapSec, setRevealGapSec] = useState(6)
   const [sessionId] = useState(() => newSessionId())
   const [loading, setLoading] = useState('')
   const [status, setStatus] = useState('')
@@ -97,56 +97,75 @@ export default function ListeningApp() {
     setMeta(null)
 
     try {
-      const passes = []
-      for (let p = 0; p < SPEED_PASSES.length; p++) {
-        const pass = SPEED_PASSES[p]
-        const plays = []
-        for (let i = 0; i < sentences.length; i++) {
-          const s = sentences[i]
+      // Per sentence: No Text 70→85→100 (no white bar), then With Text at 100% + chime
+      const plays = []
+      for (let i = 0; i < sentences.length; i++) {
+        const s = sentences[i]
+        const audioByRate = {}
+
+        for (const pass of SPEED_PASSES) {
           setStatus(
-            `Pass ${p + 1}/3 (${pass.statusLabel}) — phrase ${i + 1}/${sentences.length}: TTS`,
+            `Phrase ${i + 1}/${sentences.length} — TTS ${pass.statusLabel}`,
           )
           const ttsBody =
             pass.rate === 'default'
               ? { text: s.zh }
               : { text: s.zh, rate: pass.rate }
           const tts = await apiPost('/api/tts', ttsBody)
+          audioByRate[pass.rate] = tts.audioBase64
+        }
 
+        // No Text at 70 / 85 / 100
+        for (const pass of SPEED_PASSES) {
           setStatus(
-            `Pass ${p + 1}/3 (${pass.statusLabel}) — phrase ${i + 1}/${sentences.length}: overlays`,
+            `Phrase ${i + 1}/${sentences.length} — No Text (${pass.statusLabel})`,
           )
-          const overlayA = await renderListeningOverlay({
+          const overlay = await renderListeningOverlay({
             zh: s.zh,
             sentenceIndex: i,
             sentenceCount: sentences.length,
             rate: pass.rate,
-            slide: 'A',
+            reveal: false,
           })
-          const overlayB = await renderListeningOverlay({
-            zh: s.zh,
+          plays.push({
+            overlayBase64: overlay,
+            audioBase64: audioByRate[pass.rate],
             sentenceIndex: i,
-            sentenceCount: sentences.length,
             rate: pass.rate,
-            slide: 'B',
-          })
-
-          const shared = {
-            audioBase64: tts.audioBase64,
-            sentenceIndex: i,
+            reveal: false,
             zh: s.zh,
             en: s.en,
-          }
-          plays.push({ ...shared, slide: 'A', overlayBase64: overlayA })
-          plays.push({ ...shared, slide: 'B', overlayBase64: overlayB })
+            chimeAfter: false,
+          })
         }
-        passes.push({ rate: pass.rate, plays })
+
+        // With Text at 100% only; chime after
+        const fullPass = SPEED_PASSES[SPEED_PASSES.length - 1]
+        setStatus(`Phrase ${i + 1}/${sentences.length} — With Text (100%)`)
+        const overlayReveal = await renderListeningOverlay({
+          zh: s.zh,
+          sentenceIndex: i,
+          sentenceCount: sentences.length,
+          rate: fullPass.rate,
+          reveal: true,
+        })
+        plays.push({
+          overlayBase64: overlayReveal,
+          audioBase64: audioByRate[fullPass.rate],
+          sentenceIndex: i,
+          rate: fullPass.rate,
+          reveal: true,
+          zh: s.zh,
+          en: s.en,
+          chimeAfter: true,
+        })
       }
 
       setStatus('Encoding video…')
       const data = await apiPost('/api/listening/render', {
-        passes,
+        plays,
         gapSec,
-        transitionSec,
+        revealGapSec,
         sessionId,
       })
       setVideoUrl(data.videoUrl || '')
@@ -254,14 +273,14 @@ export default function ListeningApp() {
               />
             </label>
             <label>
-              Transition card duration (sec)
+              Gap after reveal play (sec)
               <input
                 type="number"
-                min={0.5}
-                max={15}
+                min={0}
+                max={10}
                 step={0.1}
-                value={transitionSec}
-                onChange={(e) => setTransitionSec(Number(e.target.value))}
+                value={revealGapSec}
+                onChange={(e) => setRevealGapSec(Number(e.target.value))}
               />
             </label>
           </div>
@@ -324,8 +343,8 @@ export default function ListeningApp() {
         <section className="panel">
           <h2>2. Create Video</h2>
           <p className="muted">
-            Each phrase plays twice per speed (Listen carefully! → reveal). No opening card; chime on
-            85% / 100% transitions; EndFrame for 5s. Landscape 1280×720.
+            Per phrase: no-text (no white bar) at 70% → 85% → 100%, then Mandarin+pinyin at 100%.
+            Chime holds the last frame before the next phrase. EndFrame 5s. Landscape 1280×720.
           </p>
           <div className="listening-settings">
             <label>
@@ -340,20 +359,20 @@ export default function ListeningApp() {
               />
             </label>
             <label>
-              Transition card duration (sec)
+              Gap after reveal play (sec)
               <input
                 type="number"
-                min={0.5}
-                max={15}
+                min={0}
+                max={10}
                 step={0.1}
-                value={transitionSec}
-                onChange={(e) => setTransitionSec(Number(e.target.value))}
+                value={revealGapSec}
+                onChange={(e) => setRevealGapSec(Number(e.target.value))}
               />
             </label>
           </div>
           <p className="muted">
-            {sentences.length} phrase{sentences.length === 1 ? '' : 's'} · gap {gapSec}s ·
-            transition {transitionSec}s
+            {sentences.length} phrase{sentences.length === 1 ? '' : 's'} · gap {gapSec}s · reveal gap{' '}
+            {revealGapSec}s
           </p>
           <div className="export-actions">
             <button

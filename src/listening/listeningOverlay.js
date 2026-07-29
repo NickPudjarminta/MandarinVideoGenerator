@@ -1,13 +1,32 @@
-import { pinyin, segment } from 'pinyin-pro'
+import { pinyin, customPinyin } from 'pinyin-pro'
+
+// Prefer HSK / mainland teaching readings for common polyphones
+customPinyin({ 谁: 'shéi' })
 
 export const LP_WIDTH = 1280
 export const LP_HEIGHT = 720
 export const LP_BG = '#EFEBE4'
 export const LP_PLATE = { x: 140, y: 269, w: 1000, h: 196, radius: 20 }
 export const LP_CIRCLE = 145
-export const LP_CC_HINT = 'Turn on CC for english subtitles.'
-export const LP_LISTEN_EN = 'Listen carefully!'
-export const FONT_STACK = '"Roboto", "Noto Sans SC", "Microsoft YaHei", sans-serif'
+export const LP_CC_HINT = 'Turn on CC for English subtitles.'
+export const LP_EAR_ICON = { x: 539, y: 224, src: '/EarIcon.png' }
+export const FONT_STACK = '"Noto Sans SC", "Microsoft YaHei", "Roboto", sans-serif'
+
+let earIconPromise = null
+
+function loadEarIcon() {
+  if (!earIconPromise) {
+    earIconPromise = (async () => {
+      // public/EarIcon.png — Vite ignores watching public PNGs (avoids EBUSY on Windows)
+      const res = await fetch(LP_EAR_ICON.src)
+      if (!res.ok) {
+        throw new Error(`Failed to load EarIcon.png (${res.status})`)
+      }
+      return createImageBitmap(await res.blob())
+    })()
+  }
+  return earIconPromise
+}
 
 const PASSES = {
   '0.7': { pct: '70%', label: 'Speed' },
@@ -16,7 +35,8 @@ const PASSES = {
 }
 
 /**
- * Word-grouped tokens: pinyin centered under each word's characters (matches Slide B mock).
+ * Per-character tokens with phrase-level pinyin (same approach as workbook rubyPinyin).
+ * Full Hanzi runs are converted together so polyphones like 了→le and 谁→shéi get context.
  */
 export function toListeningTokens(text) {
   const s = String(text || '')
@@ -29,42 +49,18 @@ export function toListeningTokens(text) {
       let j = i + 1
       while (j < s.length && /[\u4e00-\u9fff]/.test(s[j])) j += 1
       const run = s.slice(i, j)
-      let words
+      let pyArr = []
       try {
-        words = segment(run)
+        pyArr = pinyin(run, { toneType: 'mark', type: 'array' })
       } catch {
-        words = null
+        pyArr = []
       }
-      if (!Array.isArray(words) || !words.length) {
-        // Fallback: per-character via phrase pinyin
-        let pyArr = []
-        try {
-          pyArr = pinyin(run, { toneType: 'mark', type: 'array' })
-        } catch {
-          pyArr = []
-        }
-        for (let k = 0; k < run.length; k++) {
-          tokens.push({ kind: 'word', chars: run[k], pinyin: String(pyArr?.[k] || '') })
-        }
-      } else {
-        for (const w of words) {
-          const chars = typeof w === 'string' ? w : String(w?.origin || '')
-          if (!chars) continue
-          let pyArr = []
-          try {
-            pyArr = pinyin(chars, { toneType: 'mark', type: 'array' })
-          } catch {
-            pyArr = []
-          }
-          // One token per character so each syllable sits under its Hanzi
-          for (let k = 0; k < chars.length; k++) {
-            tokens.push({
-              kind: 'word',
-              chars: chars[k],
-              pinyin: String(pyArr?.[k] || ''),
-            })
-          }
-        }
+      for (let k = 0; k < run.length; k++) {
+        tokens.push({
+          kind: 'word',
+          chars: run[k],
+          pinyin: String(pyArr?.[k] || ''),
+        })
       }
       i = j
     } else {
@@ -155,37 +151,34 @@ function drawRubyCentered(ctx, text, centerX, hanziY, opts = {}) {
 
 /**
  * Full-frame listening slide (1280×720).
- * @param {'A'|'B'} slide — A = "Listen carefully!" hide card; B = reveal sentence
+ * @param {boolean} reveal — false = cream bg only (no white plate); true = plate + Mandarin/pinyin
  * @param {string} rate — '0.7' | '0.85' | 'default'
  */
-export function drawListeningFrame(ctx, { zh, sentenceIndex, sentenceCount, rate, slide }) {
+export function drawListeningFrame(ctx, { zh, sentenceIndex, sentenceCount, rate, reveal, earIcon }) {
   const w = LP_WIDTH
   const h = LP_HEIGHT
   ctx.fillStyle = LP_BG
   ctx.fillRect(0, 0, w, h)
 
-  // White plate
   const { x, y, w: pw, h: ph, radius } = LP_PLATE
-  roundRect(ctx, x, y, pw, ph, radius)
-  ctx.fillStyle = '#FFFFFF'
-  ctx.fill()
 
-  const plateCenterX = x + pw / 2
-  if (slide === 'A') {
-    ctx.font = `400 42px ${FONT_STACK}`
-    ctx.fillStyle = '#141413'
-    ctx.textAlign = 'center'
-    ctx.textBaseline = 'middle'
-    ctx.fillText(LP_LISTEN_EN, plateCenterX, y + ph / 2)
-  } else {
+  if (reveal) {
+    // White plate + Mandarin/pinyin
+    roundRect(ctx, x, y, pw, ph, radius)
+    ctx.fillStyle = '#FFFFFF'
+    ctx.fill()
+
+    const plateCenterX = x + pw / 2
     const hanziBaseline = y + ph * 0.52
     drawRubyCentered(ctx, String(zh || ''), plateCenterX, hanziBaseline, {
       hanziSize: 64,
       pinyinSize: 22,
     })
+  } else if (earIcon) {
+    ctx.drawImage(earIcon, LP_EAR_ICON.x, LP_EAR_ICON.y)
   }
 
-  // CC hint
+  // CC hint (shown on both no-text and with-text slides)
   ctx.font = `400 22px ${FONT_STACK}`
   ctx.fillStyle = '#67707E'
   ctx.textAlign = 'center'
@@ -212,13 +205,14 @@ export async function renderListeningOverlay({
   sentenceIndex,
   sentenceCount,
   rate,
+  reveal = true,
+  // legacy alias
   slide,
 }) {
   const canvas = document.createElement('canvas')
   canvas.width = LP_WIDTH
   canvas.height = LP_HEIGHT
   const ctx = canvas.getContext('2d')
-  // Ensure web fonts are ready when available
   if (document.fonts?.ready) {
     try {
       await document.fonts.ready
@@ -226,6 +220,15 @@ export async function renderListeningOverlay({
       /* ignore */
     }
   }
-  drawListeningFrame(ctx, { zh, sentenceIndex, sentenceCount, rate, slide })
+  const showText = reveal === true || slide === 'B'
+  const earIcon = showText ? null : await loadEarIcon()
+  drawListeningFrame(ctx, {
+    zh,
+    sentenceIndex,
+    sentenceCount,
+    rate,
+    reveal: showText,
+    earIcon,
+  })
   return canvas.toDataURL('image/png')
 }

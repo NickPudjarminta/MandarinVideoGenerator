@@ -1,11 +1,14 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { v4 as uuid } from 'uuid'
-import { pinyin, segment } from 'pinyin-pro'
+import { pinyin, customPinyin } from 'pinyin-pro'
 import { callGemini } from '../lib/gemini.js'
 import { renderListeningVideo } from '../lib/listeningPipeline.js'
 import { buildListeningSrt, chapterTimestamp } from '../lib/srt.js'
 import { OUTPUT_DIR, ensureDirs } from '../lib/paths.js'
+
+// Prefer HSK / mainland teaching readings for common polyphones
+customPinyin({ 谁: 'shéi' })
 
 const DEFAULT_SENTENCE_PROMPT = `You complete Mandarin listening-practice sentence rows.
 
@@ -35,29 +38,13 @@ function sentencePinyin(zh) {
       let j = i + 1
       while (j < s.length && /[\u4e00-\u9fff]/.test(s[j])) j += 1
       const run = s.slice(i, j)
-      let words
       try {
-        words = segment(run)
-      } catch {
-        words = [...run]
-      }
-      if (!Array.isArray(words) || !words.length) words = [...run]
-      for (const w of words) {
-        if (typeof w === 'string') {
-          try {
-            parts.push(pinyin(w, { toneType: 'mark', type: 'array' }).join(''))
-          } catch {
-            /* skip */
-          }
-        } else if (w?.result) {
-          parts.push(String(w.result))
-        } else if (w?.origin) {
-          try {
-            parts.push(pinyin(String(w.origin), { toneType: 'mark', type: 'array' }).join(''))
-          } catch {
-            /* skip */
-          }
+        const pyArr = pinyin(run, { toneType: 'mark', type: 'array' })
+        for (const py of pyArr) {
+          if (py) parts.push(String(py))
         }
+      } catch {
+        /* skip */
       }
       i = j
     } else {
@@ -164,17 +151,17 @@ export async function listeningSentencesHandler(c) {
 
 export async function listeningRenderHandler(c) {
   const body = await c.req.json()
-  const passes = body.passes
-  if (!Array.isArray(passes) || passes.length !== 3) {
-    return c.json({ error: 'passes must be an array of 3 speed passes' }, 400)
+  const plays = body.plays
+  if (!Array.isArray(plays) || !plays.length) {
+    return c.json({ error: 'plays must be a non-empty array' }, 400)
   }
 
   const gapSec = Number(body.gapSec)
-  const transitionSec = Number(body.transitionSec)
+  const revealGapSec = Number(body.revealGapSec)
   const result = await renderListeningVideo({
-    passes,
-    gapSec: Number.isFinite(gapSec) ? gapSec : 1,
-    transitionSec: Number.isFinite(transitionSec) ? transitionSec : 3,
+    plays,
+    gapSec: Number.isFinite(gapSec) ? gapSec : 2,
+    revealGapSec: Number.isFinite(revealGapSec) ? revealGapSec : 6,
     sessionId: String(body.sessionId || ''),
     signal: c.req.raw?.signal,
   })
@@ -225,10 +212,10 @@ export async function listeningMetaHandler(c) {
     console.error('Listening meta Gemini failed:', err.message)
   }
 
-  // Chapter timestamps: first Slide A of each sentence in the 70% pass (pass 0)
+  // Chapter timestamps: first play of each sentence (Without Text @ 70%)
   const chapterStarts = sentences.map((_, i) => {
     const hit = timeline.find(
-      (t) => t.kind === 'play' && t.pass === 0 && t.slide === 'A' && t.sentenceIndex === i,
+      (t) => t.kind === 'play' && Number(t.sentenceIndex) === i,
     )
     return hit?.startSec ?? 0
   })
@@ -254,7 +241,8 @@ export async function listeningMetaHandler(c) {
 
   const description = [
     `Master HSK 3 Chinese listening with ${n} essential ${subject.toLowerCase()} phrases practiced at 3 speeds: 慢速 (70%), 中速 (85%), and 原速 (100%)!`,
-    `🔴 Binge the Full HSK 3 Listening Playlist: [INSERT PLAYLIST LINK]`,
+    `🔴 Binge the Full HSK Listening Playlist:
+https://youtube.com/playlist?list=PLSBjUp0GMW_c&si=DGdIo0apu7JMODB_`,
     '',
     `In this lesson, you will train your ear to recognize real native speed, transition away from Pinyin, and master natural speech patterns for everyday Chinese ${subject.toLowerCase()} vocabulary.`,
     '',

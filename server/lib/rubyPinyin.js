@@ -1,4 +1,7 @@
-import { pinyin } from 'pinyin-pro'
+import { pinyin, customPinyin } from 'pinyin-pro'
+
+// Prefer HSK / mainland teaching readings for common polyphones
+customPinyin({ 谁: 'shéi' })
 
 const HANZI_RE = /[\u4e00-\u9fff]/
 

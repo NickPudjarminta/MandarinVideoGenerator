@@ -5,10 +5,7 @@ import { execa } from 'execa'
 import { v4 as uuid } from 'uuid'
 import {
   OUTPUT_DIR,
-  TMP_DIR,
   RENDER_CACHE_DIR,
-  TRANSITION_AT_85_PNG,
-  TRANSITION_AT_100_PNG,
   CHIME_SFX_MP3,
   END_FRAME_PNG,
   ensureDirs,
@@ -185,7 +182,7 @@ async function renderPlaySegment({
 }
 
 /**
- * Still PNG + optional chime SFX for transitionSec.
+ * Still PNG + optional audio for a fixed duration.
  */
 async function renderStillSegment({
   pngPath,
@@ -261,18 +258,18 @@ async function renderStillSegment({
 }
 
 /**
- * Render listening practice video.
+ * Render listening practice video from a flat ordered play list.
  *
  * @param {object} opts
- * @param {Array<{rate:string, plays:Array}>} opts.passes — 3 speed passes; each play has overlayBase64, audioBase64, sentenceIndex, slide, zh, en
- * @param {number} opts.gapSec
- * @param {number} opts.transitionSec
+ * @param {Array} opts.plays — ordered plays: { overlayBase64, audioBase64, sentenceIndex, rate, reveal, zh, en, chimeAfter? }
+ * @param {number} opts.gapSec — silence after plays 1–3
+ * @param {number} opts.revealGapSec — silence after the with-text (4th) play, before chime
  * @param {string} opts.sessionId
  */
 export async function renderListeningVideo({
-  passes,
-  gapSec = 1,
-  transitionSec = 3,
+  plays,
+  gapSec = 2,
+  revealGapSec = 6,
   sessionId = '',
   onProgress,
   signal,
@@ -282,6 +279,11 @@ export async function renderListeningVideo({
   const jobId = cacheId ? `lp-${cacheId}` : `lp-${uuid()}`
   const work = path.join(RENDER_CACHE_DIR, jobId)
   fs.mkdirSync(work, { recursive: true })
+
+  const playList = Array.isArray(plays) ? plays : []
+  if (!playList.length) {
+    throw new Error('Listening render expects a non-empty plays array')
+  }
 
   const segmentPaths = []
   const timeline = []
@@ -295,104 +297,100 @@ export async function renderListeningVideo({
     cursor = endSec
   }
 
-  const passList = Array.isArray(passes) ? passes : []
-  if (passList.length !== 3) {
-    throw new Error('Listening render expects exactly 3 speed passes')
-  }
+  let lastOverlayPath = null
 
-  for (let p = 0; p < passList.length; p++) {
-    const pass = passList[p]
-    const rate = String(pass.rate || 'default')
-    const plays = Array.isArray(pass.plays) ? pass.plays : []
+  for (let i = 0; i < playList.length; i++) {
+    assertNotAborted(signal)
+    const play = playList[i]
+    const isChimeAfter = Boolean(play.chimeAfter)
+    const playGap = isChimeAfter ? Math.max(0, Number(revealGapSec) || 0) : gapSec
+
     onProgress?.({
       phase: 'plays',
-      pass: p + 1,
-      message: `Encoding pass ${p + 1}/3…`,
+      index: i + 1,
+      total: playList.length,
+      message: `Encoding play ${i + 1}/${playList.length}…`,
     })
 
-    for (let i = 0; i < plays.length; i++) {
-      assertNotAborted(signal)
-      const play = plays[i]
-      const overlayPath = path.join(work, `ov_${segIndex}.png`)
-      const audioPath = path.join(work, `au_${segIndex}.mp3`)
-      const outPath = path.join(work, `seg_${String(segIndex).padStart(4, '0')}.mp4`)
+    const overlayPath = path.join(work, `ov_${segIndex}.png`)
+    const audioPath = path.join(work, `au_${segIndex}.mp3`)
+    const outPath = path.join(work, `seg_${String(segIndex).padStart(4, '0')}.mp4`)
 
-      writeBase64(overlayPath, play.overlayBase64)
-      writeBase64(audioPath, play.audioBase64)
+    writeBase64(overlayPath, play.overlayBase64)
+    writeBase64(audioPath, play.audioBase64)
+    lastOverlayPath = overlayPath
 
-      const hash = contentHash(
-        'lp-play-v1',
+    const hash = contentHash(
+      'lp-play-v2',
+      overlayPath,
+      audioPath,
+      String(playGap),
+      WIDTH,
+      HEIGHT,
+    )
+    let duration
+    if (isSegmentCacheHit(outPath, hash)) {
+      duration = await probeDuration(outPath, signal)
+    } else {
+      duration = await renderPlaySegment({
         overlayPath,
         audioPath,
-        String(gapSec),
-        WIDTH,
-        HEIGHT,
-      )
-      let duration
-      if (isSegmentCacheHit(outPath, hash)) {
-        duration = await probeDuration(outPath, signal)
-      } else {
-        duration = await renderPlaySegment({
-          overlayPath,
-          audioPath,
-          outPath,
-          gapSec,
-          signal,
-        })
-        writeSegmentHash(outPath, hash)
-      }
-
-      segmentPaths.push(outPath)
-      pushTimeline(
-        {
-          kind: 'play',
-          pass: p,
-          rate,
-          slide: play.slide || (i % 2 === 0 ? 'A' : 'B'),
-          sentenceIndex: Number(play.sentenceIndex) || 0,
-          zh: play.zh || '',
-          en: play.en || '',
-        },
-        duration,
-      )
-      segIndex += 1
+        outPath,
+        gapSec: playGap,
+        signal,
+      })
+      writeSegmentHash(outPath, hash)
     }
 
-    // Transitions after pass 0 (→85) and pass 1 (→100) only
-    if (p === 0 || p === 1) {
-      const pngPath = p === 0 ? TRANSITION_AT_85_PNG : TRANSITION_AT_100_PNG
-      const label = p === 0 ? '85' : '100'
-      const outPath = path.join(work, `seg_${String(segIndex).padStart(4, '0')}.mp4`)
-      const hash = contentHash(
-        'lp-trans-v1',
-        pngPath,
+    segmentPaths.push(outPath)
+    pushTimeline(
+      {
+        kind: 'play',
+        rate: String(play.rate || 'default'),
+        reveal: play.reveal !== false && play.slide !== 'A',
+        sentenceIndex: Number(play.sentenceIndex) || 0,
+        zh: play.zh || '',
+        en: play.en || '',
+      },
+      duration,
+    )
+    segIndex += 1
+
+    // After With-Text 100%: hold last frame + play chime until it ends
+    if (isChimeAfter) {
+      if (!fs.existsSync(CHIME_SFX_MP3)) {
+        throw new Error(`Chime SFX missing: ${CHIME_SFX_MP3}`)
+      }
+      const chimeDur = await probeDuration(CHIME_SFX_MP3, signal)
+      const chimeOut = path.join(work, `seg_${String(segIndex).padStart(4, '0')}.mp4`)
+      const chimeHash = contentHash(
+        'lp-chime-v1',
+        lastOverlayPath,
         CHIME_SFX_MP3,
-        String(transitionSec),
+        String(chimeDur),
         WIDTH,
         HEIGHT,
       )
-      let duration
-      if (isSegmentCacheHit(outPath, hash)) {
-        duration = await probeDuration(outPath, signal)
+      let chimeDuration
+      if (isSegmentCacheHit(chimeOut, chimeHash)) {
+        chimeDuration = await probeDuration(chimeOut, signal)
       } else {
-        duration = await renderStillSegment({
-          pngPath,
-          outPath,
-          durationSec: transitionSec,
+        chimeDuration = await renderStillSegment({
+          pngPath: lastOverlayPath,
+          outPath: chimeOut,
+          durationSec: chimeDur,
           audioPath: CHIME_SFX_MP3,
           signal,
         })
-        writeSegmentHash(outPath, hash)
+        writeSegmentHash(chimeOut, chimeHash)
       }
-      segmentPaths.push(outPath)
+      segmentPaths.push(chimeOut)
       pushTimeline(
         {
-          kind: 'transition',
-          which: label,
-          zh: label === '85' ? '现在用中速 85%' : '现在用原速 100%',
-          en: label === '85' ? 'Now at 85% speed' : 'Now at full speed',
+          kind: 'chime',
+          sentenceIndex: Number(play.sentenceIndex) || 0,
         },
-        duration,
+        chimeDuration,
       )
       segIndex += 1
     }

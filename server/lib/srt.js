@@ -13,6 +13,8 @@ export function srtTimestamp(sec) {
 
 /**
  * Build SRT string from listening timeline.
+ * Every play (including Without Text) gets a cue so English CC follows every TTS.
+ * Chime / end segments are skipped.
  * @param {Array} timeline
  * @param {'zh'|'en'} lang
  */
@@ -20,15 +22,9 @@ export function buildListeningSrt(timeline, lang = 'zh') {
   const cues = []
   const items = Array.isArray(timeline) ? timeline : []
   for (const t of items) {
-    if (t.kind === 'end') continue
-    let text = ''
-    if (t.kind === 'play') {
-      text = lang === 'zh' ? String(t.zh || '').trim() : String(t.en || '').trim()
-    } else if (t.kind === 'transition') {
-      text = lang === 'zh' ? String(t.zh || '').trim() : String(t.en || '').trim()
-    }
+    if (t.kind !== 'play') continue
+    const text = lang === 'zh' ? String(t.zh || '').trim() : String(t.en || '').trim()
     if (!text) continue
-    // Speech window excludes trailing gap: use full segment for CC readability
     cues.push({
       start: t.startSec,
       end: t.endSec,
