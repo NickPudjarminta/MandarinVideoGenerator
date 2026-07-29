@@ -32,10 +32,196 @@ button, input, textarea, select {
   color: inherit;
 }
 
+.mode-shell {
+  min-height: 100vh;
+}
+
+.mode-bar {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.25);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(8px);
+}
+
+.mode-pill {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 999px;
+  padding: 0.45rem 1.1rem;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.mode-pill.active {
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-color: transparent;
+  font-weight: 600;
+}
+
 .app-shell {
   width: min(1180px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 2rem 0 4rem;
+}
+
+/* Listening Practice: black text on light surfaces (form controls default to white) */
+.listening-app {
+  color: #111111;
+  background: #f4f6f8;
+  border-radius: 16px;
+  padding: 1.5rem 1.25rem 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.listening-app .app-header h1,
+.listening-app h2,
+.listening-app h3,
+.listening-app p,
+.listening-app label,
+.listening-app li,
+.listening-app td,
+.listening-app th {
+  color: #111111;
+}
+
+.listening-app .eyebrow {
+  color: #0a7a4a;
+}
+
+.listening-app .tagline,
+.listening-app .muted,
+.listening-app .status {
+  color: #333333;
+}
+
+.listening-app .error,
+.listening-app p.error {
+  color: #b00020;
+}
+
+.listening-app .panel {
+  background: #ffffff;
+  border: 1px solid #d0d5dd;
+  color: #111111;
+}
+
+.listening-app .step-pill {
+  color: #111111;
+  background: #ffffff;
+  border-color: #c8ced6;
+}
+
+.listening-app .step-pill.active {
+  color: #062116;
+  background: var(--accent);
+  border-color: transparent;
+}
+
+.listening-app .step-pill span {
+  background: #e8ecf0;
+  color: #111111;
+}
+
+.listening-app .step-pill.done span {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.listening-app input,
+.listening-app textarea,
+.listening-app select {
+  color: #111111 !important;
+  background: #ffffff !important;
+  border: 1px solid #c8ced6;
+  border-radius: 8px;
+  padding: 0.45rem 0.6rem;
+}
+
+.listening-app .btn {
+  color: #111111;
+  background: #f3f5f7;
+  border-color: #c8ced6;
+}
+
+.listening-app .btn.primary {
+  color: #062116;
+  background: var(--accent);
+  border-color: transparent;
+}
+
+.listening-app .btn.ghost {
+  color: #111111;
+  background: #ffffff;
+}
+
+.listening-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.92rem;
+  color: #111111;
+}
+
+.listening-table th,
+.listening-table td {
+  border: 1px solid #d0d5dd;
+  padding: 0.45rem 0.55rem;
+  vertical-align: top;
+  color: #111111;
+  background: #ffffff;
+}
+
+.listening-table th {
+  text-align: left;
+  color: #111111;
+  font-weight: 600;
+  background: #f3f5f7;
+}
+
+.listening-table input,
+.listening-table textarea {
+  width: 100%;
+  color: #111111 !important;
+  background: #ffffff !important;
+  border: 1px solid #c8ced6;
+  resize: vertical;
+  min-height: 2.2rem;
+}
+
+.listening-settings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.listening-settings label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: #111111;
+  font-weight: 500;
+}
+
+.listening-app .listening-delete-row {
+  white-space: nowrap;
+  color: #b00020;
+  border-color: #e0a8b0;
+}
+
+.listening-preview {
+  width: 100%;
+  max-width: 640px;
+  border-radius: 12px;
+  border: 1px solid #d0d5dd;
+  background: #111;
 }
 
 .app-header h1 {
@@ -200,13 +386,9 @@ button, input, textarea, select {
   }
 }
 
-.banner.error {
-  background: rgba(255, 123, 123, 0.12);
-  border: 1px solid rgba(255, 123, 123, 0.35);
-  color: #ffd4d4;
-  padding: 0.75rem 1rem;
-  border-radius: var(--radius);
-  margin-bottom: 1rem;
+p.error {
+  color: var(--danger);
+  margin: 0.5rem 0;
 }
 
 .btn {

@@ -60,15 +60,17 @@ Create an optimized title and description for a ~60s vertical video.
 Ground everything in the provided concept, scripts, and key-noun list.
 
 Respond ONLY with JSON: { "title": string, "description": string }`,
-  workbook: `You create an HSK Level 3 printable practice workbook from a list of key nouns and their example sentences (from a Mandarin-learning video).
+  workbook: `You write Easy HSK 2–3 reading exercises for a Mandarin-learning workbook.
 
-Build ALL four sections. Ground every exercise ONLY in the provided entries — do not invent new vocabulary or change the Mandarin example sentences.
+Create ONLY Part III (true/false inferences) and Part IV (dialogue matching).
 
 Rules:
-- Section A: one card per entry. Include pinyin, English gloss, rough POS (Noun/Verb/etc), per-character stroke counts (best estimate), and handwriting layout (guidedBoxes=2, emptyBoxes=4 for 1–2 character words; emptyBoxes=2 per character when 3+ characters). Keep exampleZh/exampleEn exactly from the entry.
-- Section B: HSK-style 选词填空. Word bank letters A, B, C… covering every keyNoun (shuffled). Questions: replace the keyNoun in each Mandarin sentence with ______ ; shuffle question order vs Section A. answerLetter/answerWord must match.
-- Section C: 连词成句. Split each Mandarin sentence into 4–7 scrambled bracket chunks (keep English names as whole chunks). answerZh must equal the original Mandarin sentence.
-- Section D: answer keys. For B include a short syntactic clue; for C list the full Mandarin sentences in question order matching Section C.
+- Stay on the video topic / subject matter from the context (title, English lines, key nouns).
+- Prefer Easy HSK Level 2 and Level 3 vocabulary. Short, clear sentences. You may keep a few topic proper nouns from the video.
+- Do NOT copy video script lines verbatim — write new or lightly adapted Chinese.
+- Part III: one worked example (with English under the statement) plus 5 items. Each item has a statementZh and a ★ inferenceZh. answer is true or false.
+- Part IV: options A–F (reply lines), one worked example stem (with English) + answerLetter, plus 5 stems to match. Every stem has exactly one correct option letter; all letters A–F used as answers across example+items when possible.
+- Live questions: Chinese only (no English). Example items include English.
 
 Respond ONLY with JSON matching the schema in the context.`,
 }

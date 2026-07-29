@@ -14,6 +14,11 @@ import { fetchImageHandler } from './routes/fetch-image.js'
 import { styleImageHandler } from './routes/style-image.js'
 import { keyNounsHandler } from './routes/key-nouns.js'
 import { workbookHandler } from './routes/workbook.js'
+import {
+  listeningSentencesHandler,
+  listeningRenderHandler,
+  listeningMetaHandler,
+} from './routes/listening.js'
 import { ensureBumperAudioHandler } from './lib/ensureBumperAudio.js'
 import {
   listSessionsHandler,
@@ -52,6 +57,9 @@ app.post('/api/fetch-image', (c) => wrap(fetchImageHandler, c))
 app.post('/api/style-image', (c) => wrap(styleImageHandler, c))
 app.post('/api/key-nouns', (c) => wrap(keyNounsHandler, c))
 app.post('/api/workbook', (c) => wrap(workbookHandler, c))
+app.post('/api/listening/sentences', (c) => wrap(listeningSentencesHandler, c))
+app.post('/api/listening/render', (c) => wrap(listeningRenderHandler, c))
+app.post('/api/listening/meta', (c) => wrap(listeningMetaHandler, c))
 app.post('/api/ensure-bumper-audio', (c) => wrap(ensureBumperAudioHandler, c))
 app.get('/api/sessions', (c) => wrap(listSessionsHandler, c))
 app.get('/api/sessions/:id', (c) => wrap(getSessionHandler, c))
@@ -63,13 +71,20 @@ app.get('/output/:name', (c) => {
   const filePath = path.join(OUTPUT_DIR, name)
   if (!fs.existsSync(filePath)) return c.json({ error: 'Not found' }, 404)
   const buf = fs.readFileSync(filePath)
-  const isPdf = name.toLowerCase().endsWith('.pdf')
+  const lower = name.toLowerCase()
+  const isPdf = lower.endsWith('.pdf')
+  const isSrt = lower.endsWith('.srt')
+  const contentType = isPdf
+    ? 'application/pdf'
+    : isSrt
+      ? 'application/x-subrip; charset=utf-8'
+      : 'video/mp4'
   return new Response(buf, {
     status: 200,
     headers: {
-      'Content-Type': isPdf ? 'application/pdf' : 'video/mp4',
+      'Content-Type': contentType,
       'Content-Length': String(buf.length),
-      'Content-Disposition': `${isPdf ? 'attachment' : 'inline'}; filename="${name}"`,
+      'Content-Disposition': `${isPdf || isSrt ? 'attachment' : 'inline'}; filename="${name}"`,
     },
   })
 })

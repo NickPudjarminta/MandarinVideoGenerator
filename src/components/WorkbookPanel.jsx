@@ -37,7 +37,7 @@ export default function WorkbookPanel({
 
   const canGenerate = source.keyNounCount > 0
   const vocabPreview = useMemo(() => {
-    const fromData = workbookData?.sectionA
+    const fromData = workbookData?.writing
     if (Array.isArray(fromData) && fromData.length) {
       return fromData.map((a) => a.keyNoun).filter(Boolean)
     }
@@ -70,8 +70,9 @@ export default function WorkbookPanel({
   return (
     <section className="workbook-panel">
       <p>
-        Build a printable HSK-style PDF textbook from this video&apos;s key nouns: vocabulary
-        writing grids, fill-in-the-blanks, sentence scramble, and an answer-key page.
+        Build a printable practice PDF: character writing, picture match from your video frames,
+        fill-in-the-blanks from video sentences, plus Gemini-written HSK 2–3 true/false and dialogue
+        match on the same topic.
       </p>
 
       <div className="tts-regen-panel" style={{ marginBottom: 16 }}>

@@ -1009,18 +1009,53 @@ export default function App() {
       if (!entries.length) {
         throw new Error('No Mandarin key nouns available for the workbook.')
       }
+      const LETTERS = 'ABCDEF'
+      const part1Images = []
+      const beatList = [...(sourceBeats || [])]
+      beatList.sort((a, b) => {
+        const as = a.styledImageBase64 || a.styledImageUrl ? 0 : 1
+        const bs = b.styledImageBase64 || b.styledImageUrl ? 0 : 1
+        return as - bs
+      })
+      for (const b of beatList) {
+        if (part1Images.length >= 6) break
+        const imageBase64 = String(b.styledImageBase64 || '').trim()
+        const styledUrl = String(b.styledImageUrl || '').trim()
+        const stockUrl = String(b.selectedImageUrl || b.selectedImageThumbnail || '').trim()
+        const beatIndex = Number.isFinite(Number(b.index)) ? Number(b.index) : beatList.indexOf(b)
+        const sessionFileUrl = sessionId
+          ? `/api/sessions/${sessionId}/files/beat_${beatIndex}_styled.jpg`
+          : ''
+        const httpUrl =
+          (styledUrl && !styledUrl.startsWith('data:') ? styledUrl : '') ||
+          (stockUrl && !stockUrl.startsWith('data:') ? stockUrl : '')
+        if (!imageBase64 && !sessionFileUrl && !httpUrl && !styledUrl.startsWith('data:')) continue
+        part1Images.push({
+          letter: LETTERS[part1Images.length],
+          index: beatIndex,
+          imageBase64:
+            imageBase64 || (styledUrl.startsWith('data:') ? styledUrl : ''),
+          imageUrl: sessionFileUrl || httpUrl,
+          mandarin: String(b.mandarin || '').trim(),
+          english: String(b.english || '').trim(),
+          keyNoun: String(b.keyNoun || '').trim(),
+        })
+      }
       logPrompt({
         step: 'workbook',
         kind: 'gemini_workbook',
         prompt: prompts.workbook,
         conceptTitle: sourceConcept?.title || '',
         entryCount: entries.length,
+        part1ImageCount: part1Images.length,
         fromImport: Boolean(workbookImport),
       })
       const data = await apiPost('/api/workbook', {
         prompt: prompts.workbook,
         concept: sourceConcept,
         entries,
+        part1Images,
+        sessionId,
       })
       setWorkbookPdfUrl(data.pdfUrl || '')
       setWorkbookData(data.workbook || null)

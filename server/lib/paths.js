@@ -16,6 +16,10 @@ export const TRANSITION_FULL_PNG = path.join(PUBLIC_DIR, 'FullSpeed_Transition.p
 export const DOWNLOAD_WORKBOOK_PNG = path.join(PUBLIC_DIR, 'DownloadWorkbook.png')
 export const OUTRO_WORKBOOK_MP3 = path.join(PUBLIC_DIR, 'outro_workbook.mp3')
 export const BACKGROUND_MUSIC_MP3 = path.join(PUBLIC_DIR, 'BackgroundMusic.mp3')
+export const TRANSITION_AT_85_PNG = path.join(PUBLIC_DIR, 'TransitionAt85.png')
+export const TRANSITION_AT_100_PNG = path.join(PUBLIC_DIR, 'TransitionAt100.png')
+export const CHIME_SFX_MP3 = path.join(PUBLIC_DIR, 'ChimeSFX.mp3')
+export const END_FRAME_PNG = path.join(PUBLIC_DIR, 'EndFrame.png')
 export const SESSIONS_DIR = path.join(TMP_DIR, 'sessions')
 export const RENDER_CACHE_DIR = path.join(TMP_DIR, 'render')
 
