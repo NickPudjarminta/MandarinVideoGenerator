@@ -263,13 +263,13 @@ async function renderStillSegment({
  * @param {object} opts
  * @param {Array} opts.plays — ordered plays: { overlayBase64, audioBase64, sentenceIndex, rate, reveal, zh, en, chimeAfter? }
  * @param {number} opts.gapSec — silence after plays 1–3
- * @param {number} opts.revealGapSec — silence after the with-text (4th) play, before chime
+ * @param {number} opts.revealGapSec — silence after chime following the with-text (4th) play
  * @param {string} opts.sessionId
  */
 export async function renderListeningVideo({
   plays,
   gapSec = 2,
-  revealGapSec = 6,
+  revealGapSec = 2,
   sessionId = '',
   onProgress,
   signal,
@@ -303,7 +303,8 @@ export async function renderListeningVideo({
     assertNotAborted(signal)
     const play = playList[i]
     const isChimeAfter = Boolean(play.chimeAfter)
-    const playGap = isChimeAfter ? Math.max(0, Number(revealGapSec) || 0) : gapSec
+    // Reveal play: no post-speech pad — chime plays immediately, then revealGapSec silence
+    const playGap = isChimeAfter ? 0 : gapSec
 
     onProgress?.({
       phase: 'plays',
@@ -356,7 +357,7 @@ export async function renderListeningVideo({
     )
     segIndex += 1
 
-    // After With-Text 100%: hold last frame + play chime until it ends
+    // After With-Text 100%: chime immediately, then reveal-gap silence on last frame
     if (isChimeAfter) {
       if (!fs.existsSync(CHIME_SFX_MP3)) {
         throw new Error(`Chime SFX missing: ${CHIME_SFX_MP3}`)
@@ -393,6 +394,40 @@ export async function renderListeningVideo({
         chimeDuration,
       )
       segIndex += 1
+
+      const afterRevealGap = Math.max(0, Number(revealGapSec) || 0)
+      if (afterRevealGap > 0) {
+        const gapOut = path.join(work, `seg_${String(segIndex).padStart(4, '0')}.mp4`)
+        const gapHash = contentHash(
+          'lp-reveal-gap-v1',
+          lastOverlayPath,
+          String(afterRevealGap),
+          WIDTH,
+          HEIGHT,
+        )
+        let gapDuration
+        if (isSegmentCacheHit(gapOut, gapHash)) {
+          gapDuration = await probeDuration(gapOut, signal)
+        } else {
+          gapDuration = await renderStillSegment({
+            pngPath: lastOverlayPath,
+            outPath: gapOut,
+            durationSec: afterRevealGap,
+            audioPath: null,
+            signal,
+          })
+          writeSegmentHash(gapOut, gapHash)
+        }
+        segmentPaths.push(gapOut)
+        pushTimeline(
+          {
+            kind: 'revealGap',
+            sentenceIndex: Number(play.sentenceIndex) || 0,
+          },
+          gapDuration,
+        )
+        segIndex += 1
+      }
     }
   }
 

@@ -14,11 +14,7 @@ import { fetchImageHandler } from './routes/fetch-image.js'
 import { styleImageHandler } from './routes/style-image.js'
 import { keyNounsHandler } from './routes/key-nouns.js'
 import { workbookHandler } from './routes/workbook.js'
-import {
-  listeningSentencesHandler,
-  listeningRenderHandler,
-  listeningMetaHandler,
-} from './routes/listening.js'
+import { listeningRenderHandler } from './routes/listening.js'
 import { ensureBumperAudioHandler } from './lib/ensureBumperAudio.js'
 import {
   listSessionsHandler,
@@ -57,34 +53,40 @@ app.post('/api/fetch-image', (c) => wrap(fetchImageHandler, c))
 app.post('/api/style-image', (c) => wrap(styleImageHandler, c))
 app.post('/api/key-nouns', (c) => wrap(keyNounsHandler, c))
 app.post('/api/workbook', (c) => wrap(workbookHandler, c))
-app.post('/api/listening/sentences', (c) => wrap(listeningSentencesHandler, c))
 app.post('/api/listening/render', (c) => wrap(listeningRenderHandler, c))
-app.post('/api/listening/meta', (c) => wrap(listeningMetaHandler, c))
 app.post('/api/ensure-bumper-audio', (c) => wrap(ensureBumperAudioHandler, c))
 app.get('/api/sessions', (c) => wrap(listSessionsHandler, c))
 app.get('/api/sessions/:id', (c) => wrap(getSessionHandler, c))
 app.get('/api/sessions/:id/files/:name', (c) => wrap(getSessionFileHandler, c))
 app.post('/api/sessions', (c) => wrap(saveSessionHandler, c))
 
-app.get('/output/:name', (c) => {
-  const name = path.basename(c.req.param('name'))
-  const filePath = path.join(OUTPUT_DIR, name)
-  if (!fs.existsSync(filePath)) return c.json({ error: 'Not found' }, 404)
+app.get('/output/*', (c) => {
+  const rel = decodeURIComponent(c.req.path.replace(/^\/output\//, ''))
+  if (!rel || rel.includes('..')) return c.json({ error: 'Not found' }, 404)
+  const filePath = path.resolve(OUTPUT_DIR, rel)
+  if (!filePath.startsWith(path.resolve(OUTPUT_DIR) + path.sep) && filePath !== path.resolve(OUTPUT_DIR)) {
+    return c.json({ error: 'Not found' }, 404)
+  }
+  if (!fs.existsSync(filePath) || !fs.statSync(filePath).isFile()) {
+    return c.json({ error: 'Not found' }, 404)
+  }
   const buf = fs.readFileSync(filePath)
-  const lower = name.toLowerCase()
-  const isPdf = lower.endsWith('.pdf')
-  const isSrt = lower.endsWith('.srt')
-  const contentType = isPdf
-    ? 'application/pdf'
-    : isSrt
-      ? 'application/x-subrip; charset=utf-8'
-      : 'video/mp4'
+  const base = path.basename(filePath)
+  const lower = base.toLowerCase()
+  let contentType = 'application/octet-stream'
+  if (lower.endsWith('.pdf')) contentType = 'application/pdf'
+  else if (lower.endsWith('.srt')) contentType = 'application/x-subrip; charset=utf-8'
+  else if (lower.endsWith('.mp4')) contentType = 'video/mp4'
+  else if (lower.endsWith('.png')) contentType = 'image/png'
+  else if (lower.endsWith('.jpg') || lower.endsWith('.jpeg')) contentType = 'image/jpeg'
+  else if (lower.endsWith('.txt')) contentType = 'text/plain; charset=utf-8'
+  const asAttachment = lower.endsWith('.pdf') || lower.endsWith('.srt') || lower.endsWith('.txt')
   return new Response(buf, {
     status: 200,
     headers: {
       'Content-Type': contentType,
       'Content-Length': String(buf.length),
-      'Content-Disposition': `${isPdf || isSrt ? 'attachment' : 'inline'}; filename="${name}"`,
+      'Content-Disposition': `${asAttachment ? 'attachment' : 'inline'}; filename="${base}"`,
     },
   })
 })

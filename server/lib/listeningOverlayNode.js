@@ -1,6 +1,9 @@
+import fs from 'node:fs'
+import path from 'node:path'
+import { createCanvas, loadImage, GlobalFonts } from '@napi-rs/canvas'
 import { pinyin, customPinyin } from 'pinyin-pro'
+import { PUBLIC_DIR } from './paths.js'
 
-// Prefer HSK / mainland teaching readings for common polyphones
 customPinyin({ 谁: 'shéi' })
 
 export const LP_WIDTH = 1280
@@ -9,23 +12,35 @@ export const LP_BG = '#EFEBE4'
 export const LP_PLATE = { y: 269, h: 196, radius: 20, sideMargin: 100 }
 export const LP_CIRCLE = 145
 export const LP_CC_HINT = 'Turn on CC for English subtitles.'
-export const LP_EAR_ICON = { x: 539, y: 224, src: '/EarIcon.png' }
-export const FONT_STACK = '"Noto Sans SC", "Microsoft YaHei", "Roboto", sans-serif'
+export const LP_EAR_ICON = { x: 539, y: 224 }
 
-let earIconPromise = null
+const YAHEI = 'C:\\Windows\\Fonts\\msyh.ttc'
+const RUBIK = path.join(PUBLIC_DIR, 'Rubik-Bold.ttf')
+const EAR_PATH = path.join(PUBLIC_DIR, 'EarIcon.png')
 
-function loadEarIcon() {
-  if (!earIconPromise) {
-    earIconPromise = (async () => {
-      // public/EarIcon.png — Vite ignores watching public PNGs (avoids EBUSY on Windows)
-      const res = await fetch(LP_EAR_ICON.src)
-      if (!res.ok) {
-        throw new Error(`Failed to load EarIcon.png (${res.status})`)
-      }
-      return createImageBitmap(await res.blob())
-    })()
+const FONT_STACK = '"Microsoft YaHei", "Rubik", sans-serif'
+const THUMB_FONT = '"Rubik", "Microsoft YaHei", sans-serif'
+
+let fontsReady = false
+let earImage = null
+
+function ensureFonts() {
+  if (fontsReady) return
+  if (fs.existsSync(YAHEI)) {
+    GlobalFonts.registerFromPath(YAHEI, 'Microsoft YaHei')
   }
-  return earIconPromise
+  if (fs.existsSync(RUBIK)) {
+    GlobalFonts.registerFromPath(RUBIK, 'Rubik')
+  }
+  fontsReady = true
+}
+
+async function getEarImage() {
+  if (!earImage) {
+    if (!fs.existsSync(EAR_PATH)) throw new Error(`EarIcon missing: ${EAR_PATH}`)
+    earImage = await loadImage(EAR_PATH)
+  }
+  return earImage
 }
 
 const PASSES = {
@@ -34,10 +49,6 @@ const PASSES = {
   default: { pct: '100%', label: 'Speed' },
 }
 
-/**
- * Per-character tokens with phrase-level pinyin (same approach as workbook rubyPinyin).
- * Full Hanzi runs are converted together so polyphones like 了→le and 谁→shéi get context.
- */
 export function toListeningTokens(text) {
   const s = String(text || '')
   if (!s) return []
@@ -73,14 +84,6 @@ export function toListeningTokens(text) {
   return tokens
 }
 
-export function sentencePinyinLine(text) {
-  return toListeningTokens(text)
-    .filter((t) => t.kind === 'word')
-    .map((t) => t.pinyin)
-    .filter(Boolean)
-    .join(' ')
-}
-
 function roundRect(ctx, x, y, w, h, r) {
   const radius = Math.min(r, w / 2, h / 2)
   ctx.beginPath()
@@ -111,9 +114,6 @@ function drawCircleBadge(ctx, cx, cy, lines) {
   }
 }
 
-/**
- * Measure the horizontal span of Hanzi + pinyin (accounts for wide pinyin under glyphs).
- */
 function measureRubyWidth(ctx, text, opts = {}) {
   const hanziSize = opts.hanziSize || 48
   const pinyinSize = opts.pinyinSize || 22
@@ -153,9 +153,6 @@ function measureRubyWidth(ctx, text, opts = {}) {
   return Math.max(0, maxX - minX)
 }
 
-/**
- * Draw Hanzi + pinyin with each word's pinyin centered under its characters.
- */
 function drawRubyCentered(ctx, text, centerX, hanziY, opts = {}) {
   const hanziSize = opts.hanziSize || 48
   const pinyinSize = opts.pinyinSize || 22
@@ -191,11 +188,6 @@ function drawRubyCentered(ctx, text, centerX, hanziY, opts = {}) {
   }
 }
 
-/**
- * Full-frame listening slide (1280×720).
- * @param {boolean} reveal — false = cream bg only (no white plate); true = plate + Mandarin/pinyin
- * @param {string} rate — '0.7' | '0.85' | 'default'
- */
 export function drawListeningFrame(ctx, { zh, sentenceIndex, sentenceCount, rate, reveal, earIcon }) {
   const w = LP_WIDTH
   const h = LP_HEIGHT
@@ -210,7 +202,6 @@ export function drawListeningFrame(ctx, { zh, sentenceIndex, sentenceCount, rate
     const pw = Math.min(w, Math.max(radius * 2, Math.ceil(textW + sideMargin * 2)))
     const x = Math.round((w - pw) / 2)
 
-    // White plate sized to text + side margins, centered
     roundRect(ctx, x, y, pw, ph, radius)
     ctx.fillStyle = '#FFFFFF'
     ctx.fill()
@@ -222,21 +213,18 @@ export function drawListeningFrame(ctx, { zh, sentenceIndex, sentenceCount, rate
     ctx.drawImage(earIcon, LP_EAR_ICON.x, LP_EAR_ICON.y)
   }
 
-  // CC hint (shown on both no-text and with-text slides)
   ctx.font = `400 22px ${FONT_STACK}`
   ctx.fillStyle = '#67707E'
   ctx.textAlign = 'center'
   ctx.textBaseline = 'top'
   ctx.fillText(LP_CC_HINT, w / 2, y + ph + 28)
 
-  // Top-left index circle
   const idx = Number(sentenceIndex) + 1
   const total = Math.max(1, Number(sentenceCount) || 1)
   drawCircleBadge(ctx, 40 + LP_CIRCLE / 2, 40 + LP_CIRCLE / 2, [
     { text: `${idx}/${total}`, size: 42, weight: 400, color: '#141413' },
   ])
 
-  // Top-right speed circle
   const pass = PASSES[rate] || PASSES.default
   drawCircleBadge(ctx, w - 40 - LP_CIRCLE / 2, 40 + LP_CIRCLE / 2, [
     { text: pass.pct, size: 42, weight: 400, color: '#141413' },
@@ -244,28 +232,21 @@ export function drawListeningFrame(ctx, { zh, sentenceIndex, sentenceCount, rate
   ])
 }
 
-export async function renderListeningOverlay({
+/**
+ * Render a listening overlay PNG as a data URL (compatible with listeningPipeline writeBase64).
+ */
+export async function renderListeningOverlayNode({
   zh,
   sentenceIndex,
   sentenceCount,
   rate,
   reveal = true,
-  // legacy alias
-  slide,
 }) {
-  const canvas = document.createElement('canvas')
-  canvas.width = LP_WIDTH
-  canvas.height = LP_HEIGHT
+  ensureFonts()
+  const canvas = createCanvas(LP_WIDTH, LP_HEIGHT)
   const ctx = canvas.getContext('2d')
-  if (document.fonts?.ready) {
-    try {
-      await document.fonts.ready
-    } catch {
-      /* ignore */
-    }
-  }
-  const showText = reveal === true || slide === 'B'
-  const earIcon = showText ? null : await loadEarIcon()
+  const showText = reveal === true
+  const earIcon = showText ? null : await getEarImage()
   drawListeningFrame(ctx, {
     zh,
     sentenceIndex,
@@ -274,5 +255,35 @@ export async function renderListeningOverlay({
     reveal: showText,
     earIcon,
   })
-  return canvas.toDataURL('image/png')
+  return `data:image/png;base64,${canvas.toBuffer('image/png').toString('base64')}`
+}
+
+/**
+ * HSK1 set thumbnail: two lines — "20 Phrases" then "[First] to [Last]".
+ */
+export async function renderHsk1SetThumbnail({ firstWord, lastWord, outPath }) {
+  ensureFonts()
+  const basePath = path.join(PUBLIC_DIR, 'ThumbnailBase_HSK1.png')
+  if (!fs.existsSync(basePath)) throw new Error(`Thumbnail base missing: ${basePath}`)
+
+  const base = await loadImage(basePath)
+  const canvas = createCanvas(base.width || LP_WIDTH, base.height || LP_HEIGHT)
+  const ctx = canvas.getContext('2d')
+  ctx.drawImage(base, 0, 0)
+
+  const line1 = '20 Phrases'
+  const line2 = `${firstWord} to ${lastWord}`
+  const fontSize = 85
+  const lineGap = Math.round(fontSize * 1.15)
+
+  ctx.font = `700 ${fontSize}px ${THUMB_FONT}`
+  ctx.fillStyle = '#068791'
+  ctx.textAlign = 'left'
+  ctx.textBaseline = 'top'
+  ctx.fillText(line1, 60, 437)
+  ctx.fillText(line2, 60, 437 + lineGap)
+
+  fs.mkdirSync(path.dirname(outPath), { recursive: true })
+  fs.writeFileSync(outPath, canvas.toBuffer('image/png'))
+  return outPath
 }

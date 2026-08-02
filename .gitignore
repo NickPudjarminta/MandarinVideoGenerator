@@ -16,11 +16,16 @@ dist-ssr
 .env
 .env.*
 !.env.example
+client_secret.json
+client_secret_old.json
+data/youtube-token.json
 
 # Local runtime
 cache/
 output/
 .tmp/
+data/autopilot-state.json
+
 
 # Editor
 .vscode/*

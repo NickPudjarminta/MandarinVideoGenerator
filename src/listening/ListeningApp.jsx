@@ -14,28 +14,81 @@ const SPEED_PASSES = [
   { rate: 'default', statusLabel: '100% speed' },
 ]
 
+/** CJK + common fullwidth / CJK punctuation kept with Mandarin runs. */
+const ZH_CHAR_RE = /[\u4e00-\u9fff\u3400-\u4dbf\u3000-\u303f\uff00-\uffef]/
+
 function newSessionId() {
   return `lp-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`
 }
 
+/**
+ * Parse spreadsheet paste: Mandarin run (CJK + fullwidth punct) then English until next CJK.
+ * Newlines are ignored so multi-line English stays with its phrase.
+ */
+export function parsePhrasesPaste(text) {
+  const flat = String(text || '').replace(/[\r\n]+/g, ' ')
+  const pairs = []
+  let i = 0
+  while (i < flat.length) {
+    while (i < flat.length && /\s/.test(flat[i])) i += 1
+    if (i >= flat.length) break
+
+    if (!ZH_CHAR_RE.test(flat[i])) {
+      while (i < flat.length && !ZH_CHAR_RE.test(flat[i])) i += 1
+      continue
+    }
+
+    let zhStart = i
+    while (i < flat.length && ZH_CHAR_RE.test(flat[i])) i += 1
+    const zh = flat.slice(zhStart, i).trim()
+
+    while (i < flat.length && /\s/.test(flat[i])) i += 1
+    let enStart = i
+    while (i < flat.length && !ZH_CHAR_RE.test(flat[i])) i += 1
+    const en = flat.slice(enStart, i).trim()
+
+    if (zh) {
+      pairs.push({
+        zh,
+        en,
+        pinyin: sentencePinyinLine(zh),
+      })
+    }
+  }
+  return pairs
+}
+
 export default function ListeningApp() {
   const [step, setStep] = useState(0)
-  const [rawText, setRawText] = useState('')
+  const [hskLevel, setHskLevel] = useState('')
+  const [chapterIndex, setChapterIndex] = useState('')
+  const [chapterHeader, setChapterHeader] = useState('')
+  const [phrasesText, setPhrasesText] = useState('')
   const [sentences, setSentences] = useState([])
   const [gapSec, setGapSec] = useState(2)
-  const [revealGapSec, setRevealGapSec] = useState(6)
+  const [revealGapSec, setRevealGapSec] = useState(2)
   const [sessionId] = useState(() => newSessionId())
   const [loading, setLoading] = useState('')
   const [status, setStatus] = useState('')
   const [error, setError] = useState('')
   const [videoUrl, setVideoUrl] = useState('')
   const [timeline, setTimeline] = useState([])
-  const [srtZhUrl, setSrtZhUrl] = useState('')
   const [srtEnUrl, setSrtEnUrl] = useState('')
+  const [thumbnailUrl, setThumbnailUrl] = useState('')
+  const [youtubeTxtUrl, setYoutubeTxtUrl] = useState('')
+  const [packageDir, setPackageDir] = useState('')
   const [meta, setMeta] = useState(null)
 
   const stepId = STEPS[step]?.id
-  const canRender = sentences.length > 0 && sentences.every((s) => s.zh)
+  const canRender =
+    sentences.length > 0 &&
+    sentences.every((s) => s.zh) &&
+    String(hskLevel).trim() &&
+    String(chapterIndex).trim() &&
+    String(chapterHeader).trim()
+
+  const hskLevelNum = Number.parseInt(String(hskLevel).trim(), 10)
+  const thumbnailSkipped = Number.isFinite(hskLevelNum) && hskLevelNum >= 4
 
   const previewRows = useMemo(
     () => (sentences.length ? sentences : []),
@@ -63,41 +116,33 @@ export default function ListeningApp() {
     setStatus('')
   }
 
-  async function completeSentences() {
+  function parsePhrases() {
     setError('')
-    setLoading('sentences')
-    setStatus('Completing sentences…')
-    try {
-      const data = await apiPost('/api/listening/sentences', {
-        text: rawText,
-        sentences: sentences.length
-          ? sentences.map((s) => ({ zh: s.zh, en: s.en }))
-          : undefined,
-      })
-      setSentences(data.sentences || [])
-      setStatus(`Ready: ${(data.sentences || []).length} phrases`)
-    } catch (e) {
-      setError(e.message || String(e))
-    } finally {
-      setLoading('')
+    const parsed = parsePhrasesPaste(phrasesText)
+    if (!parsed.length) {
+      setError('No Mandarin phrases found. Paste Mandarin then English pairs from your spreadsheet.')
+      return
     }
+    setSentences(parsed)
+    setStatus(`Ready: ${parsed.length} phrase${parsed.length === 1 ? '' : 's'}`)
   }
 
   async function createVideo() {
     if (!canRender) {
-      setError('Add Mandarin sentences first.')
+      setError('Add Mandarin sentences, HSK Level, Chapter Index, and Chapter Header first.')
       return
     }
     setError('')
     setLoading('render')
     setVideoUrl('')
     setTimeline([])
-    setSrtZhUrl('')
     setSrtEnUrl('')
+    setThumbnailUrl('')
+    setYoutubeTxtUrl('')
+    setPackageDir('')
     setMeta(null)
 
     try {
-      // Per sentence: No Text 70→85→100 (no white bar), then With Text at 100% + chime
       const plays = []
       for (let i = 0; i < sentences.length; i++) {
         const s = sentences[i]
@@ -115,7 +160,6 @@ export default function ListeningApp() {
           audioByRate[pass.rate] = tts.audioBase64
         }
 
-        // No Text at 70 / 85 / 100
         for (const pass of SPEED_PASSES) {
           setStatus(
             `Phrase ${i + 1}/${sentences.length} — No Text (${pass.statusLabel})`,
@@ -139,7 +183,6 @@ export default function ListeningApp() {
           })
         }
 
-        // With Text at 100% only; chime after
         const fullPass = SPEED_PASSES[SPEED_PASSES.length - 1]
         setStatus(`Phrase ${i + 1}/${sentences.length} — With Text (100%)`)
         const overlayReveal = await renderListeningOverlay({
@@ -161,39 +204,35 @@ export default function ListeningApp() {
         })
       }
 
-      setStatus('Encoding video…')
+      setStatus('Encoding video + packaging…')
       const data = await apiPost('/api/listening/render', {
         plays,
         gapSec,
         revealGapSec,
         sessionId,
+        hskLevel: String(hskLevel).trim(),
+        chapterIndex: String(chapterIndex).trim(),
+        chapterHeader: String(chapterHeader).trim(),
+        sentences: sentences.map((s) => ({ zh: s.zh, en: s.en })),
       })
       setVideoUrl(data.videoUrl || '')
       setTimeline(data.timeline || [])
-      setSrtZhUrl(data.srtZhUrl || '')
       setSrtEnUrl(data.srtEnUrl || '')
-      setStatus('Video ready')
+      setThumbnailUrl(data.thumbnailUrl || '')
+      setYoutubeTxtUrl(data.youtubeTxtUrl || '')
+      setPackageDir(data.packageDir || '')
+      setMeta({
+        title: data.title || '',
+        description: data.description || '',
+      })
+      setStatus(
+        data.packageDir
+          ? `Package ready: output/${data.packageDir}`
+          : 'Video ready',
+      )
       setStep(2)
     } catch (e) {
       setError(abortErrorMessage(e))
-    } finally {
-      setLoading('')
-    }
-  }
-
-  async function generateMeta() {
-    setError('')
-    setLoading('meta')
-    setStatus('Generating YouTube metadata…')
-    try {
-      const data = await apiPost('/api/listening/meta', {
-        sentences,
-        timeline,
-      })
-      setMeta(data)
-      setStatus('Metadata ready')
-    } catch (e) {
-      setError(e.message || String(e))
     } finally {
       setLoading('')
     }
@@ -205,8 +244,8 @@ export default function ListeningApp() {
         <p className="eyebrow">Listening Practice</p>
         <h1>HSK listening drills</h1>
         <p className="tagline">
-          Paste phrases, auto-fill Mandarin/English, render a 3-speed hide-then-reveal video with
-          soft-sub SRT export.
+          Paste HSK level, chapter fields, and spreadsheet phrases. Render packages video,
+          thumbnail, English SRT, and YouTube text into one output folder.
         </p>
       </header>
 
@@ -231,24 +270,62 @@ export default function ListeningApp() {
         <section className="panel">
           <h2>1. Sentences + settings</h2>
           <p className="muted">
-            One phrase per line. Optional <code>Mandarin | English</code> pairs. Missing side is
-            filled by Gemini; pinyin is generated locally.
+            Paste phrases copied from a spreadsheet (Mandarin then English). Newlines are ignored;
+            pinyin is generated locally.
           </p>
-          <textarea
-            rows={10}
-            value={rawText}
-            onChange={(e) => setRawText(e.target.value)}
-            placeholder={'我喜欢在电脑上玩游戏。 | I like playing games on the computer.\n你最喜欢玩什么游戏？'}
-            style={{ width: '100%', marginTop: 8 }}
-          />
+
+          <div className="listening-settings" style={{ marginTop: 12 }}>
+            <label>
+              HSK Level
+              <input
+                type="text"
+                value={hskLevel}
+                onChange={(e) => setHskLevel(e.target.value)}
+                placeholder="2"
+              />
+            </label>
+            <label>
+              Chapter Index
+              <input
+                type="text"
+                value={chapterIndex}
+                onChange={(e) => setChapterIndex(e.target.value)}
+                placeholder="Chapter 1"
+              />
+            </label>
+            <label style={{ flex: 1, minWidth: 240 }}>
+              Chapter Header
+              <input
+                type="text"
+                value={chapterHeader}
+                onChange={(e) => setChapterHeader(e.target.value)}
+                placeholder=": September is the best time to visit Beijing"
+                style={{ width: '100%' }}
+              />
+            </label>
+          </div>
+
+          <label style={{ display: 'block', marginTop: 12 }}>
+            Phrases
+            <textarea
+              rows={12}
+              value={phrasesText}
+              onChange={(e) => setPhrasesText(e.target.value)}
+              placeholder={
+                '一月的北京天气最冷。January is the coldest month in Beijing.\n爸爸现在不能回来，他在工作呢。\nDad can\'t come back right now; he\'s at work.'
+              }
+              style={{ width: '100%', marginTop: 8 }}
+            />
+          </label>
+
           <div className="export-actions" style={{ marginTop: 12 }}>
             <button
               type="button"
               className="btn primary"
-              disabled={loading === 'sentences' || (!rawText.trim() && !sentences.length)}
-              onClick={completeSentences}
+              disabled={!phrasesText.trim()}
+              onClick={parsePhrases}
             >
-              {loading === 'sentences' ? 'Completing…' : 'Complete / refresh sentences'}
+              Parse phrases
             </button>
             <button
               type="button"
@@ -343,8 +420,12 @@ export default function ListeningApp() {
         <section className="panel">
           <h2>2. Create Video</h2>
           <p className="muted">
-            Per phrase: no-text (no white bar) at 70% → 85% → 100%, then Mandarin+pinyin at 100%.
-            Chime holds the last frame before the next phrase. EndFrame 5s. Landscape 1280×720.
+            Per phrase: no-text at 70% → 85% → 100%, then Mandarin+pinyin at 100%. Packages into{' '}
+            <code>
+              output/HSK_{String(hskLevel).trim() || 'N'}_
+              {String(chapterIndex).trim().replace(/\s+/g, '_') || 'Chapter'}
+            </code>
+            .
           </p>
           <div className="listening-settings">
             <label>
@@ -373,6 +454,7 @@ export default function ListeningApp() {
           <p className="muted">
             {sentences.length} phrase{sentences.length === 1 ? '' : 's'} · gap {gapSec}s · reveal gap{' '}
             {revealGapSec}s
+            {thumbnailSkipped ? ' · thumbnail skipped (HSK 4+)' : ''}
           </p>
           <div className="export-actions">
             <button
@@ -407,33 +489,50 @@ export default function ListeningApp() {
         <section className="panel">
           <h2>3. YouTube metadata + SRT</h2>
           {!videoUrl && (
-            <p className="error">Create a video first so chapter timestamps and SRT match the cut.</p>
+            <p className="error">Create a video first so the package folder is written.</p>
           )}
+          {packageDir && (
+            <p className="muted">
+              Package folder: <code>output/{packageDir}</code>
+            </p>
+          )}
+          {thumbnailSkipped && videoUrl && (
+            <p className="muted">Thumbnail skipped for HSK 4+.</p>
+          )}
+
           <div className="export-actions">
-            <button
-              type="button"
-              className="btn primary"
-              disabled={!videoUrl || loading === 'meta'}
-              onClick={generateMeta}
-            >
-              {loading === 'meta' ? 'Generating…' : 'Generate YouTube metadata'}
-            </button>
-            {srtZhUrl && (
-              <a className="btn ghost" href={srtZhUrl} download="subtitles-zh.srt">
-                Download Mandarin SRT
-              </a>
-            )}
             {srtEnUrl && (
               <a className="btn ghost" href={srtEnUrl} download="subtitles-en.srt">
                 Download English SRT
               </a>
             )}
             {videoUrl && (
-              <a className="btn ghost" href={videoUrl} download>
+              <a className="btn ghost" href={videoUrl} download="video.mp4">
                 Download MP4
               </a>
             )}
+            {thumbnailUrl && (
+              <a className="btn ghost" href={thumbnailUrl} download="thumbnail.png">
+                Download thumbnail
+              </a>
+            )}
+            {youtubeTxtUrl && (
+              <a className="btn ghost" href={youtubeTxtUrl} download="youtube.txt">
+                Download youtube.txt
+              </a>
+            )}
           </div>
+
+          {thumbnailUrl && (
+            <div style={{ marginTop: 16 }}>
+              <h3>Thumbnail</h3>
+              <img
+                src={thumbnailUrl}
+                alt="Listening thumbnail"
+                style={{ maxWidth: '100%', height: 'auto', borderRadius: 8 }}
+              />
+            </div>
+          )}
 
           {meta && (
             <div style={{ marginTop: 16 }}>

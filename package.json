@@ -10,13 +10,20 @@
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "autopilot": "node scripts/autopilot.mjs run",
+    "autopilot:generate": "node scripts/autopilot.mjs generate",
+    "autopilot:regenerate": "node scripts/autopilot.mjs regenerate",
+    "autopilot:upload": "node scripts/autopilot.mjs upload"
   },
   "dependencies": {
     "@hono/node-server": "^2.0.11",
+    "@napi-rs/canvas": "^1.0.3",
     "concurrently": "^10.0.4",
     "dotenv": "^17.4.2",
+    "exceljs": "^4.4.0",
     "execa": "^10.0.0",
+    "googleapis": "^173.0.0",
     "hono": "^4.12.32",
     "pdfkit": "^0.19.1",
     "pinyin-pro": "^3.28.2",
