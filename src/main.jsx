@@ -1,10 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import AppShell from './AppShell.jsx'
+import './App.css'
+import ListeningApp from './listening/ListeningApp.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AppShell />
+    <ListeningApp />
   </StrictMode>,
 )

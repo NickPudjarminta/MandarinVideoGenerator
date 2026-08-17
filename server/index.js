@@ -4,24 +4,8 @@ import { cors } from 'hono/cors'
 import fs from 'node:fs'
 import path from 'node:path'
 import { ensureDirs, OUTPUT_DIR } from './lib/paths.js'
-import { ideasHandler } from './routes/ideas.js'
-import { generateScriptHandler } from './routes/generate-script.js'
-import { searchHandler } from './routes/search.js'
 import { ttsHandler } from './routes/tts.js'
-import { youtubeMetaHandler } from './routes/youtube-meta.js'
-import { renderHandler } from './routes/render.js'
-import { fetchImageHandler } from './routes/fetch-image.js'
-import { styleImageHandler } from './routes/style-image.js'
-import { keyNounsHandler } from './routes/key-nouns.js'
-import { workbookHandler } from './routes/workbook.js'
 import { listeningRenderHandler } from './routes/listening.js'
-import { ensureBumperAudioHandler } from './lib/ensureBumperAudio.js'
-import {
-  listSessionsHandler,
-  getSessionHandler,
-  getSessionFileHandler,
-  saveSessionHandler,
-} from './routes/sessions.js'
 
 ensureDirs()
 
@@ -43,22 +27,8 @@ async function wrap(handler, c) {
   }
 }
 
-app.post('/api/ideas', (c) => wrap(ideasHandler, c))
-app.post('/api/generate-script', (c) => wrap(generateScriptHandler, c))
-app.post('/api/search', (c) => wrap(searchHandler, c))
 app.post('/api/tts', (c) => wrap(ttsHandler, c))
-app.post('/api/youtube-meta', (c) => wrap(youtubeMetaHandler, c))
-app.post('/api/render', (c) => wrap(renderHandler, c))
-app.post('/api/fetch-image', (c) => wrap(fetchImageHandler, c))
-app.post('/api/style-image', (c) => wrap(styleImageHandler, c))
-app.post('/api/key-nouns', (c) => wrap(keyNounsHandler, c))
-app.post('/api/workbook', (c) => wrap(workbookHandler, c))
 app.post('/api/listening/render', (c) => wrap(listeningRenderHandler, c))
-app.post('/api/ensure-bumper-audio', (c) => wrap(ensureBumperAudioHandler, c))
-app.get('/api/sessions', (c) => wrap(listSessionsHandler, c))
-app.get('/api/sessions/:id', (c) => wrap(getSessionHandler, c))
-app.get('/api/sessions/:id/files/:name', (c) => wrap(getSessionFileHandler, c))
-app.post('/api/sessions', (c) => wrap(saveSessionHandler, c))
 
 app.get('/output/*', (c) => {
   const rel = decodeURIComponent(c.req.path.replace(/^\/output\//, ''))
