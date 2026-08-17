@@ -79,6 +79,7 @@ async function cmdGenerate(setIndex, { force = false } = {}) {
 
   console.log(`Generating Set ${n} of ${total}…`)
   const result = await generateListeningSet({
+    templateId: 'hsk1',
     setIndex: n,
     onProgress: (p) => {
       if (p?.message) console.log(`  ${p.message}`)

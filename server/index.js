@@ -6,8 +6,26 @@ import path from 'node:path'
 import { ensureDirs, OUTPUT_DIR } from './lib/paths.js'
 import { ttsHandler } from './routes/tts.js'
 import { listeningRenderHandler } from './routes/listening.js'
+import { bootstrapStudio } from './lib/templates.js'
+import { maybeCatchUpWeeklyUpload } from './lib/weeklyUpload.js'
+import {
+  studioBootstrapHandler,
+  listTemplatesHandler,
+  getTemplateHandler,
+  createTemplateHandler,
+  updateTemplateHandler,
+  uploadTemplateAssetHandler,
+  listVideosHandler,
+  getVideoHandler,
+  enqueueGenerateHandler,
+  queueStatusHandler,
+  weeklyUploadHandler,
+  queueUploadsHandler,
+  patchVideoHandler,
+} from './routes/studio.js'
 
 ensureDirs()
+bootstrapStudio()
 
 const app = new Hono()
 
@@ -29,6 +47,20 @@ async function wrap(handler, c) {
 
 app.post('/api/tts', (c) => wrap(ttsHandler, c))
 app.post('/api/listening/render', (c) => wrap(listeningRenderHandler, c))
+
+app.get('/api/studio/bootstrap', (c) => wrap(studioBootstrapHandler, c))
+app.get('/api/studio/templates', (c) => wrap(listTemplatesHandler, c))
+app.get('/api/studio/templates/:id', (c) => wrap(getTemplateHandler, c))
+app.post('/api/studio/templates', (c) => wrap(createTemplateHandler, c))
+app.put('/api/studio/templates/:id', (c) => wrap(updateTemplateHandler, c))
+app.post('/api/studio/templates/:id/assets/:kind', (c) => wrap(uploadTemplateAssetHandler, c))
+app.get('/api/studio/videos', (c) => wrap(listVideosHandler, c))
+app.get('/api/studio/videos/:id', (c) => wrap(getVideoHandler, c))
+app.patch('/api/studio/videos/:id', (c) => wrap(patchVideoHandler, c))
+app.post('/api/studio/generate', (c) => wrap(enqueueGenerateHandler, c))
+app.get('/api/studio/queue', (c) => wrap(queueStatusHandler, c))
+app.post('/api/studio/queue-uploads', (c) => wrap(queueUploadsHandler, c))
+app.post('/api/studio/weekly-upload', (c) => wrap(weeklyUploadHandler, c))
 
 app.get('/output/*', (c) => {
   const rel = decodeURIComponent(c.req.path.replace(/^\/output\//, ''))
@@ -64,3 +96,10 @@ app.get('/output/*', (c) => {
 const port = Number(process.env.PORT || 8787)
 console.log(`API listening on http://127.0.0.1:${port}`)
 serve({ fetch: app.fetch, port, hostname: '127.0.0.1' })
+
+// Catch-up weekly YouTube uploads if the machine was off (non-blocking)
+setTimeout(() => {
+  maybeCatchUpWeeklyUpload().catch((err) => {
+    console.warn('Weekly upload catch-up:', err.message || err)
+  })
+}, 2000)

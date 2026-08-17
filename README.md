@@ -1,25 +1,22 @@
-# Mandarin Listening Practice Generator
+# Mandarin Listening Studio
 
-Local studio for HSK listening-practice videos (speed drills at 70% → 85% → 100%) plus an HSK 1 autopilot that packages sets and uploads to YouTube.
+Local studio for HSK listening-practice videos: **templates**, **bulk generate queue**, and a **calendar** backed by one catalog (`data/catalog.json`).
 
-**Stack:** Vite + React UI · Node (Hono) API · Azure Neural TTS · `@napi-rs/canvas` overlays · native FFmpeg · Google YouTube API (autopilot).
+**Stack:** Vite + React · Hono API · Azure Neural TTS · `@napi-rs/canvas` · FFmpeg · YouTube Data API
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) 20+
-- [FFmpeg](https://ffmpeg.org/) on your `PATH` (`ffmpeg -version`)
-- Azure Speech API key
-- For YouTube upload: Desktop OAuth `client_secret.json` in the project root
+- Node.js 20+
+- FFmpeg on `PATH`
+- Azure Speech key in `.env`
+- For uploads: Desktop OAuth `client_secret.json` in the project root (token saved to `data/youtube-token.json`)
 
 ## Setup
 
 ```bash
 npm install
-copy .env.example .env   # Windows
-# then edit .env with real keys
+copy .env.example .env
 ```
-
-`.env` keys:
 
 ```env
 AZURE_SPEECH_KEY=...
@@ -32,25 +29,43 @@ AZURE_SPEECH_REGION=eastus
 npm.cmd run dev
 ```
 
-- Web UI: http://127.0.0.1:5173
-- API: http://127.0.0.1:8787
+- Web: http://127.0.0.1:5173  
+- API: http://127.0.0.1:8787  
 
-## HSK 1 Autopilot
+### Studio tabs
 
-Source spreadsheet: `public/hsk1_vocabulary_sentences.xlsx` (300 rows → 15 sets of 20).
+1. **Templates** — Create/edit templates (spreadsheet, images, title/description templates with `{{setIndex}}`, `{{firstWord}}`, `{{lastWord}}`, `{{playlistUrl}}`)
+2. **Queue** — Generate all sets (or missing only); **Queue YouTube uploads** assigns Mon–Fri noon slots to all ready videos (no API upload yet)
+3. **Calendar** — Shows **queued for upload** / **scheduled** / **published** from `publishAt` + whether a YouTube `videoId` exists
+
+## Weekly YouTube upload
+
+Uploads at most **5 videos per Pacific calendar day**, with a **5-minute pause** between each YouTube insert (avoids API spam). Only videos with status `queued` (slots already assigned) are uploaded.
 
 ```bash
-npm run autopilot:generate [N]      # Generate set N (default: nextSetIndex)
-npm run autopilot:regenerate [N]    # Wipe package + render cache, then regenerate
-npm run autopilot:upload [N]        # Upload set N to YouTube
-npm run autopilot [N]               # Generate (if needed) then upload
-npm run autopilot:update-meta       # Refresh titles/thumbnails for all uploaded sets
+npm run studio:weekly-upload
 ```
 
-Packages land in `output/HSK1_Set_N/`. Autopilot ledger: `data/autopilot-state.json`.
+On API startup, if the last weekly run is older than ~7 days (or never), the same job runs as catch-up (still subject to the daily limit).
 
-## Notes
+### Windows Task Scheduler
 
-- TTS cache: `cache/tts/` (kept across regenerate)
-- Render work dirs: `.tmp/render/`
-- Secrets stay in `.env` / `client_secret.json` / `data/youtube-token.json` (gitignored)
+1. Create a Basic Task → trigger **Weekly** (e.g. Monday 9:00 AM)
+2. Action: Start a program  
+   - Program: `npm.cmd` (or full path to Node)  
+   - Arguments: `run studio:weekly-upload`  
+   - Start in: this project folder  
+
+## Data layout
+
+| Path | Role |
+|------|------|
+| `data/catalog.json` | **Source of truth** for all videos/schedule |
+| `data/templates/{id}/` | `template.json`, `spreadsheet.xlsx`, `assets/` |
+| `output/{templateId}/Set_N/` | Generated packages |
+| `cache/tts/` | TTS cache |
+| `.tmp/render/` | FFmpeg work dirs |
+
+## Legacy CLI
+
+Older autopilot commands still exist (`autopilot:generate`, etc.) but the Studio UI + catalog is the primary workflow going forward.

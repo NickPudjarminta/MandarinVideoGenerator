@@ -134,7 +134,11 @@ export function computeNextPublishAt(lastPublishAt) {
 }
 
 export function packageDirForSet(setIndex) {
-  return path.join(OUTPUT_DIR, `HSK1_Set_${Number(setIndex)}`)
+  const modern = path.join(OUTPUT_DIR, 'hsk1', `Set_${Number(setIndex)}`)
+  const legacy = path.join(OUTPUT_DIR, `HSK1_Set_${Number(setIndex)}`)
+  if (fs.existsSync(path.join(modern, 'video.mp4'))) return modern
+  if (fs.existsSync(path.join(legacy, 'video.mp4'))) return legacy
+  return modern
 }
 
 export function packageExists(setIndex) {

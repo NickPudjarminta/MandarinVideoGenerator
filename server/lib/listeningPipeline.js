@@ -273,6 +273,8 @@ export async function renderListeningVideo({
   sessionId = '',
   onProgress,
   signal,
+  chimePath = CHIME_SFX_MP3,
+  endFramePath = END_FRAME_PNG,
 }) {
   ensureDirs()
   const cacheId = safeCacheId(sessionId)
@@ -284,6 +286,9 @@ export async function renderListeningVideo({
   if (!playList.length) {
     throw new Error('Listening render expects a non-empty plays array')
   }
+
+  const chimeFile = chimePath || CHIME_SFX_MP3
+  const endFrameFile = endFramePath || END_FRAME_PNG
 
   const segmentPaths = []
   const timeline = []
@@ -359,15 +364,15 @@ export async function renderListeningVideo({
 
     // After With-Text 100%: chime immediately, then reveal-gap silence on last frame
     if (isChimeAfter) {
-      if (!fs.existsSync(CHIME_SFX_MP3)) {
-        throw new Error(`Chime SFX missing: ${CHIME_SFX_MP3}`)
+      if (!fs.existsSync(chimeFile)) {
+        throw new Error(`Chime SFX missing: ${chimeFile}`)
       }
-      const chimeDur = await probeDuration(CHIME_SFX_MP3, signal)
+      const chimeDur = await probeDuration(chimeFile, signal)
       const chimeOut = path.join(work, `seg_${String(segIndex).padStart(4, '0')}.mp4`)
       const chimeHash = contentHash(
         'lp-chime-v1',
         lastOverlayPath,
-        CHIME_SFX_MP3,
+        chimeFile,
         String(chimeDur),
         WIDTH,
         HEIGHT,
@@ -380,7 +385,7 @@ export async function renderListeningVideo({
           pngPath: lastOverlayPath,
           outPath: chimeOut,
           durationSec: chimeDur,
-          audioPath: CHIME_SFX_MP3,
+          audioPath: chimeFile,
           signal,
         })
         writeSegmentHash(chimeOut, chimeHash)
@@ -435,13 +440,13 @@ export async function renderListeningVideo({
   {
     onProgress?.({ phase: 'end', message: 'Encoding end frame…' })
     const outPath = path.join(work, `seg_${String(segIndex).padStart(4, '0')}.mp4`)
-    const hash = contentHash('lp-end-v1', END_FRAME_PNG, String(END_FRAME_SEC), WIDTH, HEIGHT)
+    const hash = contentHash('lp-end-v1', endFrameFile, String(END_FRAME_SEC), WIDTH, HEIGHT)
     let duration
     if (isSegmentCacheHit(outPath, hash)) {
       duration = await probeDuration(outPath, signal)
     } else {
       duration = await renderStillSegment({
-        pngPath: END_FRAME_PNG,
+        pngPath: endFrameFile,
         outPath,
         durationSec: END_FRAME_SEC,
         audioPath: null,

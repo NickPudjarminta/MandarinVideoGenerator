@@ -16,31 +16,40 @@ export const LP_EAR_ICON = { x: 539, y: 224 }
 
 const YAHEI = 'C:\\Windows\\Fonts\\msyh.ttc'
 const RUBIK = path.join(PUBLIC_DIR, 'Rubik-Bold.ttf')
-const EAR_PATH = path.join(PUBLIC_DIR, 'EarIcon.png')
+const DEFAULT_EAR_PATH = path.join(PUBLIC_DIR, 'EarIcon.png')
 
 const FONT_STACK = '"Microsoft YaHei", "Rubik", sans-serif'
 const THUMB_FONT = '"Rubik", "Microsoft YaHei", sans-serif'
 
 let fontsReady = false
-let earImage = null
+const earImageCache = new Map()
 
-function ensureFonts() {
-  if (fontsReady) return
-  if (fs.existsSync(YAHEI)) {
-    GlobalFonts.registerFromPath(YAHEI, 'Microsoft YaHei')
+function ensureFonts(thumbFontPath) {
+  if (!fontsReady) {
+    if (fs.existsSync(YAHEI)) {
+      GlobalFonts.registerFromPath(YAHEI, 'Microsoft YaHei')
+    }
+    if (fs.existsSync(RUBIK)) {
+      GlobalFonts.registerFromPath(RUBIK, 'Rubik')
+    }
+    fontsReady = true
   }
-  if (fs.existsSync(RUBIK)) {
-    GlobalFonts.registerFromPath(RUBIK, 'Rubik')
+  if (thumbFontPath && fs.existsSync(thumbFontPath)) {
+    try {
+      GlobalFonts.registerFromPath(thumbFontPath, 'Rubik')
+    } catch {
+      /* already registered */
+    }
   }
-  fontsReady = true
 }
 
-async function getEarImage() {
-  if (!earImage) {
-    if (!fs.existsSync(EAR_PATH)) throw new Error(`EarIcon missing: ${EAR_PATH}`)
-    earImage = await loadImage(EAR_PATH)
-  }
-  return earImage
+async function getEarImage(earIconPath = DEFAULT_EAR_PATH) {
+  const key = earIconPath || DEFAULT_EAR_PATH
+  if (earImageCache.has(key)) return earImageCache.get(key)
+  if (!fs.existsSync(key)) throw new Error(`EarIcon missing: ${key}`)
+  const img = await loadImage(key)
+  earImageCache.set(key, img)
+  return img
 }
 
 const PASSES = {
@@ -241,12 +250,13 @@ export async function renderListeningOverlayNode({
   sentenceCount,
   rate,
   reveal = true,
+  earIconPath,
 }) {
   ensureFonts()
   const canvas = createCanvas(LP_WIDTH, LP_HEIGHT)
   const ctx = canvas.getContext('2d')
   const showText = reveal === true
-  const earIcon = showText ? null : await getEarImage()
+  const earIcon = showText ? null : await getEarImage(earIconPath)
   drawListeningFrame(ctx, {
     zh,
     sentenceIndex,
@@ -259,11 +269,19 @@ export async function renderListeningOverlayNode({
 }
 
 /**
- * HSK1 set thumbnail: two lines — "Set N" then "[First] to [Last]".
+ * Set thumbnail: two lines — "Set N" then "[First] to [Last]".
  */
-export async function renderHsk1SetThumbnail({ setIndex, firstWord, lastWord, outPath }) {
-  ensureFonts()
-  const basePath = path.join(PUBLIC_DIR, 'ThumbnailBase_HSK1.png')
+export async function renderHsk1SetThumbnail({
+  setIndex,
+  firstWord,
+  lastWord,
+  outPath,
+  thumbnailBasePath,
+  thumbFontPath,
+}) {
+  ensureFonts(thumbFontPath)
+  const basePath =
+    thumbnailBasePath || path.join(PUBLIC_DIR, 'ThumbnailBase_HSK1.png')
   if (!fs.existsSync(basePath)) throw new Error(`Thumbnail base missing: ${basePath}`)
 
   const base = await loadImage(basePath)

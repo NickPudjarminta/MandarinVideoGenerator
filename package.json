@@ -15,7 +15,9 @@
     "autopilot:generate": "node scripts/autopilot.mjs generate",
     "autopilot:regenerate": "node scripts/autopilot.mjs regenerate",
     "autopilot:upload": "node scripts/autopilot.mjs upload",
-    "autopilot:update-meta": "node scripts/updateYoutubeMeta.mjs"
+    "autopilot:update-meta": "node scripts/updateYoutubeMeta.mjs",
+    "studio:weekly-upload": "node scripts/weeklyUpload.mjs",
+    "studio:bootstrap": "node -e \"import('./server/lib/templates.js').then(m=>console.log(JSON.stringify(m.bootstrapStudio(),null,2)))\""
   },
   "dependencies": {
     "@hono/node-server": "^2.0.11",

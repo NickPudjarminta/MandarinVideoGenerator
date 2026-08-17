@@ -1036,3 +1036,88 @@ p.error {
     grid-template-columns: 1fr;
   }
 }
+
+/* Studio calendar */
+.studio-cal {
+  margin-top: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.studio-cal-head,
+.studio-cal-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+.studio-cal-head > div {
+  padding: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.18);
+  border-bottom: 1px solid var(--line);
+}
+.studio-cal-cell {
+  min-height: 88px;
+  padding: 0.35rem;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.studio-cal-cell.empty {
+  background: rgba(0, 0, 0, 0.08);
+}
+.studio-cal-day {
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.studio-cal-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-size: 0.7rem;
+  margin-bottom: 0.2rem;
+  padding: 0.2rem 0.35rem;
+  border: none;
+  border-left: 3px solid #999;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  cursor: pointer;
+}
+.studio-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.studio-legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  margin-right: 0.25rem;
+}
+
+.studio-asset-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 220px;
+}
+.studio-asset-label {
+  font-weight: 600;
+}
+.studio-asset-saved {
+  font-size: 0.85rem;
+}
+.studio-asset-missing {
+  font-size: 0.85rem;
+}
+
+.studio-asset-pending {
+  font-size: 0.85rem;
+  color: #f9ab00;
+}
