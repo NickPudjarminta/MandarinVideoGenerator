@@ -412,9 +412,14 @@
       "setIndex": 2,
       "firstWord": "比较",
       "lastWord": "不用",
-      "status": "generating",
+      "status": "ready",
       "packageDir": "hsk3/Set_2",
-      "error": null
+      "error": null,
+      "title": "Chinese Listening Drills Set 2 | New HSK 3 (2026 3.0)  | 比较 to 不用",
+      "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 比较 to 不用, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n今天比较冷。\nIt's comparatively cold today.\n00:18 - Phrase 2:\n我新买的笔记本是红色的。\nThe notebook I just bought is red.\n00:42 - Phrase 3:\n我有很多爱好，比如看书和游泳。\nI have many hobbies, such as reading and swimming.\n01:08 - Phrase 4:\n明天学校有足球比赛。\nThere is a soccer match at school tomorrow.\n01:30 - Phrase 5:\n你必须完成作业。\nYou must finish your homework.\n01:50 - Phrase 6:\n天气变了，开始下雨了。\nThe weather changed and it started to rain.\n02:13 - Phrase 7:\n请把课文再读一遍。\nPlease read the text one more time.\n02:34 - Phrase 8:\n水可以变成冰。\nWater can turn into ice.\n02:53 - Phrase 9:\n最近天气变化很大。\nThe weather has changed a lot recently.\n03:13 - Phrase 10:\n同学们准备在下个星期表演节目。\nThe students are preparing to perform next week.\n03:40 - Phrase 11:\n我不想吃这个，我想吃别的。\nI do not want this one; I want something else.\n04:04 - Phrase 12:\n请不要影响别人学习。\nPlease do not affect others while they are studying.\n04:25 - Phrase 13:\n我们住在机场附近的宾馆。\nWe are staying at a hotel near the airport.\n04:48 - Phrase 14:\n天太热了，我想喝冰水。\nIt is too hot today, and I want to drink ice water.\n05:12 - Phrase 15:\n夏天我最喜欢吃冰激凌。\nIn summer I like eating ice cream the most.\n05:34 - Phrase 16:\n牛奶放在冰箱里。\nThe milk is in the refrigerator.\n05:55 - Phrase 17:\n医生正在给病人检查。\nThe doctor is examining the patient.\n06:16 - Phrase 18:\n她不但会唱歌，而且会跳舞。\nShe can not only sing but also dance.\n06:41 - Phrase 19:\n我的手机不见了。\nMy phone has disappeared.\n07:01 - Phrase 20:\n你不用担心。\nYou need not worry.\n\nFULL VOCAB LIST\n比较 (bǐjiào) - to compare; quite, relatively; than\n笔记本 (bǐjìběn) - notebook\n比如 (bǐrú) - for example\n比赛 (bǐsài) - to compete; game, match\n必须 (bìxū) - must\n变 (biàn) - to change, to become\n遍 (biàn) - measure word for actions\n变成 (biànchéng) - to become, to turn into\n变化 (biànhuà) - to change; change\n表演 (biǎoyǎn) - to perform, to act\n别的 (biéde) - other\n别人 (biérén) - other people\n宾馆 (bīnguǎn) - hotel\n冰 (bīng) - ice; (to freeze)\n冰激凌 (bīngjīlíng) - ice cream\n冰箱 (bīngxiāng) - refrigerator\n病人 (bìngrén) - patient\n不但 (búdàn) - not only\n不见 (bújiàn) - to disappear, to not see\n不用 (búyòng) - need not\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
+      "publishAt": null,
+      "videoId": null,
+      "uploadedAt": null
     },
     {
       "id": "hsk3:3",
@@ -422,7 +427,7 @@
       "setIndex": 3,
       "firstWord": "不同",
       "lastWord": "城市",
-      "status": "pending",
+      "status": "generating",
       "packageDir": "hsk3/Set_3",
       "error": null
     },
