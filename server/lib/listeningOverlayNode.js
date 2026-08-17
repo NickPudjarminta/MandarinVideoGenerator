@@ -259,9 +259,9 @@ export async function renderListeningOverlayNode({
 }
 
 /**
- * HSK1 set thumbnail: two lines — "20 Phrases" then "[First] to [Last]".
+ * HSK1 set thumbnail: two lines — "Set N" then "[First] to [Last]".
  */
-export async function renderHsk1SetThumbnail({ firstWord, lastWord, outPath }) {
+export async function renderHsk1SetThumbnail({ setIndex, firstWord, lastWord, outPath }) {
   ensureFonts()
   const basePath = path.join(PUBLIC_DIR, 'ThumbnailBase_HSK1.png')
   if (!fs.existsSync(basePath)) throw new Error(`Thumbnail base missing: ${basePath}`)
@@ -271,7 +271,8 @@ export async function renderHsk1SetThumbnail({ firstWord, lastWord, outPath }) {
   const ctx = canvas.getContext('2d')
   ctx.drawImage(base, 0, 0)
 
-  const line1 = '20 Phrases'
+  const n = Number(setIndex) || 1
+  const line1 = `Set ${n}`
   const line2 = `${firstWord} to ${lastWord}`
   const fontSize = 85
   const lineGap = Math.round(fontSize * 1.15)

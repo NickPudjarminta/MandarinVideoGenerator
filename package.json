@@ -14,7 +14,8 @@
     "autopilot": "node scripts/autopilot.mjs run",
     "autopilot:generate": "node scripts/autopilot.mjs generate",
     "autopilot:regenerate": "node scripts/autopilot.mjs regenerate",
-    "autopilot:upload": "node scripts/autopilot.mjs upload"
+    "autopilot:upload": "node scripts/autopilot.mjs upload",
+    "autopilot:update-meta": "node scripts/updateYoutubeMeta.mjs"
   },
   "dependencies": {
     "@hono/node-server": "^2.0.11",

@@ -10,7 +10,7 @@ export function buildHsk1SetMeta({ setIndex, firstWord, lastWord, phrases, timel
   const first = String(firstWord || '').trim()
   const last = String(lastWord || '').trim()
 
-  const title = `Chinese Listening Drills | New HSK 1 (2026 3.0)  | ${first} to ${last} | Set ${n}`
+  const title = `Chinese Listening Drills Set ${n} | New HSK 1 (2026 3.0)  | ${first} to ${last}`
 
   const timestampBlocks = (Array.isArray(phrases) ? phrases : [])
     .map((s, i) => {

@@ -142,7 +142,12 @@ export async function generateListeningSet({
 
   onProgress?.({ phase: 'thumbnail', message: `Set ${set.setIndex}: thumbnail…` })
   const thumbPath = path.join(packageDir, 'thumbnail.png')
-  await renderHsk1SetThumbnail({ firstWord, lastWord, outPath: thumbPath })
+  await renderHsk1SetThumbnail({
+    setIndex: set.setIndex,
+    firstWord,
+    lastWord,
+    outPath: thumbPath,
+  })
 
   const meta = {
     setIndex: set.setIndex,
