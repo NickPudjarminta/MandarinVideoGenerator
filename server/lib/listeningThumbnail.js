@@ -1,25 +1,45 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { execa } from 'execa'
+import { createCanvas, loadImage, GlobalFonts } from '@napi-rs/canvas'
 import { PUBLIC_DIR } from './paths.js'
 
 const RUBIK_BOLD = path.join(PUBLIC_DIR, 'Rubik-Bold.ttf')
+const YAHEI = 'C:\\Windows\\Fonts\\msyh.ttc'
+const SIMHEI = 'C:\\Windows\\Fonts\\simhei.ttf'
+const CJK_RE = /[\u4e00-\u9fff\u3400-\u4dbf]/
+const THUMB_FONT_LATIN = '"Rubik", "Microsoft YaHei", "SimHei", sans-serif'
+const THUMB_FONT_CJK = '"Microsoft YaHei", "SimHei", "Rubik", sans-serif'
 
-function escapeDrawtext(value) {
-  return String(value || '')
-    .replace(/\\/g, '\\\\')
-    .replace(/:/g, '\\:')
-    .replace(/'/g, "\\'")
-    .replace(/%/g, '\\%')
-}
+let fontsReady = false
 
-function fontfileForFfmpeg(fontPath) {
-  // FFmpeg on Windows wants forward slashes; escape drive-letter colon
-  return escapeDrawtext(path.resolve(fontPath).replace(/\\/g, '/'))
+function ensureThumbFonts() {
+  if (fontsReady) return
+  if (fs.existsSync(YAHEI)) {
+    try {
+      GlobalFonts.registerFromPath(YAHEI, 'Microsoft YaHei')
+    } catch {
+      /* already registered */
+    }
+  }
+  if (fs.existsSync(SIMHEI)) {
+    try {
+      GlobalFonts.registerFromPath(SIMHEI, 'SimHei')
+    } catch {
+      /* already registered */
+    }
+  }
+  if (fs.existsSync(RUBIK_BOLD)) {
+    try {
+      GlobalFonts.registerFromPath(RUBIK_BOLD, 'Rubik')
+    } catch {
+      /* already registered */
+    }
+  }
+  fontsReady = true
 }
 
 /**
- * Resolve HSK 1–3 thumbnail base + color. Returns null for 4+.
+ * Resolve HSK thumbnail base + color. Returns null when no public base (e.g. 4+ until assets exist).
  */
 export function resolveThumbnailStyle(hskLevel) {
   const level = Number.parseInt(String(hskLevel || '').trim(), 10)
@@ -42,67 +62,85 @@ export function resolveThumbnailStyle(hskLevel) {
         basePath: path.join(PUBLIC_DIR, 'ThumbnailBase_HSK3.png'),
         color: 'BD0F19',
       }
+    case 4:
+      return {
+        level: 4,
+        basePath: path.join(PUBLIC_DIR, 'ThumbnailBase_HSK4.png'),
+        color: '173F75',
+      }
+    case 5:
+      return {
+        level: 5,
+        basePath: path.join(PUBLIC_DIR, 'ThumbnailBase_HSK5.png'),
+        color: '631F62',
+      }
     default:
       return null
   }
 }
 
 /**
- * Composite Chapter Index onto the HSK base thumbnail with Rubik Bold 85px at (60, 437).
- * @returns {Promise<string|null>} outPath, or null if skipped (HSK 4+)
+ * Composite text onto the HSK base thumbnail with Rubik Bold 85px at (60, 437).
+ * Newlines draw as additional lines. Lines with CJK use YaHei/SimHei first.
+ * @returns {Promise<string|null>} outPath, or null if skipped (HSK 4+ without base)
  */
 export async function renderListeningThumbnail({
   hskLevel,
   chapterIndex,
+  text: textOverride,
   outPath,
   signal,
 }) {
+  if (signal?.aborted) {
+    const abortErr = new Error('Render cancelled')
+    abortErr.name = 'AbortError'
+    throw abortErr
+  }
+
   const style = resolveThumbnailStyle(hskLevel)
   if (!style) return null
 
   if (!fs.existsSync(style.basePath)) {
+    if (style.level >= 4) return null
     throw new Error(`Thumbnail base missing: ${style.basePath}`)
   }
-  if (!fs.existsSync(RUBIK_BOLD)) {
-    throw new Error(`Rubik Bold font missing: ${RUBIK_BOLD}`)
+
+  ensureThumbFonts()
+  if (!fs.existsSync(RUBIK_BOLD) && !fs.existsSync(YAHEI) && !fs.existsSync(SIMHEI)) {
+    throw new Error(`No thumbnail fonts found (Rubik, Microsoft YaHei, or SimHei)`)
   }
 
-  const text = String(chapterIndex || '').trim()
-  if (!text) {
-    throw new Error('chapterIndex is required for thumbnail')
+  const raw = String(textOverride ?? chapterIndex ?? '')
+  const lines = raw
+    .split(/\r?\n/)
+    .map((l) => l.trim())
+    .filter(Boolean)
+  if (!lines.length) {
+    throw new Error('thumbnail text is required')
+  }
+
+  const base = await loadImage(style.basePath)
+  const canvas = createCanvas(base.width || 1280, base.height || 720)
+  const ctx = canvas.getContext('2d')
+  ctx.drawImage(base, 0, 0)
+
+  const fontSize = 85
+  const lineGap = Math.round(fontSize * 1.15)
+  const baseY = 437
+  const fill = `#${style.color}`
+
+  ctx.fillStyle = fill
+  ctx.textAlign = 'left'
+  ctx.textBaseline = 'top'
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i]
+    const stack = CJK_RE.test(line) ? THUMB_FONT_CJK : THUMB_FONT_LATIN
+    ctx.font = `700 ${fontSize}px ${stack}`
+    ctx.fillText(line, 60, baseY + i * lineGap)
   }
 
   fs.mkdirSync(path.dirname(outPath), { recursive: true })
-
-  const vf =
-    `drawtext=fontfile='${fontfileForFfmpeg(RUBIK_BOLD)}'` +
-    `:text='${escapeDrawtext(text)}'` +
-    `:x=60:y=437:fontsize=85:fontcolor=0x${style.color}`
-
-  try {
-    await execa(
-      'ffmpeg',
-      ['-y', '-i', style.basePath, '-vf', vf, '-frames:v', '1', outPath],
-      {
-        stdout: 'pipe',
-        stderr: 'pipe',
-        cancelSignal: signal,
-        killSignal: 'SIGKILL',
-      },
-    )
-  } catch (err) {
-    if (signal?.aborted || err.isCanceled || err.shortMessage?.includes('was killed')) {
-      const abortErr = new Error('Render cancelled')
-      abortErr.name = 'AbortError'
-      throw abortErr
-    }
-    const stderr = String(err.stderr || '').trim()
-    if (stderr) {
-      const short = stderr.split(/\r?\n/).filter(Boolean).slice(-8).join('\n')
-      err.message = `${err.message}\n${short}`
-    }
-    throw err
-  }
-
+  fs.writeFileSync(outPath, canvas.toBuffer('image/png'))
   return outPath
 }

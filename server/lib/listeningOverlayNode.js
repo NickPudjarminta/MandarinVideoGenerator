@@ -278,6 +278,7 @@ export async function renderHsk1SetThumbnail({
   outPath,
   thumbnailBasePath,
   thumbFontPath,
+  textColor,
 }) {
   ensureFonts(thumbFontPath)
   const basePath =
@@ -295,8 +296,13 @@ export async function renderHsk1SetThumbnail({
   const fontSize = 85
   const lineGap = Math.round(fontSize * 1.15)
 
+  const hex = String(textColor || '068791')
+    .trim()
+    .replace(/^#/, '')
+  const fill = /^[0-9a-fA-F]{6}$/.test(hex) ? `#${hex}` : '#068791'
+
   ctx.font = `700 ${fontSize}px ${THUMB_FONT}`
-  ctx.fillStyle = '#068791'
+  ctx.fillStyle = fill
   ctx.textAlign = 'left'
   ctx.textBaseline = 'top'
   ctx.fillText(line1, 60, 437)

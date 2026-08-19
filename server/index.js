@@ -18,6 +18,7 @@ import {
   listVideosHandler,
   getVideoHandler,
   enqueueGenerateHandler,
+  enqueueOneOffHandler,
   queueStatusHandler,
   weeklyUploadHandler,
   queueUploadsHandler,
@@ -58,6 +59,7 @@ app.get('/api/studio/videos', (c) => wrap(listVideosHandler, c))
 app.get('/api/studio/videos/:id', (c) => wrap(getVideoHandler, c))
 app.patch('/api/studio/videos/:id', (c) => wrap(patchVideoHandler, c))
 app.post('/api/studio/generate', (c) => wrap(enqueueGenerateHandler, c))
+app.post('/api/studio/one-off', (c) => wrap(enqueueOneOffHandler, c))
 app.get('/api/studio/queue', (c) => wrap(queueStatusHandler, c))
 app.post('/api/studio/queue-uploads', (c) => wrap(queueUploadsHandler, c))
 app.post('/api/studio/weekly-upload', (c) => wrap(weeklyUploadHandler, c))

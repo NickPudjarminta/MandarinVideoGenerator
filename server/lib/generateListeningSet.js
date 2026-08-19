@@ -190,6 +190,7 @@ export async function generateListeningSet({
       outPath: thumbPath,
       thumbnailBasePath: assets.thumbnailBase,
       thumbFontPath: assets.thumbFont,
+      textColor: config.thumbnailTextColor,
     })
 
     const meta = {

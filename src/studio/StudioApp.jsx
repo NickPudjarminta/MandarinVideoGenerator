@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { apiGet, apiPost, abortErrorMessage } from '../utils/api.js'
+import { parseZhLines, toPacificPublishAt } from './parseZhLines.js'
 
 const TABS = [
   { id: 'templates', label: 'Templates' },
+  { id: 'oneoff', label: 'One-off' },
   { id: 'queue', label: 'Queue' },
   { id: 'calendar', label: 'Calendar' },
 ]
@@ -104,6 +106,14 @@ export default function StudioApp() {
     return { year: n.getFullYear(), month: n.getMonth() }
   })
   const [newId, setNewId] = useState('')
+  const [ooHskLevel, setOoHskLevel] = useState('2')
+  const [ooThumbText, setOoThumbText] = useState('')
+  const [ooTitle, setOoTitle] = useState('')
+  const [ooDescription, setOoDescription] = useState('')
+  const [ooPhrasesText, setOoPhrasesText] = useState('')
+  const [ooPhrases, setOoPhrases] = useState([])
+  const [ooPublishLocal, setOoPublishLocal] = useState('')
+  const [ooLastId, setOoLastId] = useState('')
 
   const refreshTemplates = useCallback(async () => {
     const data = await apiGet('/api/studio/templates')
@@ -147,7 +157,7 @@ export default function StudioApp() {
   }, [selectedId, refreshDetail])
 
   useEffect(() => {
-    if (tab !== 'queue') return
+    if (tab !== 'queue' && tab !== 'oneoff') return
     const t = setInterval(() => {
       refreshQueue().catch(() => {})
       refreshVideos().catch(() => {})
@@ -188,6 +198,7 @@ export default function StudioApp() {
         titleTemplate: t.titleTemplate,
         descriptionTemplate: t.descriptionTemplate,
         playlistUrl: t.playlistUrl,
+        thumbnailTextColor: t.thumbnailTextColor,
       })
       await refreshDetail(t.id)
       if (data.assets) {
@@ -256,17 +267,77 @@ export default function StudioApp() {
     }
   }
 
+  function parseOneOffPhrases() {
+    setError('')
+    const parsed = parseZhLines(ooPhrasesText)
+    if (!parsed.length) {
+      setError('No phrases found. Paste one Mandarin sentence per line.')
+      return
+    }
+    setOoPhrases(parsed)
+    setStatus(`Ready: ${parsed.length} phrase${parsed.length === 1 ? '' : 's'}`)
+  }
+
+  function insertTimestampsPlaceholder() {
+    setOoDescription((prev) => {
+      const body = String(prev || '')
+      if (body.includes('{{timestamps}}')) return body
+      const block = body.trim() ? `${body.trim()}\n\n{{timestamps}}\n` : '{{timestamps}}\n'
+      return block
+    })
+  }
+
+  async function generateOneOff() {
+    setError('')
+    const phrases = ooPhrases.length ? ooPhrases : parseZhLines(ooPhrasesText)
+    if (!phrases.length) {
+      setError('Paste Mandarin phrases (one per line) first.')
+      return
+    }
+    if (!String(ooThumbText).trim()) {
+      setError('Thumbnail text is required.')
+      return
+    }
+    if (!String(ooTitle).trim()) {
+      setError('Title (header) is required.')
+      return
+    }
+    const publishAt = toPacificPublishAt(ooPublishLocal)
+    if (!publishAt) {
+      setError('Choose a publish date and time.')
+      return
+    }
+    try {
+      setOoPhrases(phrases)
+      const data = await apiPost('/api/studio/one-off', {
+        hskLevel: ooHskLevel,
+        thumbnailText: String(ooThumbText).replace(/\s+$/, ''),
+        title: String(ooTitle).trim(),
+        description: ooDescription,
+        phrases,
+        publishAt,
+      })
+      setQueue(data)
+      setOoLastId(data.id || '')
+      setStatus(`Queued one-off ${data.id || ''} — watch Queue for progress`)
+      setTab('queue')
+      await refreshVideos()
+    } catch (e) {
+      setError(abortErrorMessage(e))
+    }
+  }
+
   const t = detail?.template
 
   return (
     <div className="app-shell listening-app studio-app">
       <header className="app-header">
         <p className="eyebrow">Listening Studio</p>
-        <h1>Templates · Queue · Calendar</h1>
+        <h1>Templates · One-off · Queue · Calendar</h1>
         <p className="tagline">
-          One catalog is the source of truth. Generate sets from a template spreadsheet, queue
-          publish slots on the calendar, then weekly automation uploads to YouTube (Mon–Fri noon
-          Pacific).
+          One catalog is the source of truth. Generate sets from a template spreadsheet, create
+          one-off grammar videos from pasted phrases, queue publish slots, then weekly automation
+          uploads to YouTube.
         </p>
       </header>
 
@@ -378,6 +449,46 @@ export default function StudioApp() {
                 {'{{timestamps}}'} and {'{{vocabList}}'} where you want them in the description.
               </p>
 
+              <h3 style={{ marginTop: 24 }}>Thumbnail text color</h3>
+              <p className="muted">
+                Color for “Set N” / word-range text on the thumbnail. Defaults: HSK1 teal, HSK2
+                orange, HSK3 red, HSK4 dark blue, HSK5 purple.
+              </p>
+              <label className="studio-asset-row" style={{ alignItems: 'center', gap: 12 }}>
+                <span className="studio-asset-label">Text color</span>
+                <input
+                  type="color"
+                  value={`#${String(t.thumbnailTextColor || '068791')
+                    .replace(/^#/, '')
+                    .padEnd(6, '0')
+                    .slice(0, 6)}`}
+                  onChange={(e) =>
+                    setDetail((d) => ({
+                      ...d,
+                      template: {
+                        ...d.template,
+                        thumbnailTextColor: e.target.value.replace(/^#/, '').toUpperCase(),
+                      },
+                    }))
+                  }
+                />
+                <input
+                  type="text"
+                  style={{ width: 100 }}
+                  value={String(t.thumbnailTextColor || '').replace(/^#/, '')}
+                  onChange={(e) =>
+                    setDetail((d) => ({
+                      ...d,
+                      template: {
+                        ...d.template,
+                        thumbnailTextColor: e.target.value.replace(/^#/, '').toUpperCase(),
+                      },
+                    }))
+                  }
+                  placeholder="EE6D08"
+                />
+              </label>
+
               <h3 style={{ marginTop: 24 }}>Assets</h3>
               <p className="muted">
                 Choose files below, then click <strong>Save template</strong> to upload them. After
@@ -432,6 +543,137 @@ export default function StudioApp() {
         </section>
       )}
 
+      {tab === 'oneoff' && (
+        <section className="panel">
+          <h2>One-off grammar video</h2>
+          <p className="muted">
+            Paste Mandarin phrases (one per line), customize thumbnail text / title / description,
+            pick a release time. Generates a package and queues it for weekly YouTube upload.
+          </p>
+
+          <div className="listening-settings" style={{ marginTop: 16 }}>
+            <label>
+              HSK level (thumbnail style)
+              <select value={ooHskLevel} onChange={(e) => setOoHskLevel(e.target.value)}>
+                <option value="1">HSK 1</option>
+                <option value="2">HSK 2</option>
+                <option value="3">HSK 3</option>
+                <option value="4">HSK 4</option>
+                <option value="5">HSK 5</option>
+              </select>
+            </label>
+            <label>
+              Thumbnail text
+              <textarea
+                rows={3}
+                style={{ width: '100%', marginTop: 8 }}
+                value={ooThumbText}
+                onChange={(e) => setOoThumbText(e.target.value)}
+                placeholder={'e.g.\n否定句\nNegation'}
+              />
+            </label>
+            <p className="muted">Use Enter for a new line on the thumbnail.</p>
+            <label>
+              Title (header)
+              <input
+                type="text"
+                style={{ width: '100%' }}
+                value={ooTitle}
+                onChange={(e) => setOoTitle(e.target.value)}
+                placeholder="YouTube title"
+              />
+            </label>
+            <label>
+              Description (body)
+              <textarea
+                rows={8}
+                style={{ width: '100%', marginTop: 8 }}
+                value={ooDescription}
+                onChange={(e) => setOoDescription(e.target.value)}
+                placeholder="YouTube description. Use {{timestamps}} where phrase timestamps should go."
+              />
+            </label>
+            <button type="button" className="btn ghost" onClick={insertTimestampsPlaceholder}>
+              Insert {'{{timestamps}}'}
+            </button>
+            <label>
+              Publish at (Pacific)
+              <input
+                type="datetime-local"
+                value={ooPublishLocal}
+                onChange={(e) => setOoPublishLocal(e.target.value)}
+              />
+            </label>
+            <label>
+              Phrases (one Mandarin sentence per line)
+              <textarea
+                rows={12}
+                style={{ width: '100%', marginTop: 8, fontFamily: 'inherit' }}
+                value={ooPhrasesText}
+                onChange={(e) => setOoPhrasesText(e.target.value)}
+                placeholder={'我不喝咖啡。\n我没有自行车。\n今天天气不好。'}
+              />
+            </label>
+          </div>
+
+          <div className="export-actions" style={{ marginTop: 12, gap: 8 }}>
+            <button type="button" className="btn ghost" onClick={parseOneOffPhrases}>
+              Parse phrases
+            </button>
+            <button type="button" className="btn primary" onClick={generateOneOff}>
+              Generate &amp; queue
+            </button>
+          </div>
+
+          {ooPhrases.length > 0 && (
+            <>
+              <h3 style={{ marginTop: 20 }}>Phrase preview ({ooPhrases.length})</h3>
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Mandarin</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {ooPhrases.map((p, i) => (
+                    <tr key={`${i}-${p.zh}`}>
+                      <td>{i + 1}</td>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: '100%' }}
+                          value={p.zh}
+                          onChange={(e) => {
+                            const zh = e.target.value
+                            setOoPhrases((prev) =>
+                              prev.map((row, idx) => (idx === i ? { ...row, zh } : row)),
+                            )
+                          }}
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          )}
+
+          {ooLastId && (
+            <p className="muted" style={{ marginTop: 16 }}>
+              Last queued: {ooLastId}
+            </p>
+          )}
+
+          {(queue?.current?.kind === 'oneoff' ||
+            queue?.current?.templateId === 'grammar') && (
+            <p className="status" style={{ marginTop: 12 }}>
+              Generating {queue.current.id || 'grammar'} — {queue.current.message || '…'}
+            </p>
+          )}
+        </section>
+      )}
+
       {tab === 'queue' && (
         <section className="panel">
           <div className="listening-settings">
@@ -459,8 +701,10 @@ export default function StudioApp() {
           <h3 style={{ marginTop: 20 }}>Queue</h3>
           {queue?.current ? (
             <p className="status">
-              Generating {queue.current.templateId}:{queue.current.setIndex} —{' '}
-              {queue.current.message || '…'}
+              {queue.current.kind === 'oneoff'
+                ? `Generating ${queue.current.id || 'grammar'}`
+                : `Generating ${queue.current.templateId}:${queue.current.setIndex}`}{' '}
+              — {queue.current.message || '…'}
             </p>
           ) : (
             <p className="muted">Idle</p>
@@ -468,8 +712,10 @@ export default function StudioApp() {
           {queue?.pending?.length > 0 && (
             <ul>
               {queue.pending.map((j) => (
-                <li key={j.id}>
-                  pending {j.id}
+                <li key={j.id || `${j.templateId}:${j.setIndex}`}>
+                  {j.kind === 'oneoff'
+                    ? `${j.id} (one-off)`
+                    : `${j.templateId} set ${j.setIndex}`}
                 </li>
               ))}
             </ul>
@@ -571,7 +817,9 @@ export default function StudioApp() {
                             onClick={() => setSelectedVideo(v)}
                             title={label}
                           >
-                            {v.templateId}:{v.setIndex}
+                            {v.templateId === 'grammar'
+                              ? v.thumbnailText || v.title || v.id
+                              : `${v.templateId}:${v.setIndex}`}
                           </button>
                         )
                       })}
@@ -628,18 +876,35 @@ export default function StudioApp() {
                   className="btn primary"
                   onClick={async () => {
                     try {
-                      await apiPost('/api/studio/generate', {
-                        templateId: selectedVideo.templateId,
-                        setIndexes: [selectedVideo.setIndex],
-                      })
-                      setStatus(`Queued regenerate ${selectedVideo.id}`)
+                      if (selectedVideo.templateId === 'grammar') {
+                        await apiPost('/api/studio/one-off', {
+                          regenerate: true,
+                          id: selectedVideo.id,
+                          hskLevel: selectedVideo.hskLevel || '1',
+                          thumbnailText:
+                            selectedVideo.thumbnailText ||
+                            'Grammar\n不 vs. 没',
+                          title: selectedVideo.title,
+                          publishAt: selectedVideo.publishAt,
+                          phrases: selectedVideo.phrases,
+                        })
+                        setStatus(`Queued regenerate ${selectedVideo.id}`)
+                      } else {
+                        await apiPost('/api/studio/generate', {
+                          templateId: selectedVideo.templateId,
+                          setIndexes: [selectedVideo.setIndex],
+                        })
+                        setStatus(`Queued regenerate ${selectedVideo.id}`)
+                      }
                       setTab('queue')
                     } catch (e) {
                       setError(abortErrorMessage(e))
                     }
                   }}
                 >
-                  Regenerate set
+                  {selectedVideo.templateId === 'grammar'
+                    ? 'Regenerate one-off'
+                    : 'Regenerate set'}
                 </button>
               </div>
             </div>

@@ -32,7 +32,7 @@ function pacificYmd(date = new Date()) {
 function uploadedTodayCount(catalog) {
   const today = pacificYmd()
   return (catalog.videos || []).filter((v) => {
-    if (!v.uploadedAt) return false
+    if (v.status !== 'uploaded' || !v.videoId || !v.uploadedAt) return false
     const t = Date.parse(v.uploadedAt)
     if (!Number.isFinite(t)) return false
     return pacificYmd(new Date(t)) === today
@@ -47,12 +47,94 @@ function resolvePackageDir(video) {
   return abs
 }
 
-function touchLock() {
+function isPidAlive(pid) {
+  if (!Number.isInteger(pid) || pid <= 0) return false
   try {
-    fs.writeFileSync(WEEKLY_LOCK_PATH, new Date().toISOString(), 'utf8')
+    process.kill(pid, 0)
+    return true
+  } catch (err) {
+    return err?.code === 'EPERM'
+  }
+}
+
+function readLock() {
+  if (!fs.existsSync(WEEKLY_LOCK_PATH)) return null
+  try {
+    const raw = fs.readFileSync(WEEKLY_LOCK_PATH, 'utf8').trim()
+    if (raw.startsWith('{')) {
+      const data = JSON.parse(raw)
+      const startedAt = Date.parse(data.startedAt) || fs.statSync(WEEKLY_LOCK_PATH).mtimeMs
+      return { startedAt, pid: Number(data.pid) || null }
+    }
+    // Legacy plain ISO timestamp
+    const startedAt = Date.parse(raw) || fs.statSync(WEEKLY_LOCK_PATH).mtimeMs
+    return { startedAt, pid: null }
+  } catch {
+    try {
+      return { startedAt: fs.statSync(WEEKLY_LOCK_PATH).mtimeMs, pid: null }
+    } catch {
+      return null
+    }
+  }
+}
+
+function clearLock() {
+  try {
+    fs.unlinkSync(WEEKLY_LOCK_PATH)
   } catch {
     /* ignore */
   }
+}
+
+function writeLock() {
+  const payload = JSON.stringify({
+    startedAt: new Date().toISOString(),
+    pid: process.pid,
+  })
+  fs.writeFileSync(WEEKLY_LOCK_PATH, payload, 'utf8')
+}
+
+function touchLock() {
+  try {
+    writeLock()
+  } catch {
+    /* ignore */
+  }
+}
+
+function acquireLock() {
+  const existing = readLock()
+  if (existing) {
+    const age = Date.now() - existing.startedAt
+    if (age < LOCK_MAX_AGE_MS) {
+      if (existing.pid != null && isPidAlive(existing.pid)) {
+        return { ok: false, reason: 'Weekly upload already in progress' }
+      }
+      // Stale lock (dead PID or legacy file from interrupted run)
+      clearLock()
+    } else {
+      clearLock()
+    }
+  }
+  writeLock()
+  return { ok: true }
+}
+
+let signalHandlersInstalled = false
+function installLockSignalHandlers() {
+  if (signalHandlersInstalled) return
+  signalHandlersInstalled = true
+  const release = () => {
+    clearLock()
+  }
+  process.once('SIGINT', () => {
+    release()
+    process.exit(130)
+  })
+  process.once('SIGTERM', () => {
+    release()
+    process.exit(143)
+  })
 }
 
 /**
@@ -81,18 +163,11 @@ export async function runWeeklyUpload({ force = false } = {}) {
     }
   }
 
-  // Lock
-  try {
-    if (fs.existsSync(WEEKLY_LOCK_PATH)) {
-      const lockAge = Date.now() - fs.statSync(WEEKLY_LOCK_PATH).mtimeMs
-      if (lockAge < LOCK_MAX_AGE_MS) {
-        return { skipped: true, reason: 'Weekly upload already in progress', uploaded: [] }
-      }
-    }
-    touchLock()
-  } catch {
-    /* continue */
+  const lock = acquireLock()
+  if (!lock.ok) {
+    return { skipped: true, reason: lock.reason, uploaded: [] }
   }
+  installLockSignalHandlers()
 
   const uploaded = []
   try {
@@ -108,8 +183,6 @@ export async function runWeeklyUpload({ force = false } = {}) {
       .slice(0, remainingQuota)
 
     if (!candidates.length) {
-      catalog.schedule.lastWeeklyUploadAt = new Date().toISOString()
-      saveCatalog(catalog)
       return { skipped: false, uploaded: [], message: 'No queued videos to upload' }
     }
 
@@ -240,11 +313,7 @@ export async function runWeeklyUpload({ force = false } = {}) {
     saveCatalog(catalog)
     return { skipped: false, uploaded }
   } finally {
-    try {
-      fs.unlinkSync(WEEKLY_LOCK_PATH)
-    } catch {
-      /* ignore */
-    }
+    clearLock()
   }
 }
 

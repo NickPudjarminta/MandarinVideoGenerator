@@ -52,9 +52,11 @@ On API startup, if the last weekly run is older than ~7 days (or never), the sam
 
 1. Create a Basic Task → trigger **Weekly** (e.g. Monday 9:00 AM)
 2. Action: Start a program  
-   - Program: `npm.cmd` (or full path to Node)  
-   - Arguments: `run studio:weekly-upload`  
+   - Program: full path to `node.exe` (e.g. `C:\Program Files\nodejs\node.exe`)  
+   - Arguments: `scripts/weeklyUpload.mjs`  
    - Start in: this project folder  
+
+Prefer `node.exe` over `npm.cmd run …` so the task exits cleanly when uploads finish (Task Scheduler stays “Running” until the process exits).
 
 ## Data layout
 

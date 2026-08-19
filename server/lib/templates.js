@@ -65,6 +65,27 @@ export function spreadsheetPath(id) {
   return path.join(templateDir(id), 'spreadsheet.xlsx')
 }
 
+/** Hex without # — Studio set thumbnail text color by template id. */
+export function defaultThumbnailTextColor(templateId) {
+  const id = sanitizeId(templateId)
+  const map = {
+    hsk1: '068791',
+    hsk2: 'EE6D08',
+    hsk3: 'BD0F19',
+    hsk4: '173F75',
+    hsk5: '631F62',
+  }
+  return map[id] || '068791'
+}
+
+export function normalizeThumbnailTextColor(value, templateId) {
+  const raw = String(value || '')
+    .trim()
+    .replace(/^#/, '')
+  if (/^[0-9a-fA-F]{6}$/.test(raw)) return raw.toUpperCase()
+  return defaultThumbnailTextColor(templateId)
+}
+
 export function defaultTemplateConfig(id, name) {
   const tid = sanitizeId(id)
   return {
@@ -74,6 +95,7 @@ export function defaultTemplateConfig(id, name) {
     titleTemplate: DEFAULT_TITLE_TEMPLATE,
     descriptionTemplate: DEFAULT_DESCRIPTION_TEMPLATE,
     playlistUrl: `https://www.youtube.com/playlist?list=${PLAYLIST_ID}`,
+    thumbnailTextColor: defaultThumbnailTextColor(tid),
     assets: { ...ASSET_KEYS },
   }
 }
@@ -87,6 +109,7 @@ export function loadTemplate(id) {
     ...defaultTemplateConfig(tid, raw.name),
     ...raw,
     id: tid,
+    thumbnailTextColor: normalizeThumbnailTextColor(raw.thumbnailTextColor, tid),
     assets: { ...ASSET_KEYS, ...(raw.assets || {}) },
   }
 }
@@ -100,6 +123,7 @@ export function saveTemplate(config) {
     ...defaultTemplateConfig(tid, config.name),
     ...config,
     id: tid,
+    thumbnailTextColor: normalizeThumbnailTextColor(config.thumbnailTextColor, tid),
     assets: { ...ASSET_KEYS, ...(config.assets || {}) },
   }
   fs.writeFileSync(templateJsonPath(tid), `${JSON.stringify(clean, null, 2)}\n`, 'utf8')

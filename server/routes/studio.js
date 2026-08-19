@@ -4,7 +4,7 @@ import { bootstrapStudio, listTemplates, loadTemplate, saveTemplate, spreadsheet
 import { loadCatalog, saveCatalog, listVideos, getVideo, upsertVideo } from '../lib/catalog.js'
 import { loadTemplateRows, setCount, getTemplateSet } from '../lib/templateSets.js'
 import { buildTemplateMeta } from '../lib/templateMeta.js'
-import { enqueueGenerate, getQueueStatus } from '../lib/generateQueue.js'
+import { enqueueGenerate, enqueueOneOff, enqueueOneOffRegenerate, getQueueStatus } from '../lib/generateQueue.js'
 import { runWeeklyUpload } from '../lib/weeklyUpload.js'
 import { queueUploads, displayStatus } from '../lib/queueUploads.js'
 import { OUTPUT_DIR } from '../lib/paths.js'
@@ -145,6 +145,52 @@ export async function enqueueGenerateHandler(c) {
     templateId,
     setIndexes: body.setIndexes,
     missingOnly: Boolean(body.missingOnly),
+  })
+  return jsonOk(c, status)
+}
+
+export async function enqueueOneOffHandler(c) {
+  const body = await c.req.json()
+  const id = String(body.id || '').trim()
+
+  // Always regenerate when flagged or when targeting an existing grammar catalog id
+  if (body.regenerate || id.startsWith('grammar:')) {
+    if (!id.startsWith('grammar:')) {
+      throw new Error('id required to regenerate one-off (grammar:…)')
+    }
+    const status = enqueueOneOffRegenerate(id, {
+      hskLevel: body.hskLevel,
+      thumbnailText: body.thumbnailText,
+      title: body.title,
+      description: body.description,
+      publishAt: body.publishAt,
+      phrases: Array.isArray(body.phrases) ? body.phrases : undefined,
+    })
+    return jsonOk(c, status)
+  }
+
+  const hskLevel = String(body.hskLevel ?? '').trim() || '1'
+  const thumbnailText = String(body.thumbnailText || '').replace(/\s+$/, '')
+  const title = String(body.title || '').trim()
+  const description = String(body.description || '')
+  const publishAt = String(body.publishAt || '').trim()
+  const phrases = Array.isArray(body.phrases) ? body.phrases : []
+  if (!thumbnailText.trim()) throw new Error('thumbnailText required')
+  if (!title) throw new Error('title required')
+  if (!description.trim()) throw new Error('description required')
+  if (!publishAt) throw new Error('publishAt required')
+  if (!phrases.length) throw new Error('phrases required')
+
+  const status = enqueueOneOff({
+    hskLevel,
+    thumbnailText,
+    title,
+    description,
+    phrases,
+    publishAt,
+    gapSec: Number(body.gapSec) || 2,
+    revealGapSec: Number(body.revealGapSec) || 2,
+    slug: body.slug || undefined,
   })
   return jsonOk(c, status)
 }

@@ -5,6 +5,7 @@
   "titleTemplate": "Chinese Listening Drills Set {{setIndex}} | New HSK 3 (2026 3.0)  | {{firstWord}} to {{lastWord}}",
   "descriptionTemplate": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for {{firstWord}} to {{lastWord}}, listen to all 500 HSK level 3 phrases at:\n{{playlistUrl}}\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n{{timestamps}}\n\nFULL VOCAB LIST\n{{vocabList}}\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
   "playlistUrl": "https://www.youtube.com/playlist?list=PLSBjUp0GMW_c",
+  "thumbnailTextColor": "BD0F19",
   "assets": {
     "thumbnailBase": "thumbnailBase.png",
     "endFrame": "endFrame.png",
