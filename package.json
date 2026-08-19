@@ -3,10 +3,17 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev": "concurrently -n api,web -c cyan,magenta \"node server/index.js\" \"vite\"",
     "dev:web": "vite",
     "dev:api": "node server/index.js",
+    "dev:hsk": "concurrently -n api,web -c cyan,magenta \"node server/index.js\" \"vite --open /hsk\"",
+    "dev:grammar": "concurrently -n api,web -c cyan,magenta \"node server/index.js\" \"vite --open /grammar\"",
+    "dev:scheduler": "concurrently -n api,web -c cyan,magenta \"node server/index.js\" \"vite --open /scheduler\"",
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
@@ -17,6 +24,7 @@
     "autopilot:upload": "node scripts/autopilot.mjs upload",
     "autopilot:update-meta": "node scripts/updateYoutubeMeta.mjs",
     "studio:weekly-upload": "node scripts/weeklyUpload.mjs",
+    "scheduler:weekly-upload": "node scripts/weeklyUpload.mjs",
     "studio:bootstrap": "node -e \"import('./server/lib/templates.js').then(m=>console.log(JSON.stringify(m.bootstrapStudio(),null,2)))\""
   },
   "dependencies": {

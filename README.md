@@ -1,6 +1,12 @@
-# Mandarin Listening Studio
+# Mandarin Video Generator
 
-Local studio for HSK listening-practice videos: **templates**, **bulk generate queue**, and a **calendar** backed by one catalog (`data/catalog.json`).
+Monorepo with three apps joined by a package folder contract:
+
+| App | Route | Role |
+|-----|-------|------|
+| **HSK Generator** | `/hsk` | Templates + set generation → `output/{templateId}/Set_N/` |
+| **Grammar Generator** | `/grammar` | One-off packages → `output/grammar/{slug}/` (no publish datetime) |
+| **YouTube Scheduler** | `/scheduler` | Owns `data/catalog.json`, import packages, calendar, queue/weekly upload, reschedule, push meta to YouTube |
 
 **Stack:** Vite + React · Hono API · Azure Neural TTS · `@napi-rs/canvas` · FFmpeg · YouTube Data API
 
@@ -8,8 +14,8 @@ Local studio for HSK listening-practice videos: **templates**, **bulk generate q
 
 - Node.js 20+
 - FFmpeg on `PATH`
-- Azure Speech key in `.env`
-- For uploads: Desktop OAuth `client_secret.json` in the project root (token saved to `data/youtube-token.json`)
+- Azure Speech key in `.env` (generators)
+- For uploads: Desktop OAuth `client_secret.json` in the project root (token saved to `data/youtube-token.json`) — scheduler only
 
 ## Setup
 
@@ -23,51 +29,58 @@ AZURE_SPEECH_KEY=...
 AZURE_SPEECH_REGION=eastus
 ```
 
-## Run UI
+## Run
 
 ```powershell
 npm.cmd run dev
 ```
 
-- Web: http://127.0.0.1:5173  
+- Hub: http://127.0.0.1:5173  
+- Apps: `/hsk`, `/grammar`, `/scheduler`  
 - API: http://127.0.0.1:8787  
 
-### Studio tabs
+Per-app scripts: `npm run dev:hsk` · `npm run dev:grammar` · `npm run dev:scheduler`
 
-1. **Templates** — Create/edit templates (spreadsheet, images, title/description templates with `{{setIndex}}`, `{{firstWord}}`, `{{lastWord}}`, `{{playlistUrl}}`)
-2. **Queue** — Generate all sets (or missing only); **Queue YouTube uploads** assigns Mon–Fri noon slots to all ready videos (no API upload yet)
-3. **Calendar** — Shows **queued for upload** / **scheduled** / **published** from `publishAt` + whether a YouTube `videoId` exists
+### Layout
+
+```
+apps/hsk-generator/
+apps/grammar-generator/
+apps/youtube-scheduler/
+packages/shared/          # package contract helpers, playlist id
+server/routes/hsk.js | grammar.js | scheduler.js
+```
+
+### Package contract
+
+Each finished video folder contains at least `video.mp4` + `meta.json` (optional thumbnail / SRT / youtube.txt). Scheduler **Import packages** scans `output/` and adds missing rows as `ready`.
 
 ## Weekly YouTube upload
 
-Uploads at most **5 videos per Pacific calendar day**, with a **5-minute pause** between each YouTube insert (avoids API spam). Only videos with status `queued` (slots already assigned) are uploaded.
+Uploads at most **5 videos per Pacific calendar day**, with a **5-minute pause** between inserts. Only `queued` videos (slots assigned in the scheduler) are uploaded.
 
 ```bash
-npm run studio:weekly-upload
+npm run scheduler:weekly-upload
+# alias: npm run studio:weekly-upload
 ```
-
-On API startup, if the last weekly run is older than ~7 days (or never), the same job runs as catch-up (still subject to the daily limit).
 
 ### Windows Task Scheduler
 
 1. Create a Basic Task → trigger **Weekly** (e.g. Monday 9:00 AM)
 2. Action: Start a program  
-   - Program: full path to `node.exe` (e.g. `C:\Program Files\nodejs\node.exe`)  
+   - Program: full path to `node.exe`  
    - Arguments: `scripts/weeklyUpload.mjs`  
    - Start in: this project folder  
 
-Prefer `node.exe` over `npm.cmd run …` so the task exits cleanly when uploads finish (Task Scheduler stays “Running” until the process exits).
+Prefer `node.exe` over `npm.cmd run …` so the task exits cleanly.
 
 ## Data layout
 
 | Path | Role |
 |------|------|
-| `data/catalog.json` | **Source of truth** for all videos/schedule |
-| `data/templates/{id}/` | `template.json`, `spreadsheet.xlsx`, `assets/` |
-| `output/{templateId}/Set_N/` | Generated packages |
+| `data/catalog.json` | Scheduler source of truth |
+| `data/templates/{id}/` | HSK template assets |
+| `output/{templateId}/Set_N/` | HSK packages |
+| `output/grammar/{slug}/` | Grammar packages |
 | `cache/tts/` | TTS cache |
 | `.tmp/render/` | FFmpeg work dirs |
-
-## Legacy CLI
-
-Older autopilot commands still exist (`autopilot:generate`, etc.) but the Studio UI + catalog is the primary workflow going forward.

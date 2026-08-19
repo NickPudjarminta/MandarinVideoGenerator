@@ -16,6 +16,8 @@ const UPLOAD_GAP_MS = 5 * 60 * 1000
 const WEEK_MS = 7 * 24 * 3600 * 1000
 const LOCK_MAX_AGE_MS = 3 * 60 * 60 * 1000 // allow multi-upload run with gaps
 
+export { DAILY_UPLOAD_LIMIT }
+
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
@@ -29,7 +31,7 @@ function pacificYmd(date = new Date()) {
   }).format(date)
 }
 
-function uploadedTodayCount(catalog) {
+export function uploadedTodayCount(catalog) {
   const today = pacificYmd()
   return (catalog.videos || []).filter((v) => {
     if (v.status !== 'uploaded' || !v.videoId || !v.uploadedAt) return false
@@ -37,6 +39,17 @@ function uploadedTodayCount(catalog) {
     if (!Number.isFinite(t)) return false
     return pacificYmd(new Date(t)) === today
   }).length
+}
+
+export function getUploadQuota(catalog = loadCatalog()) {
+  const used = uploadedTodayCount(catalog)
+  return {
+    timezone: 'America/Los_Angeles',
+    dailyLimit: DAILY_UPLOAD_LIMIT,
+    uploadedToday: used,
+    remaining: Math.max(0, DAILY_UPLOAD_LIMIT - used),
+    pacificDate: pacificYmd(),
+  }
 }
 
 function resolvePackageDir(video) {

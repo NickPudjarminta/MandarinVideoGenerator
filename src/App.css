@@ -263,6 +263,7 @@ button, input, textarea, select {
   gap: 0.45rem;
   cursor: pointer;
   color: var(--muted);
+  text-decoration: none;
 }
 
 .step-pill span {

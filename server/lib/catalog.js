@@ -2,11 +2,12 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { ROOT, OUTPUT_DIR, DATA_DIR, PUBLIC_DIR } from './paths.js'
 import { FIRST_PUBLISH_AT, computeNextPublishAt, STATE_PATH } from './autopilotState.js'
+import { PLAYLIST_ID } from '../../packages/shared/playlist.js'
 
 export const CATALOG_PATH = path.join(DATA_DIR, 'catalog.json')
 export const TEMPLATES_DIR = path.join(DATA_DIR, 'templates')
 export const WEEKLY_LOCK_PATH = path.join(DATA_DIR, 'weekly-upload.lock')
-export const PLAYLIST_ID = 'PLSBjUp0GMW_c'
+export { PLAYLIST_ID }
 
 const DEFAULT_CATALOG = {
   version: 1,

@@ -1,0 +1,11 @@
+{
+  "name": "@mandarin/youtube-scheduler",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --config ../../vite.config.js --open /apps/youtube-scheduler/",
+    "build": "vite build --config ../../vite.config.js",
+    "weekly-upload": "node ../../scripts/weeklyUpload.mjs"
+  }
+}

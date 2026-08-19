@@ -95,7 +95,7 @@ export function enqueueOneOff(payload) {
     title: payload.title,
     status: 'pending',
     packageDir: `grammar/${slug}`,
-    publishAt: payload.publishAt || existing?.publishAt || null,
+    publishAt: existing?.publishAt || null,
     error: null,
     hskLevel: payload.hskLevel,
     thumbnailText: payload.thumbnailText,
@@ -104,10 +104,11 @@ export function enqueueOneOff(payload) {
   })
   saveCatalog(catalog)
 
+  const { publishAt: _ignoredPublishAt, ...payloadRest } = payload
   state.queue.push({
     kind: 'oneoff',
     id,
-    payload: { ...payload, slug },
+    payload: { ...payloadRest, slug },
   })
   pump()
   return { ...getQueueStatus(), id, slug }
@@ -178,9 +179,6 @@ export function enqueueOneOffRegenerate(catalogVideoId, overrides = {}) {
         '',
     ),
     phrases,
-    publishAt: String(
-      overrides.publishAt ?? video.publishAt ?? meta.publishAt ?? '',
-    ).trim(),
     slug,
   })
 }

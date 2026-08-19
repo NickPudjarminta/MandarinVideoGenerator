@@ -83,7 +83,7 @@ export function makeGrammarSlug(thumbnailText) {
 
 /**
  * Generate a one-off grammar listening package under output/grammar/{slug}/.
- * Catalog row is queued with the caller-provided publishAt.
+ * Writes a ready package only — scheduler owns publishAt / YouTube queue.
  */
 export async function generateOneOff({
   hskLevel,
@@ -91,7 +91,6 @@ export async function generateOneOff({
   title,
   description,
   phrases,
-  publishAt,
   gapSec = 2,
   revealGapSec = 2,
   onProgress,
@@ -101,7 +100,7 @@ export async function generateOneOff({
   const level = String(hskLevel ?? '1').trim() || '1'
   const thumbText = String(thumbnailText || '').replace(/\s+$/, '')
   const finalTitle = String(title || '').trim()
-  const publish = String(publishAt || '').trim()
+  // Scheduler owns publishAt; preserve existing catalog schedule on regenerate only
   const list = (Array.isArray(phrases) ? phrases : [])
     .map((p) => ({
       zh: String(p.zh || '').trim(),
@@ -112,11 +111,7 @@ export async function generateOneOff({
   if (!thumbText.trim()) throw new Error('thumbnailText required')
   if (!finalTitle) throw new Error('title required')
   if (!String(description || '').trim()) throw new Error('description required')
-  if (!publish) throw new Error('publishAt required')
   if (!list.length) throw new Error('phrases required')
-  if (!Number.isFinite(Date.parse(publish))) {
-    throw new Error('publishAt must be a valid datetime')
-  }
 
   const assetTemplateId = `hsk${level}`
   let assets
@@ -135,6 +130,7 @@ export async function generateOneOff({
   fs.mkdirSync(outDir, { recursive: true })
 
   const existing = loadCatalog().videos.find((v) => v.id === catalogId) || null
+  const preservedPublishAt = existing?.publishAt || null
 
   {
     const catalog = loadCatalog()
@@ -147,7 +143,7 @@ export async function generateOneOff({
       title: finalTitle,
       status: 'generating',
       packageDir: packageRel,
-      publishAt: publish,
+      publishAt: preservedPublishAt,
       videoId: existing?.videoId || null,
       uploadedAt: existing?.uploadedAt || null,
       error: null,
@@ -274,7 +270,6 @@ export async function generateOneOff({
       description: finalDescription,
       phraseCount: list.length,
       durationSec: result.durationSec,
-      publishAt: publish,
       phrases: list,
     }
     fs.writeFileSync(path.join(outDir, 'meta.json'), `${JSON.stringify(meta, null, 2)}\n`, 'utf8')
@@ -289,9 +284,9 @@ export async function generateOneOff({
       lastWord: list[list.length - 1]?.zh || '',
       title: finalTitle,
       description: finalDescription,
-      status: prev?.videoId ? prev.status : 'queued',
+      status: prev?.videoId ? prev.status : 'ready',
       packageDir: packageRel,
-      publishAt: publish,
+      publishAt: prev?.publishAt || preservedPublishAt,
       videoId: prev?.videoId || null,
       uploadedAt: prev?.uploadedAt || null,
       error: null,
@@ -311,7 +306,6 @@ export async function generateOneOff({
       srtPath,
       title: finalTitle,
       description: finalDescription,
-      publishAt: publish,
       meta,
       durationSec: result.durationSec,
     }
@@ -323,7 +317,7 @@ export async function generateOneOff({
       setIndex: 0,
       status: 'failed',
       packageDir: packageRel,
-      publishAt: publish,
+      publishAt: preservedPublishAt,
       error: err.message || String(err),
       hskLevel: level,
       thumbnailText: thumbText,
