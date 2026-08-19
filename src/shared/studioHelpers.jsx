@@ -91,7 +91,7 @@ export function toDatetimeLocalValue(publishAt) {
 
 export const APP_NAV = [
   { href: '/hsk', label: 'HSK Generator' },
-  { href: '/grammar', label: 'Grammar Generator' },
+  { href: '/grammar', label: 'Grammar Pair Generator' },
   { href: '/scheduler', label: 'YouTube Scheduler' },
 ]
 

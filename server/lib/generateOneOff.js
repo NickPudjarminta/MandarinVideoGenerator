@@ -81,9 +81,18 @@ export function makeGrammarSlug(thumbnailText) {
   return `${base}_${stamp}_${short}`.slice(0, 80)
 }
 
+export function makeGrammarPairSlug(characterA, characterB) {
+  const a = sanitizePackageSegment(characterA) || 'A'
+  const b = sanitizePackageSegment(characterB) || 'B'
+  const stamp = new Date().toISOString().slice(0, 10)
+  const short = crypto.randomBytes(3).toString('hex')
+  return `${a}_vs_${b}_${stamp}_${short}`.slice(0, 80)
+}
+
 /**
  * Generate a one-off grammar listening package under output/grammar/{slug}/.
  * Writes a ready package only — scheduler owns publishAt / YouTube queue.
+ * Thumbnails always use the Grammar base style; ear/chime/endframe come from hsk1.
  */
 export async function generateOneOff({
   hskLevel,
@@ -91,16 +100,20 @@ export async function generateOneOff({
   title,
   description,
   phrases,
+  characterA,
+  characterB,
   gapSec = 2,
   revealGapSec = 2,
   onProgress,
   signal,
   slug: slugIn,
 } = {}) {
-  const level = String(hskLevel ?? '1').trim() || '1'
+  const charA = String(characterA || '').trim()
+  const charB = String(characterB || '').trim()
+  // Video overlay assets still need an HSK template; default hsk1 (no user HSK pick).
+  const assetLevel = String(hskLevel ?? '1').trim() || '1'
   const thumbText = String(thumbnailText || '').replace(/\s+$/, '')
   const finalTitle = String(title || '').trim()
-  // Scheduler owns publishAt; preserve existing catalog schedule on regenerate only
   const list = (Array.isArray(phrases) ? phrases : [])
     .map((p) => ({
       zh: String(p.zh || '').trim(),
@@ -113,17 +126,21 @@ export async function generateOneOff({
   if (!String(description || '').trim()) throw new Error('description required')
   if (!list.length) throw new Error('phrases required')
 
-  const assetTemplateId = `hsk${level}`
+  const assetTemplateId = `hsk${assetLevel}`
   let assets
   try {
     assets = resolveTemplateAssets(assetTemplateId)
   } catch (err) {
     throw new Error(
-      `HSK ${level} template assets required for one-off videos (${err.message}). Seed/create the hsk${level} template first.`,
+      `HSK ${assetLevel} template assets required for one-off videos (${err.message}). Seed/create the hsk${assetLevel} template first.`,
     )
   }
 
-  const slug = slugIn || makeGrammarSlug(thumbText)
+  const slug =
+    slugIn ||
+    (charA && charB
+      ? makeGrammarPairSlug(charA, charB)
+      : makeGrammarSlug(thumbText))
   const catalogId = `grammar:${slug}`
   const packageRel = `grammar/${slug}`
   const outDir = path.join(OUTPUT_DIR, 'grammar', slug)
@@ -147,8 +164,10 @@ export async function generateOneOff({
       videoId: existing?.videoId || null,
       uploadedAt: existing?.uploadedAt || null,
       error: null,
-      hskLevel: level,
+      hskLevel: assetLevel,
       thumbnailText: thumbText,
+      characterA: charA || null,
+      characterB: charB || null,
       phrases: list,
     })
     saveCatalog(catalog)
@@ -254,7 +273,7 @@ export async function generateOneOff({
     onProgress?.({ phase: 'thumbnail', message: 'grammar: thumbnail…' })
     const thumbPath = path.join(outDir, 'thumbnail.png')
     await renderListeningThumbnail({
-      hskLevel: level,
+      hskLevel: 'grammar',
       text: thumbText,
       outPath: thumbPath,
       signal,
@@ -262,9 +281,12 @@ export async function generateOneOff({
 
     const meta = {
       templateId: 'grammar',
-      hskLevel: level,
+      hskLevel: assetLevel,
+      thumbnailStyle: 'grammar',
       slug,
       thumbnailText: thumbText,
+      characterA: charA || null,
+      characterB: charB || null,
       title: finalTitle,
       descriptionTemplate,
       description: finalDescription,
@@ -290,8 +312,10 @@ export async function generateOneOff({
       videoId: prev?.videoId || null,
       uploadedAt: prev?.uploadedAt || null,
       error: null,
-      hskLevel: level,
+      hskLevel: assetLevel,
       thumbnailText: thumbText,
+      characterA: charA || null,
+      characterB: charB || null,
       phrases: list,
     })
     saveCatalog(catalog)
@@ -319,8 +343,10 @@ export async function generateOneOff({
       packageDir: packageRel,
       publishAt: preservedPublishAt,
       error: err.message || String(err),
-      hskLevel: level,
+      hskLevel: assetLevel,
       thumbnailText: thumbText,
+      characterA: charA || null,
+      characterB: charB || null,
       title: finalTitle,
     })
     saveCatalog(catalog)

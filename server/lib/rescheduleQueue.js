@@ -26,6 +26,8 @@ export function isOutOfSync(video) {
 
 /**
  * Backfill youtubePublishAt = publishAt for uploaded rows missing the field.
+ * Also restore publishAt from youtubePublishAt when an uploaded row lost its slot
+ * (e.g. Incoming swap bug).
  * @returns {boolean} whether catalog was mutated
  */
 export function migrateYoutubePublishAt(catalog) {
@@ -33,6 +35,10 @@ export function migrateYoutubePublishAt(catalog) {
   for (const v of catalog.videos) {
     if (v.videoId && v.publishAt && !v.youtubePublishAt) {
       v.youtubePublishAt = v.publishAt
+      changed = true
+    }
+    if (v.videoId && !v.publishAt && v.youtubePublishAt) {
+      v.publishAt = v.youtubePublishAt
       changed = true
     }
   }
@@ -325,9 +331,119 @@ export function slideQueuedBlock({
 }
 
 /**
+ * Insert unscheduled (Incoming) videos at a timeline slot and cascade later
+ * unlocked cards one slot later. Appends N new weekday slots at the end.
+ * Single Incoming onto an empty slot fills in place (no cascade).
+ */
+export function insertIncomingAtSlot({
+  ids,
+  startPublishAt,
+  insertAfter = false,
+} = {}) {
+  const catalog = loadCatalog()
+  ensureExtraSlots(catalog)
+
+  const list = (Array.isArray(ids) ? ids : []).map(String).filter(Boolean)
+  const start = String(startPublishAt || '').trim()
+  if (!list.length) throw new Error('ids required')
+  if (!start || !Number.isFinite(Date.parse(start))) {
+    throw new Error('startPublishAt required')
+  }
+
+  for (const vid of list) {
+    const v = getVideo(catalog, vid)
+    if (!v) throw new Error(`Video not found: ${vid}`)
+    if (v.videoId) throw new Error(`Already uploaded: ${vid}`)
+    if (v.publishAt) throw new Error(`Already scheduled: ${vid}`)
+  }
+
+  const cells = buildTimeline(catalog).filter((r) => !r.locked)
+  const slots = cells.map((c) => c.publishAt)
+  const occupants = cells.map((c) => c.video?.id || null)
+
+  let insertIdx = slots.indexOf(start)
+  if (insertIdx < 0) {
+    throw new Error('startPublishAt not in movable timeline')
+  }
+  if (insertAfter) insertIdx += 1
+  insertIdx = Math.max(0, Math.min(insertIdx, occupants.length))
+
+  // Single incoming onto empty cell (exact slot, not after): fill only
+  if (
+    list.length === 1 &&
+    !insertAfter &&
+    insertIdx < occupants.length &&
+    !occupants[insertIdx]
+  ) {
+    const video = getVideo(catalog, list[0])
+    setVideoSlot(catalog, video, start)
+    saveCatalog(catalog)
+    return { assigned: [{ id: video.id, publishAt: start }], count: 1 }
+  }
+
+  const next = [
+    ...occupants.slice(0, insertIdx),
+    ...list,
+    ...occupants.slice(insertIdx),
+  ]
+  const after =
+    slots.at(-1) || listTimelineSlots(catalog).at(-1) || uploadedLastPublishAt(catalog)
+  const more = buildNewSlots(list.length, after, catalog, { applyWeeksAhead: false })
+  const allSlots = [...slots, ...more]
+  if (next.length !== allSlots.length) {
+    throw new Error(
+      `insert length mismatch: ${next.length} occupants vs ${allSlots.length} slots`,
+    )
+  }
+
+  // Clear current movable occupants so reassignment cannot collide
+  for (const id of occupants) {
+    if (!id) continue
+    const v = getVideo(catalog, id)
+    if (v.publishAt) addExtraSlot(catalog, v.publishAt, { force: true })
+    upsertVideo(catalog, {
+      ...v,
+      publishAt: null,
+      status: preserveStatus(v),
+      error: null,
+    })
+  }
+
+  const assigned = []
+  for (let i = 0; i < allSlots.length; i++) {
+    const publishAt = allSlots[i]
+    const id = next[i]
+    if (id) {
+      const v = getVideo(catalog, id)
+      removeExtraSlot(catalog, publishAt)
+      upsertVideo(catalog, {
+        ...v,
+        publishAt,
+        status: preserveStatus(v),
+        error: null,
+      })
+      if (list.includes(id)) assigned.push({ id, publishAt })
+    } else {
+      addExtraSlot(catalog, publishAt, { force: true })
+    }
+  }
+
+  pruneOccupiedExtraSlots(catalog)
+  catalog.schedule.lastPublishAt =
+    listTimelineSlots(catalog).at(-1) || catalog.schedule.lastPublishAt
+  saveCatalog(catalog)
+  return {
+    assigned,
+    count: assigned.length,
+    cascaded: true,
+    newSlots: more,
+  }
+}
+
+/**
  * Place one or more queued videos starting at startPublishAt.
  * Already-scheduled videos use slideQueuedBlock (dates fixed, occupants splice).
- * Unscheduled / incoming use vacate + fill semantics.
+ * Unscheduled / incoming use insertIncomingAtSlot (cascade) or fill empty.
  */
 export function placeVideos({
   ids,
@@ -364,7 +480,19 @@ export function placeVideos({
     return slideQueuedBlock({ ids: list, startPublishAt: start, insertAfter })
   }
 
-  // Single-video onto a slot: empty → place; queued/future occupant → swap; live → error
+  const noneScheduled = list.every((vid) => !getVideo(catalog, vid)?.publishAt)
+  if (noneScheduled) {
+    const occ = occupantAt(catalog, start)
+    if (isLivePublished(occ)) throw new Error('Cannot place onto a published slot')
+    return insertIncomingAtSlot({
+      ids: list,
+      startPublishAt: start,
+      insertAfter,
+    })
+  }
+
+  // Mixed / single with publishAt leftover paths
+  // Single-video onto a slot: empty → place; both scheduled → swap; live → error
   if (list.length === 1) {
     const video = getVideo(catalog, list[0])
     const occ = occupantAt(catalog, start)
@@ -372,8 +500,8 @@ export function placeVideos({
     if (occ && occ.id === video.id) {
       return { assigned: [{ id: video.id, publishAt: start }], count: 1 }
     }
-    if (occ && !isLivePublished(occ)) {
-      // swap
+    if (occ && !isLivePublished(occ) && video.publishAt) {
+      // Both scheduled: swap
       const aPrev = video.publishAt
       const bPrev = occ.publishAt
       upsertVideo(catalog, {
@@ -405,7 +533,7 @@ export function placeVideos({
     return { assigned: [{ id: video.id, publishAt: start }], count: 1 }
   }
 
-  // Block place: need contiguous free-or-displaceable slots starting at `start`
+  // Block place for remaining edge cases (should be rare)
   const moving = new Set(list)
   const timeline = listTimelineSlots(catalog)
   let startIdx = timeline.indexOf(start)

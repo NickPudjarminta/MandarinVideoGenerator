@@ -12,7 +12,7 @@ import { OUTPUT_DIR } from './paths.js'
 import { getTemplateSet, loadTemplateRows, setCount } from './templateSets.js'
 import { loadTemplate } from './templates.js'
 import { generateListeningSet } from './generateListeningSet.js'
-import { generateOneOff, makeGrammarSlug } from './generateOneOff.js'
+import { generateOneOff, makeGrammarSlug, makeGrammarPairSlug } from './generateOneOff.js'
 
 const state = {
   queue: [],
@@ -74,11 +74,15 @@ export function enqueueGenerate({ templateId, setIndexes, missingOnly = false })
  * Pass `slug` (or `id: grammar:slug`) to regenerate into the same package folder.
  */
 export function enqueueOneOff(payload) {
+  const charA = String(payload.characterA || '').trim()
+  const charB = String(payload.characterB || '').trim()
   const slug =
     payload.slug ||
     (payload.id && String(payload.id).startsWith('grammar:')
       ? String(payload.id).slice('grammar:'.length)
-      : makeGrammarSlug(payload.thumbnailText))
+      : charA && charB
+        ? makeGrammarPairSlug(charA, charB)
+        : makeGrammarSlug(payload.thumbnailText))
   const id = `grammar:${slug}`
   const exists = state.queue.some((j) => j.kind === 'oneoff' && j.id === id)
   const isCurrent = state.current?.kind === 'oneoff' && state.current?.id === id
@@ -97,8 +101,10 @@ export function enqueueOneOff(payload) {
     packageDir: `grammar/${slug}`,
     publishAt: existing?.publishAt || null,
     error: null,
-    hskLevel: payload.hskLevel,
+    hskLevel: payload.hskLevel || '1',
     thumbnailText: payload.thumbnailText,
+    characterA: charA || null,
+    characterB: charB || null,
     videoId: existing?.videoId || null,
     uploadedAt: existing?.uploadedAt || null,
   })
@@ -108,7 +114,7 @@ export function enqueueOneOff(payload) {
   state.queue.push({
     kind: 'oneoff',
     id,
-    payload: { ...payloadRest, slug },
+    payload: { ...payloadRest, slug, hskLevel: payload.hskLevel || '1' },
   })
   pump()
   return { ...getQueueStatus(), id, slug }
@@ -179,6 +185,12 @@ export function enqueueOneOffRegenerate(catalogVideoId, overrides = {}) {
         '',
     ),
     phrases,
+    characterA: String(
+      overrides.characterA ?? meta.characterA ?? video.characterA ?? '',
+    ).trim() || undefined,
+    characterB: String(
+      overrides.characterB ?? meta.characterB ?? video.characterB ?? '',
+    ).trim() || undefined,
     slug,
   })
 }

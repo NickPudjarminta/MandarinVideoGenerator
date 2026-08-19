@@ -18,7 +18,7 @@ import {
   enqueueGenerateHandler,
   hskQueueStatusHandler,
 } from './routes/hsk.js'
-import { enqueueOneOffHandler, grammarQueueStatusHandler } from './routes/grammar.js'
+import { enqueueOneOffHandler, grammarQueueStatusHandler, generatePhrasesHandler } from './routes/grammar.js'
 import {
   listVideosHandler,
   getVideoHandler,
@@ -79,6 +79,7 @@ app.get('/api/hsk/queue', (c) => wrap(hskQueueStatusHandler, c))
 
 // --- Grammar generator ---
 app.post('/api/grammar/one-off', (c) => wrap(enqueueOneOffHandler, c))
+app.post('/api/grammar/phrases', (c) => wrap(generatePhrasesHandler, c))
 app.get('/api/grammar/queue', (c) => wrap(grammarQueueStatusHandler, c))
 
 // --- YouTube scheduler ---

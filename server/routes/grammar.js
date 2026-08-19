@@ -1,7 +1,17 @@
 import { enqueueOneOff, enqueueOneOffRegenerate, getQueueStatus } from '../lib/generateQueue.js'
+import { generateGrammarPairPhrases } from '../lib/grammarPhrases.js'
 
 function jsonOk(c, data) {
   return c.json(data)
+}
+
+export async function generatePhrasesHandler(c) {
+  const body = await c.req.json()
+  const characterA = String(body.characterA || '').trim()
+  const characterB = String(body.characterB || '').trim()
+  const hskLevel = String(body.hskLevel ?? '1').trim() || '1'
+  const phrases = await generateGrammarPairPhrases(characterA, characterB, hskLevel)
+  return jsonOk(c, { phrases, characterA, characterB, hskLevel, count: phrases.length })
 }
 
 export async function enqueueOneOffHandler(c) {
@@ -18,10 +28,14 @@ export async function enqueueOneOffHandler(c) {
       title: body.title,
       description: body.description,
       phrases: Array.isArray(body.phrases) ? body.phrases : undefined,
+      characterA: body.characterA,
+      characterB: body.characterB,
     })
     return jsonOk(c, status)
   }
 
+  const characterA = String(body.characterA || '').trim()
+  const characterB = String(body.characterB || '').trim()
   const hskLevel = String(body.hskLevel ?? '').trim() || '1'
   const thumbnailText = String(body.thumbnailText || '').replace(/\s+$/, '')
   const title = String(body.title || '').trim()
@@ -38,6 +52,8 @@ export async function enqueueOneOffHandler(c) {
     title,
     description,
     phrases,
+    characterA: characterA || undefined,
+    characterB: characterB || undefined,
     gapSec: Number(body.gapSec) || 2,
     revealGapSec: Number(body.revealGapSec) || 2,
     slug: body.slug || undefined,

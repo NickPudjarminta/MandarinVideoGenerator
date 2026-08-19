@@ -468,6 +468,7 @@ export default function SchedulerApp() {
           await apiPost('/api/scheduler/place', {
             ids,
             startPublishAt: timeline[target].publishAt,
+            insertAfter: true,
           })
           setStatus(`Moved ${ids.length} video(s) down`)
         }

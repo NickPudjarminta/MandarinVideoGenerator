@@ -39,10 +39,20 @@ function ensureThumbFonts() {
 }
 
 /**
- * Resolve HSK thumbnail base + color. Returns null when no public base (e.g. 4+ until assets exist).
+ * Resolve thumbnail base + color.
+ * Pass hskLevel `grammar` (or non-numeric style key) for Grammar Pair Generator.
+ * Returns null when no public base (e.g. unknown HSK until assets exist).
  */
 export function resolveThumbnailStyle(hskLevel) {
-  const level = Number.parseInt(String(hskLevel || '').trim(), 10)
+  const key = String(hskLevel || '').trim().toLowerCase()
+  if (key === 'grammar') {
+    return {
+      level: 'grammar',
+      basePath: path.join(PUBLIC_DIR, 'ThumbnailBase_Grammar.png'),
+      color: 'E7682E',
+    }
+  }
+  const level = Number.parseInt(key, 10)
   switch (level) {
     case 1:
       return {
@@ -101,7 +111,7 @@ export async function renderListeningThumbnail({
   if (!style) return null
 
   if (!fs.existsSync(style.basePath)) {
-    if (style.level >= 4) return null
+    if (typeof style.level === 'number' && style.level >= 4) return null
     throw new Error(`Thumbnail base missing: ${style.basePath}`)
   }
 
