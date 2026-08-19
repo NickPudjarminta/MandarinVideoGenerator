@@ -3,6 +3,7 @@ export const STATUS_COLOR = {
   generating: '#f9ab00',
   ready: '#1a73e8',
   failed: '#d93025',
+  empty: '#5f6368',
   'queued for upload': '#f9ab00',
   scheduled: '#7b61ff',
   published: '#0d904f',

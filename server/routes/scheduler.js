@@ -5,6 +5,18 @@ import { runWeeklyUpload, getUploadQuota } from '../lib/weeklyUpload.js'
 import { queueUploads, displayStatus } from '../lib/queueUploads.js'
 import { importPackages } from '../lib/importPackages.js'
 import { pushYoutubeMeta } from '../lib/pushYoutubeMeta.js'
+import { syncYoutubeSchedule } from '../lib/syncYoutubeSchedule.js'
+import {
+  scheduleVideos,
+  unscheduleVideos,
+  reorderScheduled,
+  placeVideos,
+  pushLater,
+  removeEmptySlots,
+  buildTimeline,
+  migrateYoutubePublishAt,
+  isOutOfSync,
+} from '../lib/rescheduleQueue.js'
 
 function jsonOk(c, data) {
   return c.json(data)
@@ -14,15 +26,32 @@ export async function listVideosHandler(c) {
   bootstrapStudio()
   const templateId = c.req.query('templateId') || undefined
   const catalog = loadCatalog()
+  if (migrateYoutubePublishAt(catalog)) saveCatalog(catalog)
   const videos = listVideos(catalog, { templateId }).map((v) => ({
     ...v,
     displayStatus: displayStatus(v),
+    outOfSync: isOutOfSync(v),
+  }))
+  const timeline = buildTimeline(catalog).map((row) => ({
+    publishAt: row.publishAt,
+    locked: row.locked,
+    displayStatus: row.displayStatus,
+    outOfSync: row.outOfSync,
+    video: row.video
+      ? {
+          ...row.video,
+          displayStatus: displayStatus(row.video),
+          outOfSync: isOutOfSync(row.video),
+        }
+      : null,
   }))
   return jsonOk(c, {
     schedule: catalog.schedule,
     playlistId: catalog.playlistId,
     quota: getUploadQuota(catalog),
     videos,
+    timeline,
+    outOfSyncCount: videos.filter((v) => v.outOfSync).length,
   })
 }
 
@@ -70,6 +99,45 @@ export async function queueUploadsHandler(c) {
   return jsonOk(c, result)
 }
 
+export async function scheduleHandler(c) {
+  const body = await c.req.json()
+  const result = scheduleVideos({
+    ids: body?.ids,
+    beforeId: body?.beforeId ?? null,
+    publishAt: body?.publishAt ?? null,
+  })
+  return jsonOk(c, result)
+}
+
+export async function unscheduleHandler(c) {
+  const body = await c.req.json()
+  const result = unscheduleVideos({ ids: body?.ids })
+  return jsonOk(c, result)
+}
+
+export async function reorderHandler(c) {
+  const body = await c.req.json()
+  const result = reorderScheduled({ orderedIds: body?.orderedIds })
+  return jsonOk(c, result)
+}
+
+export async function placeHandler(c) {
+  const body = await c.req.json()
+  const result = placeVideos(body || {})
+  return jsonOk(c, result)
+}
+
+export async function pushLaterHandler(c) {
+  const body = await c.req.json()
+  const result = pushLater({ ids: body?.ids, weeks: body?.weeks })
+  return jsonOk(c, result)
+}
+
+export async function removeEmptySlotsHandler(c) {
+  const result = removeEmptySlots()
+  return jsonOk(c, result)
+}
+
 export async function weeklyUploadHandler(c) {
   const body = await c.req.json().catch(() => ({}))
   const result = await runWeeklyUpload({ force: Boolean(body?.force) })
@@ -83,6 +151,11 @@ export async function pushMetaHandler(c) {
     title: body?.title,
     description: body?.description,
   })
+  return jsonOk(c, result)
+}
+
+export async function syncScheduleHandler(c) {
+  const result = await syncYoutubeSchedule()
   return jsonOk(c, result)
 }
 

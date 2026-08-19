@@ -303,6 +303,7 @@ export async function runWeeklyUpload({ force = false } = {}) {
         description: meta.description,
         status: 'uploaded',
         publishAt,
+        youtubePublishAt: publishAt,
         videoId,
         uploadedAt: new Date().toISOString(),
         error: null,

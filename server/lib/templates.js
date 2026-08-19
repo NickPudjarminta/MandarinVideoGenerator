@@ -9,6 +9,7 @@ import {
   saveCatalog,
   migrateAutopilotIntoCatalog,
 } from './catalog.js'
+import { migrateYoutubePublishAt } from './rescheduleQueue.js'
 
 export const DEFAULT_TITLE_TEMPLATE =
   'Chinese Listening Drills Set {{setIndex}} | New HSK 1 (2026 3.0)  | {{firstWord}} to {{lastWord}}'
@@ -275,12 +276,13 @@ export function bootstrapStudio() {
   let catalog = loadCatalog()
   const before = catalog.videos.length
   catalog = migrateAutopilotIntoCatalog(catalog)
+  migrateYoutubePublishAt(catalog)
   if (catalog.videos.length !== before || !fs.existsSync(path.join(DATA_DIR, 'catalog.json'))) {
     saveCatalog(catalog)
   } else if (before === 0 && catalog.videos.length > 0) {
     saveCatalog(catalog)
   } else {
-    // always save after migrate so schedule.lastPublishAt lands
+    // always save after migrate so schedule.lastPublishAt / youtubePublishAt land
     saveCatalog(catalog)
   }
   return { templates: listTemplates(), catalog }

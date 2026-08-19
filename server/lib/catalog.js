@@ -19,6 +19,7 @@ const DEFAULT_CATALOG = {
     weeksAhead: 1,
     lastWeeklyUploadAt: null,
     lastPublishAt: null,
+    extraSlots: [],
   },
   videos: [],
 }
@@ -52,7 +53,13 @@ export function loadCatalog() {
     return {
       ...DEFAULT_CATALOG,
       ...raw,
-      schedule: { ...DEFAULT_CATALOG.schedule, ...(raw.schedule || {}) },
+      schedule: {
+        ...DEFAULT_CATALOG.schedule,
+        ...(raw.schedule || {}),
+        extraSlots: Array.isArray(raw.schedule?.extraSlots)
+          ? raw.schedule.extraSlots
+          : [],
+      },
       videos: Array.isArray(raw.videos) ? raw.videos : [],
     }
   } catch {
@@ -62,7 +69,20 @@ export function loadCatalog() {
 
 export function saveCatalog(catalog) {
   ensureStudioDirs()
-  fs.writeFileSync(CATALOG_PATH, `${JSON.stringify(catalog, null, 2)}\n`, 'utf8')
+  const payload = `${JSON.stringify(catalog, null, 2)}\n`
+  const tmp = `${CATALOG_PATH}.${process.pid}.tmp`
+  fs.writeFileSync(tmp, payload, 'utf8')
+  try {
+    fs.renameSync(tmp, CATALOG_PATH)
+  } catch {
+    // Windows: cannot rename over existing file — replace in place
+    fs.writeFileSync(CATALOG_PATH, payload, 'utf8')
+    try {
+      fs.unlinkSync(tmp)
+    } catch {
+      /* ignore */
+    }
+  }
 }
 
 export function upsertVideo(catalog, video) {

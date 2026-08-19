@@ -30,6 +30,13 @@ import {
   schedulerQueueStatusHandler,
   schedulerBootstrapHandler,
   quotaHandler,
+  scheduleHandler,
+  unscheduleHandler,
+  reorderHandler,
+  placeHandler,
+  pushLaterHandler,
+  removeEmptySlotsHandler,
+  syncScheduleHandler,
 } from './routes/scheduler.js'
 import {
   studioBootstrapHandler,
@@ -81,6 +88,13 @@ app.get('/api/scheduler/videos/:id', (c) => wrap(getVideoHandler, c))
 app.patch('/api/scheduler/videos/:id', (c) => wrap(patchVideoHandler, c))
 app.post('/api/scheduler/import-packages', (c) => wrap(importPackagesHandler, c))
 app.post('/api/scheduler/queue-uploads', (c) => wrap(queueUploadsHandler, c))
+app.post('/api/scheduler/schedule', (c) => wrap(scheduleHandler, c))
+app.post('/api/scheduler/unschedule', (c) => wrap(unscheduleHandler, c))
+app.post('/api/scheduler/reorder', (c) => wrap(reorderHandler, c))
+app.post('/api/scheduler/place', (c) => wrap(placeHandler, c))
+app.post('/api/scheduler/push-later', (c) => wrap(pushLaterHandler, c))
+app.post('/api/scheduler/remove-empty-slots', (c) => wrap(removeEmptySlotsHandler, c))
+app.post('/api/scheduler/sync-schedule', (c) => wrap(syncScheduleHandler, c))
 app.post('/api/scheduler/weekly-upload', (c) => wrap(weeklyUploadHandler, c))
 app.post('/api/scheduler/videos/:id/push-meta', (c) => wrap(pushMetaHandler, c))
 app.get('/api/scheduler/queue', (c) => wrap(schedulerQueueStatusHandler, c))

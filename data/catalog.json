@@ -13,7 +13,8 @@
     "hour": 12,
     "weeksAhead": 1,
     "lastWeeklyUploadAt": "2026-08-17T20:20:36.345Z",
-    "lastPublishAt": "2026-08-21T12:00:00-07:00"
+    "lastPublishAt": "2026-08-21T12:00:00-07:00",
+    "extraSlots": []
   },
   "videos": [
     {
@@ -29,7 +30,8 @@
       "publishAt": "2026-08-03T12:00:00-07:00",
       "videoId": "rIfyJLr9KVI",
       "uploadedAt": "2026-08-02T06:47:27.091Z",
-      "error": null
+      "error": null,
+      "youtubePublishAt": "2026-08-03T12:00:00-07:00"
     },
     {
       "id": "hsk1:5",
@@ -44,7 +46,8 @@
       "publishAt": "2026-08-07T12:00:00-07:00",
       "videoId": "DvbJ5YlhLPk",
       "uploadedAt": "2026-08-02T07:09:06.429Z",
-      "error": null
+      "error": null,
+      "youtubePublishAt": "2026-08-07T12:00:00-07:00"
     },
     {
       "id": "hsk1:6",
@@ -59,7 +62,8 @@
       "publishAt": "2026-08-10T12:00:00-07:00",
       "videoId": "zJnXyk93_lA",
       "uploadedAt": "2026-08-02T17:53:49.813Z",
-      "error": null
+      "error": null,
+      "youtubePublishAt": "2026-08-10T12:00:00-07:00"
     },
     {
       "id": "hsk1:7",
@@ -74,7 +78,8 @@
       "publishAt": "2026-08-11T12:00:00-07:00",
       "videoId": "gZQZyndmlpU",
       "uploadedAt": "2026-08-02T17:57:18.944Z",
-      "error": null
+      "error": null,
+      "youtubePublishAt": "2026-08-11T12:00:00-07:00"
     },
     {
       "id": "hsk1:8",
@@ -89,7 +94,8 @@
       "publishAt": "2026-08-12T12:00:00-07:00",
       "videoId": "MkIDlRhhp0o",
       "uploadedAt": "2026-08-02T17:59:09.647Z",
-      "error": null
+      "error": null,
+      "youtubePublishAt": "2026-08-12T12:00:00-07:00"
     },
     {
       "id": "hsk1:9",
@@ -104,7 +110,8 @@
       "publishAt": "2026-08-13T12:00:00-07:00",
       "videoId": "FD3YJ-VMqJo",
       "uploadedAt": "2026-08-02T18:00:43.330Z",
-      "error": null
+      "error": null,
+      "youtubePublishAt": "2026-08-13T12:00:00-07:00"
     },
     {
       "id": "hsk1:10",
@@ -119,7 +126,8 @@
       "publishAt": "2026-08-14T12:00:00-07:00",
       "videoId": "sLoBrZKQbsA",
       "uploadedAt": "2026-08-02T18:01:52.892Z",
-      "error": null
+      "error": null,
+      "youtubePublishAt": "2026-08-14T12:00:00-07:00"
     },
     {
       "id": "hsk1:11",
@@ -134,7 +142,8 @@
       "publishAt": "2026-08-17T12:00:00-07:00",
       "videoId": "szwN6Iumm38",
       "uploadedAt": "2026-08-02T18:15:57.473Z",
-      "error": null
+      "error": null,
+      "youtubePublishAt": "2026-08-17T12:00:00-07:00"
     },
     {
       "id": "hsk1:12",
@@ -149,7 +158,8 @@
       "publishAt": "2026-08-18T12:00:00-07:00",
       "videoId": "8bOISTMIQgI",
       "uploadedAt": "2026-08-02T18:17:12.284Z",
-      "error": null
+      "error": null,
+      "youtubePublishAt": "2026-08-18T12:00:00-07:00"
     },
     {
       "id": "hsk1:13",
@@ -164,7 +174,8 @@
       "publishAt": "2026-08-19T12:00:00-07:00",
       "videoId": "D-0Fhp6peGg",
       "uploadedAt": "2026-08-02T18:18:57.448Z",
-      "error": null
+      "error": null,
+      "youtubePublishAt": "2026-08-19T12:00:00-07:00"
     },
     {
       "id": "hsk1:14",
@@ -179,7 +190,8 @@
       "publishAt": "2026-08-20T12:00:00-07:00",
       "videoId": "LPdUssYuA-U",
       "uploadedAt": "2026-08-02T18:20:41.792Z",
-      "error": null
+      "error": null,
+      "youtubePublishAt": "2026-08-20T12:00:00-07:00"
     },
     {
       "id": "hsk1:2",
@@ -194,7 +206,8 @@
       "publishAt": "2026-08-04T12:00:00-07:00",
       "videoId": "e81PRfvVM_U",
       "uploadedAt": "2026-08-02T19:08:10.593Z",
-      "error": null
+      "error": null,
+      "youtubePublishAt": "2026-08-04T12:00:00-07:00"
     },
     {
       "id": "hsk1:3",
@@ -209,7 +222,8 @@
       "publishAt": "2026-08-05T12:00:00-07:00",
       "videoId": "kKVGEZvgBuk",
       "uploadedAt": "2026-08-02T22:16:07.517Z",
-      "error": null
+      "error": null,
+      "youtubePublishAt": "2026-08-05T12:00:00-07:00"
     },
     {
       "id": "hsk1:4",
@@ -224,7 +238,8 @@
       "publishAt": "2026-08-06T12:00:00-07:00",
       "videoId": "QauA4tLmP-0",
       "uploadedAt": "2026-08-02T22:16:19.841Z",
-      "error": null
+      "error": null,
+      "youtubePublishAt": "2026-08-06T12:00:00-07:00"
     },
     {
       "id": "hsk1:15",
@@ -239,7 +254,8 @@
       "publishAt": "2026-08-21T12:00:00-07:00",
       "videoId": "3gRa8C41wVw",
       "uploadedAt": "2026-08-03T17:26:32.723Z",
-      "error": null
+      "error": null,
+      "youtubePublishAt": "2026-08-21T12:00:00-07:00"
     },
     {
       "id": "hsk2:1",
@@ -254,7 +270,8 @@
       "description": "Studying for the New 2026 HSK 2 test? These sentences are curated specifically for mastering the Level 2 test.\n\nThis video covers phrases for 啊 to 出去, listen to all 200 HSK level 2 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n啊，你来了！\nAh, you're here!\n00:19 - Phrase 2:\n我的爱好是打篮球。\nMy hobby is playing basketball.\n00:40 - Phrase 3:\n我喜欢白色的杯子。\nI like white cups.\n01:00 - Phrase 4:\n我在二年一班。\nI'm in Class 1, Grade 2.\n01:19 - Phrase 5:\n你能帮我吗？\nCan you help me?\n01:38 - Phrase 6:\n请你帮忙开一下门。\nPlease help open the door.\n01:58 - Phrase 7:\n我买了一个新包。\nI bought a new bag.\n02:17 - Phrase 8:\n请给我一个本子。\nPlease give me a notebook.\n02:36 - Phrase 9:\n他比我高。\nHe is taller than me.\n02:54 - Phrase 10:\n我有三支笔。\nI have three pens.\n03:13 - Phrase 11:\n别说话！\nDon't talk!\n03:31 - Phrase 12:\n这个菜不错。\nThis dish is pretty good.\n03:49 - Phrase 13:\n不好意思，我来晚了。\nSorry, I'm late.\n04:10 - Phrase 14:\n这条路很长。\nThis road is very long.\n04:29 - Phrase 15:\n车站在前面。\nThe station is up ahead.\n04:48 - Phrase 16:\n他今天不出去了。\nHe's not going out today.\n05:07 - Phrase 17:\n我想出国学习。\nI want to go abroad to study.\n05:26 - Phrase 18:\n请出来一下。\nPlease come out for a moment.\n05:44 - Phrase 19:\n我明天要出门。\nI need to go out tomorrow.\n06:03 - Phrase 20:\n我们出去吃饭吧。\nLet's go out to eat.\n\nFULL VOCAB LIST\n啊 (a) - ah, oh\n爱好 (àihào) - to like; hobby\n白色 (báisè) - white\n班 (bān) - class, team; (measure word for groups)\n帮 (bāng) - to help\n帮忙 (bāngmáng) - to help\n包 (bāo) - to wrap, to pack; bag; measure word for bundles\n本子 (běnzi) - notebook\n比 (bǐ) - to compare; than\n笔 (bǐ) - pen; (measure word for writing tools)\n别 (bié) - don't, not bad\n不错 (búcuò) - not bad, pretty good\n不好意思 (bù hǎoyìsi) - sorry, embarrassed\n长 (cháng) - long\n车站 (chēzhàn) - station\n出 (chū) - to go out, to leave\n出国 (chūguó) - to go abroad\n出来 (chūlái) - to come out\n出门 (chūmén) - to go out\n出去 (chūqù) - to go out\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
       "publishAt": "2026-08-24T12:00:00-07:00",
       "videoId": "fCFFHuvTg7c",
-      "uploadedAt": "2026-08-17T19:20:45.997Z"
+      "uploadedAt": "2026-08-17T19:20:45.997Z",
+      "youtubePublishAt": "2026-08-24T12:00:00-07:00"
     },
     {
       "id": "hsk2:2",
@@ -269,7 +286,8 @@
       "description": "Studying for the New 2026 HSK 2 test? These sentences are curated specifically for mastering the Level 2 test.\n\nThis video covers phrases for 床 to 飞, listen to all 200 HSK level 2 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n床上有两本书。\nThere are two books on the bed.\n00:19 - Phrase 2:\n这个词是什么意思？\nWhat does this word mean?\n00:39 - Phrase 3:\n我去过三次北京。\nI've been to Beijing three times.\n00:59 - Phrase 4:\n我从北京来。\nI come from Beijing.\n01:18 - Phrase 5:\n我从小就学习汉语。\nI've studied Chinese since childhood.\n01:39 - Phrase 6:\n这个字写错了。\nThis character was written incorrectly.\n01:58 - Phrase 7:\n他在打篮球。\nHe is playing basketball.\n02:17 - Phrase 8:\n我们打车去吧。\nLet's take a taxi.\n02:36 - Phrase 9:\n请打开电脑。\nPlease turn on the computer.\n02:54 - Phrase 10:\n我想去，但没时间。\nI want to go, but I don't have time.\n03:16 - Phrase 11:\n天气很好，但是很冷。\nThe weather is nice, but it's very cold.\n03:38 - Phrase 12:\n他跑得很快。\nHe runs very fast.\n03:57 - Phrase 13:\n他高兴地说谢谢。\nHe said thank you happily.\n04:17 - Phrase 14:\n我在车站等你。\nI'm waiting for you at the station.\n04:36 - Phrase 15:\n我们坐地铁去。\nWe'll take the subway.\n04:55 - Phrase 16:\n现在几点了？\nWhat time is it now?\n05:14 - Phrase 17:\n我懂你的意思。\nI understand what you mean.\n05:33 - Phrase 18:\n别动！\nDon't move!\n05:50 - Phrase 19:\n这家饭馆很好。\nThis restaurant is very good.\n06:10 - Phrase 20:\n鸟在天上飞。\nBirds are flying in the sky.\n\nFULL VOCAB LIST\n床 (chuáng) - bed\n词 (cí) - word, term\n次 (cì) - measure word of time or occasion; (next in order)\n从 (cóng) - from; (ever)\n从小 (cóngxiǎo) - from childhood\n错 (cuò) - wrong, mistaken\n打 (dǎ) - to hit, to play, to make\n打车 (dǎchē) - to take a taxi\n打开 (dǎkāi) - to open\n但 (dàn) - but, however; (only, merely)\n但是 (dànshì) - but, however\n得 (de) - particle indicating degree or manner\n地 (de) - particle modifying an adjective into an adverb\n等 (děng) - to wait; (and so on, until)\n地铁 (dìtiě) - subway, metro\n点 (diǎn) - to light, to ignite; (point, dot; to order)\n懂 (dǒng) - to understand\n动 (dòng) - to move, to act\n饭馆 (fànguǎn) - restaurant\n飞 (fēi) - to fly\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
       "publishAt": "2026-08-25T12:00:00-07:00",
       "videoId": "H0GMmJaHPDU",
-      "uploadedAt": "2026-08-17T20:05:09.198Z"
+      "uploadedAt": "2026-08-17T20:05:09.198Z",
+      "youtubePublishAt": "2026-08-25T12:00:00-07:00"
     },
     {
       "id": "hsk2:3",
@@ -284,7 +302,8 @@
       "description": "Studying for the New 2026 HSK 2 test? These sentences are curated specifically for mastering the Level 2 test.\n\nThis video covers phrases for 高 to 坏, listen to all 200 HSK level 2 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n这个楼很高。\nThis building is very tall.\n00:18 - Phrase 2:\n我哥哥在高中学习。\nMy older brother studies in high school.\n00:40 - Phrase 3:\n请告诉我你的名字。\nPlease tell me your name.\n01:01 - Phrase 4:\n他个子很高。\nHe is very tall.\n01:20 - Phrase 5:\n我跟你一起去。\nI'll go with you.\n01:38 - Phrase 6:\n我坐公交车去学校。\nI take the bus to school.\n01:59 - Phrase 7:\n我们过这条路吧。\nLet's cross this road.\n02:19 - Phrase 8:\n请你过来一下。\nPlease come over here.\n02:37 - Phrase 9:\n我们在北京过年。\nWe celebrate the New Year in Beijing.\n02:57 - Phrase 10:\n他走过去了。\nHe walked over there.\n03:15 - Phrase 11:\n我去过中国。\nI've been to China.\n03:33 - Phrase 12:\n你想喝茶还是咖啡？\nDo you want tea or coffee?\n03:54 - Phrase 13:\n他穿黑色的衣服。\nHe wears black clothes.\n04:14 - Phrase 14:\n请给我一杯红茶。\nPlease give me a cup of black tea.\n04:34 - Phrase 15:\n这是红色的花。\nThis is a red flower.\n04:54 - Phrase 16:\n饭店在学校后面。\nThe restaurant is behind the school.\n05:14 - Phrase 17:\n我花了五十块钱。\nI spent fifty yuan.\n05:33 - Phrase 18:\n学校里有很多花。\nThere are many flowers at school.\n05:54 - Phrase 19:\n他在画一张画。\nHe is drawing a picture.\n06:13 - Phrase 20:\n我的手机坏了。\nMy phone is broken.\n\nFULL VOCAB LIST\n高 (gāo) - tall, high; height\n高中 (gāozhōng) - high school\n告诉 (gàosu) - to tell\n个子 (gèzi) - height, stature\n跟 (gēn) - with; and; (heel; to follow, to accompany)\n公交车 (gōngjiāochē) - bus\n过 (guò) - to pass, to cross; excessive\n过来 (guòlái) - to come over\n过年 (guònián) - to celebrate the New Year\n过去 (guòqù) - to go over\n过 (guo) - particle indicating past experience\n还是 (háishi) - still; or\n黑色 (hēisè) - black\n红茶 (hóngchá) - black tea\n红色 (hóngsè) - red\n后面 (hòumiàn) - behind, back\n花 (huā) - to spend (money or time)\n花 (huā) - flower; (colorful)\n画 (huà) - to draw, to paint; painting, picture\n坏 (huài) - bad, broken\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
       "publishAt": "2026-08-26T12:00:00-07:00",
       "videoId": "BiZk5OBpQ9c",
-      "uploadedAt": "2026-08-17T20:10:18.415Z"
+      "uploadedAt": "2026-08-17T20:10:18.415Z",
+      "youtubePublishAt": "2026-08-26T12:00:00-07:00"
     },
     {
       "id": "hsk2:4",
@@ -299,7 +318,8 @@
       "description": "Studying for the New 2026 HSK 2 test? These sentences are curated specifically for mastering the Level 2 test.\n\nThis video covers phrases for 回来 to 考, listen to all 200 HSK level 2 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n他明天回来。\nHe will come back tomorrow.\n00:18 - Phrase 2:\n我现在要回去了。\nI need to go back now.\n00:37 - Phrase 3:\n机场离这儿很远。\nThe airport is far from here.\n00:57 - Phrase 4:\n我买好了机票。\nI've bought the plane ticket.\n01:16 - Phrase 5:\n你记得他的名字吗？\nDo you remember his name?\n01:36 - Phrase 6:\n这是一间小房间。\nThis is a small room.\n01:55 - Phrase 7:\n老师教我们汉语。\nThe teacher teaches us Chinese.\n02:15 - Phrase 8:\n教室里有二十个学生。\nThere are twenty students in the classroom.\n02:37 - Phrase 9:\n请介绍一下你自己。\nPlease introduce yourself.\n02:57 - Phrase 10:\n请进！\nPlease come in!\n03:14 - Phrase 11:\n学校离我家很近。\nThe school is close to my home.\n03:34 - Phrase 12:\n请进来坐。\nPlease come in and sit down.\n03:52 - Phrase 13:\n我们进去看看吧。\nLet's go in and have a look.\n04:12 - Phrase 14:\n他经常去书店。\nHe often goes to the bookstore.\n04:31 - Phrase 15:\n我们住在酒店里。\nWe're staying at the hotel.\n04:51 - Phrase 16:\n我这就来。\nI'm coming right now.\n05:09 - Phrase 17:\n我想喝一杯咖啡。\nI want to drink a cup of coffee.\n05:28 - Phrase 18:\n我们现在开始吧。\nLet's start now.\n05:48 - Phrase 19:\n明天就开学了。\nSchool starts tomorrow.\n06:07 - Phrase 20:\n明天要考汉语。\nWe have a Chinese test tomorrow.\n\nFULL VOCAB LIST\n回来 (huílái) - to come back\n回去 (huíqù) - to go back\n机场 (jīchǎng) - airport\n机票 (jīpiào) - airplane ticket\n记得 (jìde) - to remember\n间 (jiān) - measure word for rooms; between\n教 (jiāo) - to teach\n教室 (jiàoshì) - classroom\n介绍 (jièshào) - to introduce\n进 (jìn) - to enter\n近 (jìn) - near, close\n进来 (jìnlái) - to come in\n进去 (jìnqù) - to go in\n经常 (jīngcháng) - often\n酒店 (jiǔdiàn) - hotel\n就 (jiù) - just, then; (as early as, only, as soon as)\n咖啡 (kāfēi) - coffee\n开始 (kāishǐ) - to start; beginning\n开学 (kāixué) - school starts\n考 (kǎo) - to test, to take an exam\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
       "publishAt": "2026-08-27T12:00:00-07:00",
       "videoId": "iOVhyN5fJZg",
-      "uploadedAt": "2026-08-17T20:15:29.761Z"
+      "uploadedAt": "2026-08-17T20:15:29.761Z",
+      "youtubePublishAt": "2026-08-27T12:00:00-07:00"
     },
     {
       "id": "hsk2:5",
@@ -314,7 +334,8 @@
       "description": "Studying for the New 2026 HSK 2 test? These sentences are curated specifically for mastering the Level 2 test.\n\nThis video covers phrases for 考试 to 门, listen to all 200 HSK level 2 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n这次考试很长。\nThis exam is very long.\n00:19 - Phrase 2:\n明天可能会下雨。\nIt might rain tomorrow.\n00:39 - Phrase 3:\n这条裤子太小了。\nThese pants are too small.\n01:00 - Phrase 4:\n你走得真快！\nYou walk really fast!\n01:19 - Phrase 5:\n今天我很快乐！\nI am very happy today!\n01:38 - Phrase 6:\n快要下雨了。\nIt's about to rain.\n01:57 - Phrase 7:\n我喜欢打篮球。\nI like playing basketball.\n02:15 - Phrase 8:\n今天我很累。\nI'm very tired today.\n02:34 - Phrase 9:\n学校离这儿不远。\nThe school isn't far from here.\n02:53 - Phrase 10:\n里面有人吗？\nIs there someone inside?\n03:12 - Phrase 11:\n我住在五楼。\nI live on the fifth floor.\n03:31 - Phrase 12:\n走这条路可以到车站。\nTaking this road, you can get to the station.\n03:52 - Phrase 13:\n路上请慢一点！\nPlease go a little slower on the road!\n04:12 - Phrase 14:\n我想去中国旅游。\nI want to travel to China.\n04:31 - Phrase 15:\n绿茶对身体好。\nGreen tea is good for your health.\n04:51 - Phrase 16:\n我喜欢绿色。\nI like the color green.\n05:10 - Phrase 17:\n请说慢一点。\nPlease speak a little slower.\n05:28 - Phrase 18:\n这个电影没意思。\nThis movie is boring.\n05:47 - Phrase 19:\n我每天都学习汉语。\nI study Chinese every day.\n06:08 - Phrase 20:\n请关门。\nPlease close the door.\n\nFULL VOCAB LIST\n考试 (kǎoshì) - to take an exam; exam\n可能 (kěnéng) - possible; possibility; may\n裤子 (kùzi) - pants\n快 (kuài) - fast; soon, quickly\n快乐 (kuàilè) - happy, joyful\n快要 (kuàiyào) - soon, almost\n篮球 (lánqiú) - basketball\n累 (lèi) - tired; to tire\n离 (lí) - to leave, to be away from\n里面 (lǐmiàn) - inside\n楼 (lóu) - building, floor\n路 (lù) - road, path\n路上 (lùshang) - on the road\n旅游 (lǚyóu) - to travel\n绿茶 (lǜchá) - green tea\n绿色 (lǜsè) - green color; (green)\n慢 (màn) - slow\n没意思 (méi yìsi) - boring, uninteresting\n每 (měi) - every, each; (per)\n门 (mén) - door, gate\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
       "publishAt": "2026-08-28T12:00:00-07:00",
       "videoId": "ffGadzbDPqs",
-      "uploadedAt": "2026-08-17T20:20:36.343Z"
+      "uploadedAt": "2026-08-17T20:20:36.343Z",
+      "youtubePublishAt": "2026-08-28T12:00:00-07:00"
     },
     {
       "id": "hsk2:6",
@@ -327,7 +348,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 6 | New HSK 2 (2026 3.0)  | 门口 to 晴",
       "description": "Studying for the New 2026 HSK 2 test? These sentences are curated specifically for mastering the Level 2 test.\n\nThis video covers phrases for 门口 to 晴, listen to all 200 HSK level 2 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n他在学校门口等我。\nHe is waiting for me at the school entrance.\n00:20 - Phrase 2:\n我买了一张电影门票。\nI bought a movie ticket.\n00:41 - Phrase 3:\n学校在河的对面。\nThe school is on the opposite side of the river.\n01:01 - Phrase 4:\n我们班有三名学生。\nThere are three students in our class.\n01:22 - Phrase 5:\n请拿你的书包。\nPlease take your backpack.\n01:41 - Phrase 6:\n今天那么冷，你要多穿一点。\nIt is so cold today; you should wear more clothes.\n02:04 - Phrase 7:\n我不喜欢你那样说话。\nI don't like you talking like that.\n02:26 - Phrase 8:\n她想喝一杯奶茶。\nShe wants to drink a cup of milk tea.\n02:46 - Phrase 9:\n奶奶在家给我们做饭。\nGrandma is at home cooking for us.\n03:06 - Phrase 10:\n那个男孩儿在学校踢足球。\nThat boy is playing soccer at school.\n03:29 - Phrase 11:\n天上有一只鸟。\nThere is a bird in the sky.\n03:48 - Phrase 12:\n那个女孩儿喜欢看书。\nThat girl likes reading books.\n04:08 - Phrase 13:\n请你坐在我旁边。\nPlease sit beside me.\n04:28 - Phrase 14:\n小狗在家里跑得很快。\nThe puppy runs very fast at home.\n04:49 - Phrase 15:\n我每天早上在外面跑步。\nI go jogging outside every morning.\n05:12 - Phrase 16:\n你有去北京的火车票吗？\nDo you have a train ticket to Beijing?\n05:34 - Phrase 17:\n他的妻子是医院的医生。\nHis wife is a doctor at the hospital.\n05:56 - Phrase 18:\n他每天早上六点就起来了。\nHe gets up at six every morning.\n06:19 - Phrase 19:\n前面有一个很大的商店。\nThere is a big store up ahead.\n06:40 - Phrase 20:\n今天是晴天，我们去外面吧。\nToday is sunny; let's go outside.\n\nFULL VOCAB LIST\n门口 (ménkǒu) - doorway, entrance\n门票 (ménpiào) - ticket\n面 (miàn) - suffix indicating a person with a certain characteristic; (to face; side, aspect; measure word for flat objects)\n名 (míng) - name, reputation; measure word for people\n拿 (ná) - to take, to hold\n那么 (nàme) - so, like that; then\n那样 (nàyàng) - like that\n奶茶 (nǎichá) - milk tea\n奶奶 (nǎinai) - grandmother\n男孩儿 (nánháir) - boy\n鸟 (niǎo) - bird\n女孩儿 (nǚháir) - girl\n旁边 (pángbiān) - side\n跑 (pǎo) - to run\n跑步 (pǎobù) - to run, jogging\n票 (piào) - ticket\n妻子 (qīzi) - wife\n起来 (qǐlái) - to get up, to stand up; used after verbs to indicate upward movement or beginning\n前面 (qiánmiàn) - front\n晴 (qíng) - sunny, clear\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-08-31T12:00:00-07:00",
+      "publishAt": "2026-08-28T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -342,7 +363,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 7 | New HSK 2 (2026 3.0)  | 球 to 疼",
       "description": "Studying for the New 2026 HSK 2 test? These sentences are curated specifically for mastering the Level 2 test.\n\nThis video covers phrases for 球 to 疼, listen to all 200 HSK level 2 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n孩子们在学校玩球。\nThe children are playing ball at school.\n00:21 - Phrase 2:\n请让我过去。\nPlease let me pass.\n00:39 - Phrase 3:\n我不喜欢吃太多肉。\nI don't like eating too much meat.\n01:00 - Phrase 4:\n星期天我们去商场买衣服。\nOn Sunday we are going to the mall to buy clothes.\n01:24 - Phrase 5:\n请你到楼上来一下。\nPlease come upstairs for a moment.\n01:44 - Phrase 6:\n我的书在桌子上面。\nMy book is on top of the table.\n02:05 - Phrase 7:\n我们一起上去看看吧。\nLet's go up together and have a look.\n02:25 - Phrase 8:\n我晚上喜欢在家里上网。\nI like going online at home in the evening.\n02:47 - Phrase 9:\n你要多运动，身体会很好。\nYou should exercise more; then you will be healthy.\n03:10 - Phrase 10:\n明天是我的生日，我很高兴。\nTomorrow is my birthday, and I am very happy.\n03:33 - Phrase 11:\n我八点时到学校。\nI arrive at school at eight o'clock.\n03:53 - Phrase 12:\n今天的事情很多，我很忙。\nThere are many things to do today, so I am very busy.\n04:17 - Phrase 13:\n吃饭前请洗手。\nPlease wash your hands before eating.\n04:36 - Phrase 14:\n他买了一块新手表。\nHe bought a new wristwatch.\n04:57 - Phrase 15:\n我的书包里有很多书。\nThere are many books in my backpack.\n05:18 - Phrase 16:\n这个椅子坐起来很舒服。\nThis chair is very comfortable to sit on.\n05:41 - Phrase 17:\n我送朋友去火车站。\nI am seeing my friend off at the train station.\n06:01 - Phrase 18:\n虽然今天下雨，我还是去上学了。\nAlthough it is raining today, I still went to school.\n06:26 - Phrase 19:\n我很累，所以早点睡觉了。\nI was very tired, so I went to bed early.\n06:50 - Phrase 20:\n我的头很疼，要去看医生。\nMy head hurts a lot; I need to see a doctor.\n\nFULL VOCAB LIST\n球 (qiú) - ball, sphere\n让 (ràng) - to let, to allow; (by)\n肉 (ròu) - meat\n商场 (shāngchǎng) - shopping mall\n上来 (shànglái) - to come up\n上面 (shàngmiàn) - above, top\n上去 (shàngqù) - to go up\n上网 (shàngwǎng) - to go online, to surf the Internet\n身体 (shēntǐ) - body\n生日 (shēngrì) - birthday\n时 (shí) - time, moment; (season, period)\n事情 (shìqing) - matter, affair\n手 (shǒu) - hand\n手表 (shǒubiǎo) - watch, wristwatch\n书包 (shūbāo) - backpack, schoolbag\n舒服 (shūfu) - comfortable\n送 (sòng) - to give, to send, to see off\n虽然 (suīrán) - although\n所以 (suǒyǐ) - so, therefore\n疼 (téng) - painful, sore; (to hurt)\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-01T12:00:00-07:00",
+      "publishAt": "2026-08-31T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -357,7 +378,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 8 | New HSK 2 (2026 3.0)  | 踢 to 下去",
       "description": "Studying for the New 2026 HSK 2 test? These sentences are curated specifically for mastering the Level 2 test.\n\nThis video covers phrases for 踢 to 下去, listen to all 200 HSK level 2 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n孩子们在学校踢足球。\nThe children are playing soccer at school.\n00:22 - Phrase 2:\n这个汉语题不好做。\nThis Chinese question is hard to do.\n00:42 - Phrase 3:\n水里有一条红色的鱼。\nThere is a red fish in the water.\n01:04 - Phrase 4:\n她在晚会上跳舞。\nShe is dancing at the party.\n01:24 - Phrase 5:\n我昨天洗头了。\nI washed my hair yesterday.\n01:43 - Phrase 6:\n我想去外国学习汉语。\nI want to go to a foreign country to study Chinese.\n02:04 - Phrase 7:\n外面在下雪，别出去。\nIt is snowing outside; don't go out.\n02:27 - Phrase 8:\n我已经吃完饭了。\nI have already finished eating.\n02:46 - Phrase 9:\n这个手机要一万块。\nThis phone costs ten thousand yuan.\n03:07 - Phrase 10:\n请往左走，学校就在前面。\nPlease go toward the left; the school is just ahead.\n03:32 - Phrase 11:\n我在网上买了一本书。\nI bought a book online.\n03:52 - Phrase 12:\n我忘了带手机，进不了门。\nI forgot to bring my phone and can't get in the door.\n04:15 - Phrase 13:\n这位是我的汉语老师。\nThis is my Chinese teacher.\n04:36 - Phrase 14:\n你为什么今天没来上课？\nWhy didn't you come to class today?\n05:00 - Phrase 15:\n我希望明天是个好天气。\nI hope the weather will be nice tomorrow.\n05:22 - Phrase 16:\n我要洗衣服，你呢？\nI need to wash clothes; what about you?\n05:43 - Phrase 17:\n请问，洗手间在哪里？\nExcuse me, where is the restroom?\n06:05 - Phrase 18:\n请你从楼上下来。\nPlease come down from upstairs.\n06:25 - Phrase 19:\n猫在桌子下面睡觉。\nThe cat is sleeping under the table.\n06:45 - Phrase 20:\n我们从楼上下去吧。\nLet's go down from upstairs.\n\nFULL VOCAB LIST\n踢 (tī) - to kick\n题 (tí) - question, problem, topic\n条 (tiáo) - measure word for long, thin, or strip-like objects; (clause, item)\n跳舞 (tiàowǔ) - to dance\n头 (tóu) - head; (measure word for animals); (first)\n外国 (wàiguó) - foreign country\n外面 (wàimiàn) - outside\n完 (wán) - to finish\n万 (wàn) - ten thousand\n往 (wǎng) - to go; toward\n网上 (wǎngshang) - online\n忘 (wàng) - to forget\n位 (wèi) - measure word for people\n为什么 (wèi shénme) - why\n希望 (xīwàng) - to hope\n洗 (xǐ) - to wash\n洗手间 (xǐshǒujiān) - restroom, toilet\n下来 (xiàlái) - to come down\n下面 (xiàmiàn) - below, under\n下去 (xiàqù) - to go down\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-02T12:00:00-07:00",
+      "publishAt": "2026-09-01T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -372,7 +393,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 9 | New HSK 2 (2026 3.0)  | 小孩儿 to 有时",
       "description": "Studying for the New 2026 HSK 2 test? These sentences are curated specifically for mastering the Level 2 test.\n\nThis video covers phrases for 小孩儿 to 有时, listen to all 200 HSK level 2 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n那个小孩儿在外面玩。\nThat little kid is playing outside.\n00:20 - Phrase 2:\n我小时候住在中国。\nI lived in China when I was little.\n00:41 - Phrase 3:\n听到这个，大家都笑了。\nEveryone laughed when they heard this.\n01:03 - Phrase 4:\n请问，你姓什么？\nMay I ask, what is your surname?\n01:24 - Phrase 5:\n请在这里写你的姓名。\nPlease write your full name here.\n01:45 - Phrase 6:\n你喜欢什么颜色？\nWhat color do you like?\n02:03 - Phrase 7:\n她的眼睛很大，很漂亮。\nHer eyes are big and very beautiful.\n02:27 - Phrase 8:\n我病了，要吃药。\nI am sick and need to take medicine.\n02:47 - Phrase 9:\n药店在学校旁边。\nThe pharmacy is next to the school.\n03:08 - Phrase 10:\n爷爷每天早上去外面走走。\nGrandpa goes out for a walk every morning.\n03:31 - Phrase 11:\n你等一下，我一会儿就回来。\nWait a moment; I'll be back in a little while.\n03:53 - Phrase 12:\n我已经写完汉字了。\nI have already finished writing the Chinese characters.\n04:12 - Phrase 13:\n我们一起去吃饭吧。\nLet's go eat together.\n04:32 - Phrase 14:\n我懂你的意思了。\nI understand what you mean.\n04:51 - Phrase 15:\n今天天气阴，可能会下雨。\nIt is cloudy today; it might rain.\n05:14 - Phrase 16:\n因为下雨，我们今天不去踢足球了。\nBecause it is raining, we are not going to play soccer today.\n05:40 - Phrase 17:\n我喜欢在水里游。\nI like to swim in the water.\n06:00 - Phrase 18:\n他每个星期天去游泳。\nHe goes swimming every Sunday.\n06:21 - Phrase 19:\n这本小说很有意思。\nThis novel is very interesting.\n06:41 - Phrase 20:\n我有时去书店看书。\nI sometimes go to the bookstore to read.\n\nFULL VOCAB LIST\n小孩儿 (xiǎoháir) - child, little kid\n小时候 (xiǎoshíhou) - childhood\n笑 (xiào) - to laugh, to smile\n姓 (xìng) - surname; to be surnamed\n姓名 (xìngmíng) - full name\n颜色 (yánsè) - color\n眼睛 (yǎnjing) - eye\n药 (yào) - medicine, drug\n药店 (yàodiàn) - pharmacy\n爷爷 (yéye) - grandfather\n一会儿 (yíhuìr) - a while, a moment; (soon, in a little while)\n已经 (yǐjīng) - already\n一起 (yìqǐ) - together\n意思 (yìsi) - meaning, idea\n阴 (yīn) - cloudy\n因为 (yīnwèi) - because; because of\n游 (yóu) - to swim\n游泳 (yóuyǒng) - to swim\n有意思 (yǒu yìsi) - interesting, enjoyable\n有时 (yǒushí) - sometimes\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-03T12:00:00-07:00",
+      "publishAt": "2026-09-02T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -387,7 +408,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 10 | New HSK 2 (2026 3.0)  | 右 to 左边",
       "description": "Studying for the New 2026 HSK 2 test? These sentences are curated specifically for mastering the Level 2 test.\n\nThis video covers phrases for 右 to 左边, listen to all 200 HSK level 2 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n请往右看，那就是我们的学校。\nPlease look to the right; that is our school.\n00:24 - Phrase 2:\n商店在路的右边。\nThe store is on the right side of the road.\n00:44 - Phrase 3:\n这条鱼是妈妈做的，很好吃。\nThis fish was cooked by Mom; it is very delicious.\n01:09 - Phrase 4:\n学校离我家很远，要坐公交车。\nThe school is far from my home; I have to take the bus.\n01:35 - Phrase 5:\n我每天做运动，身体很好。\nI exercise every day, so I am in good health.\n01:58 - Phrase 6:\n请在这里站一会儿。\nPlease stand here for a while.\n02:17 - Phrase 7:\n她的丈夫在北京工作。\nHer husband works in Beijing.\n02:39 - Phrase 8:\n你怎么这么晚回家？\nWhy did you get home so late?\n02:59 - Phrase 9:\n请不要这样做。\nPlease don't do it this way.\n03:18 - Phrase 10:\n他在门外站着等朋友。\nHe is standing outside the door waiting for his friend.\n03:40 - Phrase 11:\n我正要出门，你来了。\nI was just about to go out when you arrived.\n04:01 - Phrase 12:\n我每周上三次汉语课。\nI have Chinese class three times a week.\n04:23 - Phrase 13:\n我在准备明天的考试。\nI am preparing for tomorrow's exam.\n04:44 - Phrase 14:\n这件事我自己能做好。\nI can do this myself.\n05:07 - Phrase 15:\n时间不早了，我们走吧。\nIt is getting late; let's go.\n05:29 - Phrase 16:\n我走路去学校，要二十分钟。\nI walk to school; it takes twenty minutes.\n05:53 - Phrase 17:\n他和朋友们在踢足球。\nHe is playing soccer with his friends.\n06:14 - Phrase 18:\n苹果是我最喜欢的水果。\nApples are my favorite fruit.\n06:36 - Phrase 19:\n请往左走，商店就在前面。\nPlease go to the left; the store is up ahead.\n07:00 - Phrase 20:\n洗手间在左边，你现在就能看见。\nThe restroom is on the left; you can see it now.\n\nFULL VOCAB LIST\n右 (yòu) - right\n右边 (yòubian) - right side\n鱼 (yú) - fish\n远 (yuǎn) - far\n运动 (yùndòng) - to move, to exercise; sports, exercise\n站 (zhàn) - station, stop; to stand\n丈夫 (zhàngfu) - husband\n这么 (zhème) - so, such, like this\n这样 (zhèyàng) - like this, so\n着 (zhe) - particle indicating ongoing action or state\n正 (zhèng) - just, exactly, right; (straight)\n周 (zhōu) - week; (measure word for circumference, cycle)\n准备 (zhǔnbèi) - to prepare\n自己 (zìjǐ) - oneself\n走 (zǒu) - to walk\n走路 (zǒulù) - to walk\n足球 (zúqiú) - soccer, football\n最 (zuì) - most, -est\n左 (zuǒ) - left\n左边 (zuǒbian) - left side\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-04T12:00:00-07:00",
+      "publishAt": "2026-09-03T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -402,7 +423,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 1 | New HSK 3 (2026 3.0)  | 阿姨 to 笔记",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 阿姨 to 笔记, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n我的阿姨在北京工作。\nMy aunt works in Beijing.\n00:21 - Phrase 2:\n弟弟比姐姐矮一点。\nThe younger brother is a little shorter than his older sister.\n00:41 - Phrase 3:\n他的爱人是一位老师。\nHis spouse is a teacher.\n01:01 - Phrase 4:\n图书馆里很安静。\nIt is very quiet in the library.\n01:21 - Phrase 5:\n过马路时要注意安全。\nPay attention to safety when crossing the street.\n01:43 - Phrase 6:\n请把书放在桌子上。\nPlease put the book on the table.\n02:04 - Phrase 7:\n这个箱子太大了，我们搬不动。\nThis box is too big for us to move.\n02:29 - Phrase 8:\n我所在的班级有四十二个学生。\nThere are forty-two students in my class.\n02:53 - Phrase 9:\n他们下个月要搬家了。\nThey are going to move house next month.\n03:14 - Phrase 10:\n今天我要去银行办事。\nI need to take care of some business at the bank today.\n03:35 - Phrase 11:\n这个问题还没有好办法。\nThere is still no good solution to this problem.\n03:57 - Phrase 12:\n王老师在办公室工作。\nTeacher Wang works in the office.\n04:18 - Phrase 13:\n我找了半天，还是没找到。\nI searched for a long time but still could not find it.\n04:42 - Phrase 14:\n谢谢你帮助了我！\nThank you for helping me!\n05:00 - Phrase 15:\n我已经吃饱了，不想再吃了。\nI am already full and do not want to eat any more.\n05:24 - Phrase 16:\n爷爷每天早上看报纸。\nGrandpa reads the newspaper every morning.\n05:45 - Phrase 17:\n我家住在城市的北边。\nMy home is in the north of the city.\n06:06 - Phrase 18:\n北方的冬天很冷。\nWinters in the north are very cold.\n06:26 - Phrase 19:\n我的书被同学借走了。\nMy book was borrowed by a classmate.\n06:48 - Phrase 20:\n上课要认真做笔记。\nYou should take notes carefully in class.\n\nFULL VOCAB LIST\n阿姨 (āyí) - aunt\n矮 (ǎi) - short\n爱人 (àiren) - spouse\n安静 (ānjìng) - quiet\n安全 (ānquán) - safe\n把 (bǎ) - measure word for objects with handles; particle for object-fronting\n搬 (bān) - to move, to carry\n班级 (bānjí) - class, grade\n搬家 (bānjiā) - to move house\n办 (bàn) - to do, to handle\n办法 (bànfǎ) - way, solution\n办公室 (bàngōngshì) - office\n半天 (bàntiān) - half a day, a long time\n帮助 (bāngzhù) - help\n饱 (bǎo) - full\n报纸 (bàozhǐ) - newspaper\n北 (běi) - north\n北方 (běifāng) - north\n被 (bèi) - by\n笔记 (bǐjì) - notes\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-07T12:00:00-07:00",
+      "publishAt": "2026-09-04T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -417,7 +438,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 2 | New HSK 3 (2026 3.0)  | 比较 to 不用",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 比较 to 不用, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n今天比较冷。\nIt's comparatively cold today.\n00:18 - Phrase 2:\n我新买的笔记本是红色的。\nThe notebook I just bought is red.\n00:42 - Phrase 3:\n我有很多爱好，比如看书和游泳。\nI have many hobbies, such as reading and swimming.\n01:08 - Phrase 4:\n明天学校有足球比赛。\nThere is a soccer match at school tomorrow.\n01:30 - Phrase 5:\n你必须完成作业。\nYou must finish your homework.\n01:50 - Phrase 6:\n天气变了，开始下雨了。\nThe weather changed and it started to rain.\n02:13 - Phrase 7:\n请把课文再读一遍。\nPlease read the text one more time.\n02:34 - Phrase 8:\n水可以变成冰。\nWater can turn into ice.\n02:53 - Phrase 9:\n最近天气变化很大。\nThe weather has changed a lot recently.\n03:13 - Phrase 10:\n同学们准备在下个星期表演节目。\nThe students are preparing to perform next week.\n03:40 - Phrase 11:\n我不想吃这个，我想吃别的。\nI do not want this one; I want something else.\n04:04 - Phrase 12:\n请不要影响别人学习。\nPlease do not affect others while they are studying.\n04:25 - Phrase 13:\n我们住在机场附近的宾馆。\nWe are staying at a hotel near the airport.\n04:48 - Phrase 14:\n天太热了，我想喝冰水。\nIt is too hot today, and I want to drink ice water.\n05:12 - Phrase 15:\n夏天我最喜欢吃冰激凌。\nIn summer I like eating ice cream the most.\n05:34 - Phrase 16:\n牛奶放在冰箱里。\nThe milk is in the refrigerator.\n05:55 - Phrase 17:\n医生正在给病人检查。\nThe doctor is examining the patient.\n06:16 - Phrase 18:\n她不但会唱歌，而且会跳舞。\nShe can not only sing but also dance.\n06:41 - Phrase 19:\n我的手机不见了。\nMy phone has disappeared.\n07:01 - Phrase 20:\n你不用担心。\nYou need not worry.\n\nFULL VOCAB LIST\n比较 (bǐjiào) - to compare; quite, relatively; than\n笔记本 (bǐjìběn) - notebook\n比如 (bǐrú) - for example\n比赛 (bǐsài) - to compete; game, match\n必须 (bìxū) - must\n变 (biàn) - to change, to become\n遍 (biàn) - measure word for actions\n变成 (biànchéng) - to become, to turn into\n变化 (biànhuà) - to change; change\n表演 (biǎoyǎn) - to perform, to act\n别的 (biéde) - other\n别人 (biérén) - other people\n宾馆 (bīnguǎn) - hotel\n冰 (bīng) - ice; (to freeze)\n冰激凌 (bīngjīlíng) - ice cream\n冰箱 (bīngxiāng) - refrigerator\n病人 (bìngrén) - patient\n不但 (búdàn) - not only\n不见 (bújiàn) - to disappear, to not see\n不用 (búyòng) - need not\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-08T12:00:00-07:00",
+      "publishAt": "2026-09-07T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -432,7 +453,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 3 | New HSK 3 (2026 3.0)  | 不同 to 城市",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 不同 to 城市, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n这两件衣服的颜色不同。\nThese two pieces of clothing are different colors.\n00:21 - Phrase 2:\n他不久就要来中国了。\nHe will come to China before long.\n00:41 - Phrase 3:\n这里不能拍照，不行！\nYou can't take photos here — no way!\n01:03 - Phrase 4:\n我现在才明白他的意思。\nOnly now do I understand what he means.\n01:25 - Phrase 5:\n服务员给我一份菜单。\nThe waiter gave me a menu.\n01:46 - Phrase 6:\n你想不想参加这次比赛？\nDo you want to join this match?\n02:07 - Phrase 7:\n公园里的草很多。\nThere is a lot of grass in the park.\n02:27 - Phrase 8:\n孩子们在草地上跑步。\nThe children are running on the grass.\n02:49 - Phrase 9:\n我们住在五层。\nWe live on the fifth floor.\n03:08 - Phrase 10:\n请帮我查一下这个字怎么写。\nPlease help me look up how to write this character.\n03:31 - Phrase 11:\n这次考试我差三分。\nI was three points short on this exam.\n03:53 - Phrase 12:\n现在差不多八点了。\nIt is almost eight o'clock now.\n04:14 - Phrase 13:\n你想不想尝一下这个菜？\nWould you like to taste this dish?\n04:35 - Phrase 14:\n你常来这里吃饭吗？\nDo you often come here to eat?\n04:56 - Phrase 15:\n这种鸟在公园里很常见。\nThis kind of bird is very common in the park.\n05:18 - Phrase 16:\n这是一个常用的句子。\nThis is a commonly used sentence.\n05:39 - Phrase 17:\n他常常在星期六打篮球。\nHe often plays basketball on Saturdays.\n06:01 - Phrase 18:\n今天我要穿白衬衫上班。\nI am going to wear a white shirt to work today.\n06:24 - Phrase 19:\n这次考试我的成绩不错。\nI did well on this exam.\n06:48 - Phrase 20:\n北京是一个很大的城市。\nBeijing is a very big city.\n\nFULL VOCAB LIST\n不同 (bù tóng) - different\n不久 (bùjiǔ) - soon, not long after\n不行 (bùxíng) - not allowed, won't do; not good\n才 (cái) - just, only\n菜单 (càidān) - menu\n参加 (cānjiā) - to join, to attend\n草 (cǎo) - grass\n草地 (cǎodì) - grassland\n层 (céng) - measure word for layer, floor\n查 (chá) - to check\n差 (chà) - bad, poor; to lack\n差不多 (chàbuduō) - almost, similar; nearly\n尝 (cháng) - to taste\n常 (cháng) - often, frequent\n常见 (cháng jiàn) - common\n常用 (cháng yòng) - commonly used\n常常 (chángcháng) - often\n衬衫 (chènshān) - shirt\n成绩 (chéngjì) - score, grade, achievement\n城市 (chéngshì) - city\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-09T12:00:00-07:00",
+      "publishAt": "2026-09-08T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -447,7 +468,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 4 | New HSK 3 (2026 3.0)  | 迟到 to 蛋糕",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 迟到 to 蛋糕, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n今天他上课迟到了。\nHe was late for class today.\n00:20 - Phrase 2:\n我们明天早上六点出发。\nWe will set out at six tomorrow morning.\n00:43 - Phrase 3:\n他出生在南方的一个小城市。\nHe was born in a small city in the south.\n01:06 - Phrase 4:\n爷爷明天就可以出院了。\nGrandpa can leave the hospital tomorrow.\n01:27 - Phrase 5:\n我妹妹明年要上初中了。\nMy younger sister will start junior high school next year.\n01:49 - Phrase 6:\n除了中文，我还想学数学。\nBesides Chinese, I also want to study math.\n02:13 - Phrase 7:\n我们坐船去那儿。\nWe took a boat to go there.\n02:32 - Phrase 8:\n春天到了，花都开了。\nSpring has arrived and the flowers have bloomed.\n02:55 - Phrase 9:\n不会写的字可以查词典。\nYou can look up characters you do not know in a dictionary.\n03:18 - Phrase 10:\n这个孩子很聪明。\nThis child is very smart.\n03:37 - Phrase 11:\n周末我要打扫房间。\nI am going to clean my room this weekend.\n03:58 - Phrase 12:\n我打算明年去中国学习。\nI plan to go to China to study next year.\n04:20 - Phrase 13:\n他大概五分钟后到。\nHe will probably arrive in about five minutes.\n04:41 - Phrase 14:\n大人可以进去，孩子不行。\nAdults can go in, but children cannot.\n05:04 - Phrase 15:\n请你帮我看一下这两双鞋的大小。\nPlease help me check the sizes of these two pairs of shoes.\n05:29 - Phrase 16:\n我去动物园看大熊猫。\nI went to the zoo to see the giant pandas.\n05:50 - Phrase 17:\n天气冷了，要穿大衣。\nIt is cold now, so you need to wear a coat.\n06:12 - Phrase 18:\n出门别忘了带护照。\nDo not forget to bring your passport when you go out.\n06:33 - Phrase 19:\n妈妈很担心我的健康。\nMom is very worried about my health.\n06:54 - Phrase 20:\n今天我买了一个生日蛋糕。\nI bought a birthday cake today.\n\nFULL VOCAB LIST\n迟到 (chídào) - to be late\n出发 (chūfā) - to set out, to leave\n出生 (chūshēng) - to be born\n出院 (chūyuàn) - to be discharged from hospital\n初中 (chūzhōng) - junior high school\n除了 (chúle) - except, besides\n船 (chuán) - boat\n春天 (chūntiān) - spring\n词典 (cídiǎn) - dictionary\n聪明 (cōngmíng) - smart, clever\n打扫 (dǎsǎo) - to clean\n打算 (dǎsuàn) - to plan, intend; plan\n大概 (dàgài) - general, rough; probably, approximately; (general idea)\n大人 (dàren) - adult\n大小 (dàxiǎo) - size\n大熊猫 (dàxióngmāo) - giant panda\n大衣 (dàyī) - coat\n带 (dài) - to bring, to take; (belt)\n担心 (dānxīn) - to worry\n蛋糕 (dàngāo) - cake\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-10T12:00:00-07:00",
+      "publishAt": "2026-09-09T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -462,7 +483,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 5 | New HSK 3 (2026 3.0)  | 当然 to 东南",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 当然 to 东南, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n你来我家吃饭吗？当然来！\nAre you coming to my home for a meal? Of course!\n00:25 - Phrase 2:\n过年的时候，到处人都很多。\nDuring New Year, there are people everywhere.\n00:50 - Phrase 3:\n这次考试我得了第一名。\nI got first place on this exam.\n01:12 - Phrase 4:\n她终于得到了这份工作。\nShe finally got this job.\n01:34 - Phrase 5:\n我们在比赛中得分了。\nOur team scored in the match.\n01:55 - Phrase 6:\n明天要是下雨的话，就不去了。\nIf it rains tomorrow, we will not go.\n02:20 - Phrase 7:\n明天我得早起去上班。\nI have to get up early to go to work tomorrow.\n02:42 - Phrase 8:\n请把灯打开。\nPlease turn on the light.\n03:01 - Phrase 9:\n他们在地里工作。\nThey work in the fields.\n03:20 - Phrase 10:\n我们见面的地点在学校门口。\nThe place where we meet is at the school gate.\n03:44 - Phrase 11:\n这是一个很安静的地方。\nThis is a very quiet place.\n04:05 - Phrase 12:\n你可以用地图找到这个饭店。\nYou can use a map to find this restaurant.\n04:29 - Phrase 13:\n昨天晚上突然没有电了。\nSuddenly there was no electricity last night.\n04:52 - Phrase 14:\n请坐电梯到九层。\nPlease take the elevator to the ninth floor.\n05:12 - Phrase 15:\n我现在喜欢看电子书。\nI like reading e-books now.\n05:33 - Phrase 16:\n我把手机丢了。\nI lost my phone.\n05:52 - Phrase 17:\n从我家往东走五百米就到了。\nIt is five hundred meters east from my home.\n06:15 - Phrase 18:\n我朋友在东北工作。\nMy friend works in the northeast.\n06:36 - Phrase 19:\n太阳从东方出来。\nThe sun comes out from the east.\n06:57 - Phrase 20:\n这个城市的东南角有一个大公园。\nThere is a large park in the southeast corner of this city.\n\nFULL VOCAB LIST\n当然 (dāngrán) - of course\n到处 (dàochù) - everywhere\n得 (dé) - to get, to obtain\n得到 (dédào) - to get, to obtain\n得分 (défēn) - to score; score\n的话 (dehuà) - particle used after a condition clause, if…\n得 (děi) - must, need\n灯 (dēng) - lamp, light\n地 (dì) - ground, earth, land\n地点 (dìdiǎn) - place, location\n地方 (dìfang) - place\n地图 (dìtú) - map\n电 (diàn) - electricity; (to give an electric shock)\n电梯 (diàntī) - elevator\n电子书 (diànzǐshū) - e-book\n丢 (diū) - to lose, to throw away\n东 (dōng) - east\n东北 (dōngběi) - northeast\n东方 (dōngfāng) - east\n东南 (dōngnán) - southeast\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-11T12:00:00-07:00",
+      "publishAt": "2026-09-10T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -477,7 +498,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 6 | New HSK 3 (2026 3.0)  | 冬天 to 方便面",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 冬天 to 方便面, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n冬天很冷，我们要穿大衣。\nWinter is very cold, so we need to wear coats.\n00:22 - Phrase 2:\n他懂得这个问题。\nHe understands this problem.\n00:42 - Phrase 3:\n小孩子都喜欢小动物。\nChildren all like small animals.\n01:03 - Phrase 4:\n周末我们带孩子去动物园。\nOn the weekend we took the children to the zoo.\n01:25 - Phrase 5:\n这条裤子太短了。\nThese pants are too short.\n01:46 - Phrase 6:\n夏天我喜欢穿短裤。\nI like to wear shorts in the summer.\n02:07 - Phrase 7:\n请读下面这段课文。\nPlease read the following passage from the textbook.\n02:28 - Phrase 8:\n我每天早上锻炼一个小时。\nI exercise for an hour every morning.\n02:51 - Phrase 9:\n他们正在用汉语对话。\nThey are conversing in Chinese.\n03:12 - Phrase 10:\n我饿了，想吃点东西。\nI'm hungry and want to eat something.\n03:35 - Phrase 11:\n这个菜很好吃，而且很便宜。\nThis dish is very tasty, and moreover it is cheap.\n04:00 - Phrase 12:\n他的耳朵听得很清楚。\nHis ears hear very clearly.\n04:21 - Phrase 13:\n我用耳机听汉语。\nI use earphones to listen to Chinese.\n04:40 - Phrase 14:\n请给我发一封邮件。\nPlease send me an email.\n05:00 - Phrase 15:\n他发烧了，要在家里休息。\nHe has a fever and needs to rest at home.\n05:24 - Phrase 16:\n昨天这里发生了一件事。\nSomething happened here yesterday.\n05:45 - Phrase 17:\n我在旧书里发现了一张照片。\nI found a photo in an old book.\n06:09 - Phrase 18:\n这个城市发展得很快。\nThis city is developing very quickly.\n06:30 - Phrase 19:\n住在地铁旁边很方便。\nLiving next to the subway is very convenient.\n06:53 - Phrase 20:\n晚上我吃了一碗方便面。\nI had a bowl of instant noodles in the evening.\n\nFULL VOCAB LIST\n冬天 (dōngtiān) - winter\n懂得 (dǒngde) - to understand\n动物 (dòngwù) - animal\n动物园 (dòngwùyuán) - zoo\n短 (duǎn) - short\n短裤 (duǎnkù) - shorts\n段 (duàn) - measure word of segment, paragraph\n锻炼 (duànliàn) - to exercise\n对话 (duìhuà) - dialogue, conversation\n饿 (è) - hungry\n而且 (érqiě) - and, moreover\n耳朵 (ěrduo) - ear\n耳机 (ěrjī) - earphone\n发 (fā) - to send, to issue\n发烧 (fāshāo) - to have a fever\n发生 (fāshēng) - to happen\n发现 (fāxiàn) - to find, to discover\n发展 (fāzhǎn) - to develop\n方便 (fāngbiàn) - convenient\n方便面 (fāngbiànmiàn) - instant noodles\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-14T12:00:00-07:00",
+      "publishAt": "2026-09-11T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -492,7 +513,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 7 | New HSK 3 (2026 3.0)  | 方法 to 干",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 方法 to 干, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n这个方法对学习很有帮助。\nThis method is very helpful for studying.\n00:23 - Phrase 2:\n你走的方向不对。\nYou're going in the wrong direction.\n00:42 - Phrase 3:\n他们的新房子很大。\nTheir new house is very big.\n01:02 - Phrase 4:\n把衣服放进箱子里。\nPut the clothes into the box.\n01:23 - Phrase 5:\n明天学校放假，我们不去上课。\nSchool is on holiday tomorrow, so we don't have class.\n01:48 - Phrase 6:\n你放心，我会帮你做好。\nDon't worry, I will help you get it done.\n02:10 - Phrase 7:\n放学后我去公园跑步。\nAfter school I go running in the park.\n02:33 - Phrase 8:\n请把这两样东西分开。\nPlease separate these two things.\n02:54 - Phrase 9:\n今天风很大，别出门。\nThe wind is strong today, so don't go out.\n03:16 - Phrase 10:\n他收到了妈妈写的一封信。\nHe received a letter written by his mother.\n03:39 - Phrase 11:\n那对夫妻对我们很好。\nThat couple is very good to us.\n03:59 - Phrase 12:\n服务员正在服务客人。\nThe waiter is serving the customers.\n04:20 - Phrase 13:\n附近有一个很大的超市。\nThere is a big supermarket nearby.\n04:42 - Phrase 14:\n考试前我要认真复习课文。\nBefore the exam I need to review the lessons carefully.\n05:06 - Phrase 15:\n现在该回家了。\nIt's time to go home now.\n05:25 - Phrase 16:\n请把房间打扫干净。\nPlease clean the room.\n05:46 - Phrase 17:\n我对中国历史很感兴趣。\nI am very interested in Chinese history.\n06:09 - Phrase 18:\n听到这个，我感到很高兴。\nI felt very happy when I heard this.\n06:32 - Phrase 19:\n我感冒了，要多喝水。\nI caught a cold and need to drink more water.\n06:54 - Phrase 20:\n你在干什么？快过来帮忙。\nWhat are you doing? Come over and help.\n\nFULL VOCAB LIST\n方法 (fāngfǎ) - method\n方向 (fāngxiàng) - direction\n房子 (fángzi) - house\n放 (fàng) - to put, to place\n放假 (fàngjià) - to have a holiday\n放心 (fàngxīn) - to relax, to feel at ease\n放学 (fàngxué) - school is over\n分开 (fēnkāi) - to separate\n风 (fēng) - wind\n封 (fēng) - measure word for letters; (to seal)\n夫妻 (fūqī) - husband and wife\n服务 (fúwù) - to serve\n附近 (fùjìn) - nearby\n复习 (fùxí) - to review\n该 (gāi) - should\n干净 (gānjìng) - clean\n感兴趣 (gǎn xìngqù) - to be interested in\n感到 (gǎndào) - to feel\n感冒 (gǎnmào) - cold; to catch a cold\n干 (gàn) - to do, to work\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-15T12:00:00-07:00",
+      "publishAt": "2026-09-14T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -507,7 +528,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 8 | New HSK 3 (2026 3.0)  | 刚 to 过去",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 刚 to 过去, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n我刚到学校，还没进教室。\nI just arrived at school and haven't entered the classroom yet.\n00:24 - Phrase 2:\n刚才谁来找你了？\nWho came looking for you just now?\n00:43 - Phrase 3:\n他刚刚离开。\nHe just left.\n01:02 - Phrase 4:\n我们坐高铁去北京。\nWe are taking the high-speed train to Beijing.\n01:23 - Phrase 5:\n根据新闻，明天会下雨。\nAccording to the news, it will rain tomorrow.\n01:46 - Phrase 6:\n今天比昨天更冷。\nToday is colder than yesterday.\n02:07 - Phrase 7:\n这个西瓜差不多三公斤。\nThis watermelon weighs about three kilograms.\n02:30 - Phrase 8:\n很多人在公园里跑步。\nMany people are running in the park.\n02:52 - Phrase 9:\n工作日我早上八点上班。\nOn workdays I start work at eight in the morning.\n03:15 - Phrase 10:\n奶奶给我讲了一个有趣的故事。\nGrandma told me an interesting story.\n03:37 - Phrase 11:\n外面刮大风，请关好门。\nIt's windy outside, so please close the door well.\n04:00 - Phrase 12:\n离开房间时请关灯。\nPlease turn off the light when you leave the room.\n04:21 - Phrase 13:\n睡觉以前请把手机关机。\nPlease turn off your phone before going to sleep.\n04:45 - Phrase 14:\n他们两个人的关系很好。\nThe two of them have a very good relationship.\n05:06 - Phrase 15:\n老师很关心学生的学习。\nThe teacher cares a lot about the students' learning.\n05:28 - Phrase 16:\n关于这个问题，大家有什么不同意见？\nRegarding this question, does anyone have a different opinion?\n05:53 - Phrase 17:\n请大家关注一下黑板上的内容。\nEveryone, please pay attention to what's on the blackboard.\n06:18 - Phrase 18:\n中国是一个很大的国家。\nChina is a very large country.\n06:39 - Phrase 19:\n过年时我们全家一起过节。\nDuring New Year our whole family celebrates the festival together.\n07:03 - Phrase 20:\n不要总想过去的事情。\nDon't always think about things from the past.\n\nFULL VOCAB LIST\n刚 (gāng) - just, just now\n刚才 (gāngcái) - just now\n刚刚 (gānggāng) - just now, a moment ago\n高铁 (gāotiě) - high-speed rail\n根据 (gēnjù) - to base on; according to; (basis)\n更 (gèng) - more\n公斤 (gōngjīn) - kilogram\n公园 (gōngyuán) - park\n工作日 (gōngzuòrì) - workday\n故事 (gùshi) - story\n刮 (guā) - to scrape, to blow\n关 (guān) - to close, to turn off; pass\n关机 (guānjī) - to turn off device\n关系 (guānxì) - relationship; (to relate)\n关心 (guānxīn) - to care about, to be concerned\n关于 (guānyú) - about, regarding\n关注 (guānzhù) - to pay attention to, to follow\n国家 (guójiā) - country\n过节 (guòjié) - to celebrate a festival\n过去 (guòqù) - past\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-16T12:00:00-07:00",
+      "publishAt": "2026-09-15T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -522,7 +543,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 9 | New HSK 3 (2026 3.0)  | 海 to 换",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 海 to 换, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n假期我想去海边看海。\nDuring the vacation I want to go to the seaside and see the ocean.\n00:22 - Phrase 2:\n有些小孩子害怕黑。\nSome children are afraid of the dark.\n00:43 - Phrase 3:\n今天商店里来了好多人。\nA lot of people came to the store today.\n01:04 - Phrase 4:\n我们好久不见了，很想你。\nWe haven't seen each other for a long time—I miss you.\n01:27 - Phrase 5:\n外面好像要下雨了。\nIt looks like it's going to rain outside.\n01:48 - Phrase 6:\n请告诉我你的电话号码。\nPlease tell me your phone number.\n02:09 - Phrase 7:\n河边有很多高大的树。\nThere are many tall trees along the river.\n02:31 - Phrase 8:\n这双鞋的大小很合适。\nThe size of these shoes fits well.\n02:53 - Phrase 9:\n老师在黑板上写了几个汉字。\nThe teacher wrote several Chinese characters on the blackboard.\n03:17 - Phrase 10:\n请在红绿灯前停下来。\nPlease stop at the traffic light.\n03:40 - Phrase 11:\n我们先去了商店，后来又去了公园。\nWe went to the store first, and later we went to the park.\n04:06 - Phrase 12:\n后年我打算去中国留学。\nI plan to study in China the year after next.\n04:29 - Phrase 13:\n后天是我的生日。\nThe day after tomorrow is my birthday.\n04:48 - Phrase 14:\n出国旅游一定要带护照。\nYou must bring your passport when traveling abroad.\n05:11 - Phrase 15:\n我家后面有一个小花园。\nThere is a small garden behind my house.\n05:32 - Phrase 16:\n他是一位很有名的画家。\nHe is a very famous painter.\n05:53 - Phrase 17:\n欢迎你来我家做客！\nWelcome to my home!\n06:13 - Phrase 18:\n看完书请把它还给我。\nPlease give the book back to me after you finish reading it.\n06:36 - Phrase 19:\n这个学校的环境非常好。\nThe environment at this school is very good.\n06:59 - Phrase 20:\n天气太热了，我想换一件薄衣服。\nIt's too hot—I want to change into something lighter.\n\nFULL VOCAB LIST\n海 (hǎi) - sea\n害怕 (hàipà) - to be afraid\n好多 (hǎoduō) - many, a lot\n好久 (hǎojiǔ) - a long time\n好像 (hǎoxiàng) - to seem, as if; perhaps\n号码 (hàomǎ) - number, code\n河 (hé) - river\n合适 (héshì) - suitable\n黑板 (hēibǎn) - blackboard\n红绿灯 (hóng-lǜdēng) - traffic light\n后来 (hòulái) - later, afterwards\n后年 (hòunián) - the year after next\n后天 (hòutiān) - the day after tomorrow\n护照 (hùzhào) - passport\n花园 (huāyuán) - garden\n画家 (huàjiā) - painter, artist\n欢迎 (huānyíng) - to welcome\n还 (huán) - to return, to give back\n环境 (huánjìng) - environment\n换 (huàn) - to exchange, to change\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-17T12:00:00-07:00",
+      "publishAt": "2026-09-16T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -537,7 +558,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 10 | New HSK 3 (2026 3.0)  | 黄色 to 检票",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 黄色 to 检票, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n我最喜欢黄色的花。\nI like yellow flowers the most.\n00:20 - Phrase 2:\n请大家回答这个问题。\nEveryone, please answer this question.\n00:42 - Phrase 3:\n下午三点有一个重要的会。\nThere is an important meeting at three in the afternoon.\n01:05 - Phrase 4:\n今天的会议下午三点开始。\nToday's meeting starts at three in the afternoon.\n01:28 - Phrase 5:\n你可以喝茶或咖啡。\nYou can drink tea or coffee.\n01:48 - Phrase 6:\n我们坐地铁或者打车都可以。\nWe can either take the subway or grab a taxi.\n02:12 - Phrase 7:\n这只鸡在外面跑得很快。\nThis chicken runs very fast outside.\n02:34 - Phrase 8:\n这些汉字我几乎都会写。\nI can write almost all of these Chinese characters.\n02:56 - Phrase 9:\n这是一个学习汉语的好机会。\nThis is a good opportunity to learn Chinese.\n03:19 - Phrase 10:\n这个问题极难，我想了很久。\nThis question is extremely difficult—I thought about it for a long time.\n03:42 - Phrase 11:\n时间还早，你别急着走。\nIt's still early, so don't leave in such a hurry.\n04:05 - Phrase 12:\n请记住我的电话号码。\nPlease remember my phone number.\n04:26 - Phrase 13:\n秋天是很美的一季。\nAutumn is a beautiful season.\n04:47 - Phrase 14:\n你最喜欢哪个季节？\nWhich season do you like best?\n05:07 - Phrase 15:\n请在汤里加一点儿水。\nPlease add a little water to the soup.\n05:27 - Phrase 16:\n假期我想去南方旅游。\nDuring the vacation I want to travel to the south.\n05:49 - Phrase 17:\n学习汉语要坚持，每天都要学。\nYou have to persist in learning Chinese and study every day.\n06:15 - Phrase 18:\n医生检查了你的身体。\nThe doctor examined your body.\n06:35 - Phrase 19:\n这个练习很简单，你一定能做完。\nThis exercise is very simple—you can definitely finish it.\n07:00 - Phrase 20:\n上车前请先检票。\nPlease have your ticket checked before boarding.\n\nFULL VOCAB LIST\n黄色 (huángsè) - yellow\n回答 (huídá) - to answer\n会 (huì) - meeting\n会议 (huìyì) - meeting\n或 (huò) - or; (perhaps, maybe)\n或者 (huòzhě) - or\n鸡 (jī) - chicken\n几乎 (jīhū) - almost\n机会 (jīhuì) - opportunity\n极 (jí) - extremely\n急 (jí) - urgent; (to worry)\n记 (jì) - to remember\n季 (jì) - season\n季节 (jìjié) - season\n加 (jiā) - to add\n假期 (jiàqī) - vacation\n坚持 (jiānchí) - to persist\n检查 (jiǎnchá) - to check, to inspect\n简单 (jiǎndān) - simple\n检票 (jiǎnpiào) - ticket checking\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-18T12:00:00-07:00",
+      "publishAt": "2026-09-17T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -552,7 +573,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 11 | New HSK 3 (2026 3.0)  | 健康 to 酒",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 健康 to 酒, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n每天运动对健康很好。\nExercising every day is good for your health.\n00:22 - Phrase 2:\n我们明天在咖啡店见面吧。\nLet's meet at the coffee shop tomorrow.\n00:45 - Phrase 3:\n老师给我们讲了一个故事。\nThe teacher told us a story.\n01:08 - Phrase 4:\n这个苹果两角一个。\nThis apple costs two jiao each.\n01:29 - Phrase 5:\n他的脚很疼。\nHis foot hurts a lot.\n01:47 - Phrase 6:\n我去机场接我的姐姐。\nI'm going to the airport to pick up my older sister.\n02:08 - Phrase 7:\n这条街上有很多商店。\nThere are many shops on this street.\n02:30 - Phrase 8:\n今天我们学第三节课。\nToday we are studying the third lesson.\n02:52 - Phrase 9:\n他们去年春天结婚了。\nThey got married last spring.\n03:14 - Phrase 10:\n晚上我们一起看电视节目。\nIn the evening we watch TV programs together.\n03:36 - Phrase 11:\n春节是中国最重要的节日。\nSpring Festival is China's most important holiday.\n04:00 - Phrase 12:\n会议下午五点结束。\nThe meeting ends at five in the afternoon.\n04:20 - Phrase 13:\n这个问题已经解决了。\nThis problem has already been solved.\n04:41 - Phrase 14:\n她有两个姐妹。\nShe has two sisters.\n04:59 - Phrase 15:\n我可以借你的笔吗？\nCan I borrow your pen?\n05:20 - Phrase 16:\n请给我两斤苹果。\nPlease give me two jin of apples.\n05:40 - Phrase 17:\n我经过学校时看到了他。\nI saw him when I passed by the school.\n06:01 - Phrase 18:\n我们公司的经理很好。\nOur company's manager is very good.\n06:22 - Phrase 19:\n我等你很久了。\nI've been waiting for you for a long time.\n06:41 - Phrase 20:\n爸爸很少喝酒。\nDad rarely drinks alcohol.\n\nFULL VOCAB LIST\n健康 (jiànkāng) - healthy\n见面 (jiànmiàn) - to meet\n讲 (jiǎng) - to speak, to talk\n角 (jiǎo) - measure word for fractions, angle, currency\n脚 (jiǎo) - foot\n接 (jiē) - to pick up, to receive\n街 (jiē) - street\n节 (jié) - measure word for segments, sections, lessons; festival, joint; (to save, to control)\n结婚 (jiéhūn) - to marry\n节目 (jiémù) - program\n节日 (jiérì) - festival\n结束 (jiéshù) - to end\n解决 (jiějué) - to solve\n姐妹 (jiěmèi) - sister\n借 (jiè) - to borrow\n斤 (jīn) - catty\n经过 (jīngguò) - to pass; process\n经理 (jīnglǐ) - manager\n久 (jiǔ) - long\n酒 (jiǔ) - alcohol\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-21T12:00:00-07:00",
+      "publishAt": "2026-09-18T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -567,7 +588,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 12 | New HSK 3 (2026 3.0)  | 旧 to 哭",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 旧 to 哭, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n这双鞋太旧了，该买新的。\nThese shoes are too old; it's time to buy new ones.\n00:24 - Phrase 2:\n请你说一句汉语。\nPlease say a sentence in Chinese.\n00:43 - Phrase 3:\n这个句子不太难。\nThis sentence is not too difficult.\n01:02 - Phrase 4:\n我决定学习中文。\nI've decided to study Chinese.\n01:22 - Phrase 5:\n我把卡放在包里了。\nI put the card in my bag.\n01:43 - Phrase 6:\n花园里的树开花了。\nThe trees in the garden have bloomed.\n02:04 - Phrase 7:\n经理明天上午要开会。\nThe manager has a meeting tomorrow morning.\n02:25 - Phrase 8:\n请先开机再使用电脑。\nPlease turn on the computer before using it.\n02:47 - Phrase 9:\n收到礼物后，她很开心。\nShe was very happy after receiving the gift.\n03:10 - Phrase 10:\n看来今天会下雨。\nIt looks like it will rain today.\n03:30 - Phrase 11:\n我很想去，可今天太忙了。\nI really want to go, but I'm too busy today.\n03:55 - Phrase 12:\n跑完步以后，我觉得很渴。\nAfter running, I feel very thirsty.\n04:18 - Phrase 13:\n这只小猫很可爱。\nThis kitten is very cute.\n04:39 - Phrase 14:\n我想去，可是没有时间。\nI want to go, but I don't have time.\n05:03 - Phrase 15:\n现在是三点一刻。\nIt's a quarter past three now.\n05:23 - Phrase 16:\n请把汉语课本拿出来。\nPlease take out your Chinese textbook.\n05:44 - Phrase 17:\n家里来了几位客人。\nSeveral guests came to our home.\n06:04 - Phrase 18:\n今天我们学习第三课课文。\nToday we are studying the text of Lesson Three.\n06:27 - Phrase 19:\n夏天我们家里开着空调。\nWe keep the air conditioner on at home in summer.\n06:50 - Phrase 20:\n小孩子哭了，妈妈去看他。\nThe child cried, and his mother went to see him.\n\nFULL VOCAB LIST\n旧 (jiù) - old\n句 (jù) - measure word of sentence\n句子 (jùzi) - sentence\n决定 (juédìng) - to decide; decision\n卡 (kǎ) - card\n开花 (kāihuā) - to bloom\n开会 (kāihuì) - to have a meeting\n开机 (kāijī) - to turn on device\n开心 (kāixīn) - happy\n看来 (kànlái) - it seems, it appears\n可 (kě) - but; (yet)\n渴 (kě) - thirsty\n可爱 (kě’ài) - lovely\n可是 (kěshì) - but\n刻 (kè) - quarter; to carve\n课本 (kèběn) - textbook\n客人 (kèrén) - guest\n课文 (kèwén) - text\n空调 (kōngtiáo) - air conditioner\n哭 (kū) - to cry\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-22T12:00:00-07:00",
+      "publishAt": "2026-09-21T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -582,7 +603,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 13 | New HSK 3 (2026 3.0)  | 筷子 to 留学生",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 筷子 to 留学生, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n中国人吃饭用筷子。\nChinese people eat with chopsticks.\n00:20 - Phrase 2:\n请给我一瓶矿泉水。\nPlease give me a bottle of mineral water.\n00:40 - Phrase 3:\n他来自北京。\nHe comes from Beijing.\n00:58 - Phrase 4:\n今天天空很蓝。\nThe sky is very blue today.\n01:18 - Phrase 5:\n我爷爷老了，但身体很好。\nMy grandfather is old, but he is in good health.\n01:41 - Phrase 6:\n那位老人在公园走路。\nThat elderly person is walking in the park.\n02:02 - Phrase 7:\n他明天就要离开北京了。\nHe is leaving Beijing tomorrow.\n02:24 - Phrase 8:\n这是我给你的生日礼物。\nThis is a birthday gift for you.\n02:44 - Phrase 9:\n我们在学中国历史。\nWe are studying Chinese history.\n03:05 - Phrase 10:\n听到好话，她的脸红了。\nHer face turned red when she heard kind words.\n03:28 - Phrase 11:\n我每天练汉字。\nI practice Chinese characters every day.\n03:47 - Phrase 12:\n做完练习再休息。\nFinish the exercises before resting.\n04:07 - Phrase 13:\n秋天以后，天气凉快了。\nAfter autumn, the weather becomes cool.\n04:30 - Phrase 14:\n门口有一辆红色的车。\nThere is a red car at the entrance.\n04:53 - Phrase 15:\n我们在电话里聊了一个小时。\nWe chatted on the phone for an hour.\n05:16 - Phrase 16:\n晚饭后，我们坐在沙发上聊天儿。\nAfter dinner, we sat on the sofa and chatted.\n05:41 - Phrase 17:\n我想更多地了解中国文化。\nI want to learn more about Chinese culture.\n06:04 - Phrase 18:\n我的邻居很热情。\nMy neighbor is very warm and friendly.\n06:24 - Phrase 19:\n他打算去外国留学。\nHe plans to study abroad in a foreign country.\n06:46 - Phrase 20:\n我们学校有很多留学生。\nThere are many international students at our school.\n\nFULL VOCAB LIST\n筷子 (kuàizi) - chopsticks\n矿泉水 (kuàngquánshuǐ) - mineral water\n来自 (láizì) - to come from\n蓝 (lán) - blue\n老 (lǎo) - old, aged; prefix indicating seniority or endearment; (always, constantly)\n老人 (lǎorén) - elderly person\n离开 (líkāi) - to leave\n礼物 (lǐwù) - gift\n历史 (lìshǐ) - history\n脸 (liǎn) - face\n练 (liàn) - to practice\n练习 (liànxí) - to practice; exercise\n凉快 (liángkuai) - cool\n辆 (liàng) - measure word for vehicles\n聊 (liáo) - to chat\n聊天儿 (liáotiānr) - to chat\n了解 (liǎojiě) - to understand\n邻居 (línjū) - neighbor\n留学 (liúxué) - to study abroad\n留学生 (liúxuéshēng) - overseas student\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-23T12:00:00-07:00",
+      "publishAt": "2026-09-22T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -597,7 +618,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 14 | New HSK 3 (2026 3.0)  | 楼梯 to 男生",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 楼梯 to 男生, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n请走楼梯，不要坐电梯。\nPlease take the stairs, not the elevator.\n00:23 - Phrase 2:\n路边有很多花。\nThere are many flowers along the roadside.\n00:42 - Phrase 3:\n在下一个路口左转。\nTurn left at the next intersection.\n01:02 - Phrase 4:\n那儿有马。\nThere are horses there.\n01:21 - Phrase 5:\n过马路的时候要注意安全。\nBe careful when crossing the road.\n01:44 - Phrase 6:\n你稍等，我马上就来。\nWait a moment; I'll be right there.\n02:06 - Phrase 7:\n我对这次考试的结果很满意。\nI'm very satisfied with the result of this exam.\n02:29 - Phrase 8:\n这个苹果五毛一个。\nThis apple costs five mao each.\n02:49 - Phrase 9:\n学校离我家差不多五百米。\nThe school is about five hundred meters from my home.\n03:12 - Phrase 10:\n老师站在我们面前。\nThe teacher stood in front of us.\n03:33 - Phrase 11:\n你明白这个句子的意思吗？\nDo you understand the meaning of this sentence?\n03:54 - Phrase 12:\n请把参加者的名单给我。\nPlease give me the list of participants.\n04:17 - Phrase 13:\n电视上经常能看到这位名人。\nYou can often see this celebrity on TV.\n04:40 - Phrase 14:\n北京在中国的北边，上海在南边。\nBeijing is in the north of China, and Shanghai is in the south.\n05:06 - Phrase 15:\n这个汉字很难写。\nThis Chinese character is hard to write.\n05:26 - Phrase 16:\n我来自中国的南方。\nI come from the south of China.\n05:47 - Phrase 17:\n听到这个，她很难过。\nShe felt very sad when she heard this.\n06:09 - Phrase 18:\n这件衣服的颜色很难看。\nThe color of this piece of clothing is ugly.\n06:31 - Phrase 19:\n那个穿黑衣服的男人是我哥哥。\nThe man in black clothes is my older brother.\n06:54 - Phrase 20:\n我们班有二十个男生。\nThere are twenty boys in our class.\n\nFULL VOCAB LIST\n楼梯 (lóutī) - stairs\n路边 (lùbiān) - roadside\n路口 (lùkǒu) - intersection\n马 (mǎ) - horse\n马路 (mǎlù) - road\n马上 (mǎshàng) - immediately\n满意 (mǎnyì) - satisfied\n毛 (máo) - measure word for money; (hair)\n米 (mǐ) - meter\n面前 (miànqián) - in front of\n明白 (míngbai) - to understand; clear\n名单 (míngdān) - name list\n名人 (míngrén) - famous person\n南 (nán) - south\n难 (nán) - difficult; (to make difficult)\n南方 (nánfāng) - south\n难过 (nánguò) - sad\n难看 (nánkàn) - ugly\n男人 (nánrén) - man\n男生 (nánshēng) - boy student\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-24T12:00:00-07:00",
+      "publishAt": "2026-09-23T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -612,7 +633,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 15 | New HSK 3 (2026 3.0)  | 难题 to 其他",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 难题 to 其他, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n这是一道数学难题。\nThis is a difficult math problem.\n00:20 - Phrase 2:\n他唱的歌很难听。\nThe song he sings is unpleasant to listen to.\n00:39 - Phrase 3:\n我弟弟上二年级。\nMy younger brother is in second grade.\n00:59 - Phrase 4:\n我的老师很年轻。\nMy teacher is very young.\n01:19 - Phrase 5:\n那儿养着几头牛。\nThere are several cows raised there.\n01:39 - Phrase 6:\n只要努力，就一定能做好。\nAs long as you work hard, you will surely do well.\n02:03 - Phrase 7:\n那个女人是我的阿姨。\nThat woman is my aunt.\n02:23 - Phrase 8:\n这些女生是我的同学。\nThese girls are my classmates.\n02:44 - Phrase 9:\n孩子们正在爬树。\nThe children are climbing a tree.\n03:05 - Phrase 10:\n小孩子怕黑。\nYoung children are afraid of the dark.\n03:24 - Phrase 11:\n我们在长城上拍照。\nWe took photos on the Great Wall.\n03:44 - Phrase 12:\n盘子里有水果。\nThere is fruit on the plate.\n04:03 - Phrase 13:\n他最近胖了一点。\nHe has gained a little weight recently.\n04:22 - Phrase 14:\n爸爸晚上喜欢喝一杯啤酒。\nDad likes to have a glass of beer in the evening.\n04:45 - Phrase 15:\n平时我七点起床。\nI usually get up at seven o'clock.\n05:05 - Phrase 16:\n桌子上有一个空瓶子。\nThere is an empty bottle on the table.\n05:26 - Phrase 17:\n我每天骑自行车去学校。\nI ride my bike to school every day.\n05:49 - Phrase 18:\n今天他的行为很奇怪。\nHis behavior today is very strange.\n06:10 - Phrase 19:\n其实我不饿。\nActually, I'm not hungry.\n06:29 - Phrase 20:\n其他的事情明天再说。\nWe'll talk about other things tomorrow.\n\nFULL VOCAB LIST\n难题 (nántí) - difficult problem\n难听 (nántīng) - unpleasant to hear\n年级 (niánjí) - grade\n年轻 (niánqīng) - young\n牛 (niú) - cow; (awesome)\n努力 (nǔlì) - to work hard; hardworking\n女人 (nǚrén) - woman\n女生 (nǚshēng) - girl student\n爬 (pá) - to climb\n怕 (pà) - to fear; (perhaps)\n拍照 (pāizhào) - to take a photo\n盘子 (pánzi) - plate\n胖 (pàng) - fat\n啤酒 (píjiǔ) - beer\n平时 (píngshí) - usually\n瓶子 (píngzi) - bottle\n骑 (qí) - to ride\n奇怪 (qíguài) - strange\n其实 (qíshí) - actually\n其他 (qítā) - other\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-25T12:00:00-07:00",
+      "publishAt": "2026-09-24T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -627,7 +648,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 16 | New HSK 3 (2026 3.0)  | 起 to 伞",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 起 to 伞, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n我早上六点就起了。\nI got up at six in the morning.\n00:20 - Phrase 2:\n飞机马上就要起飞了。\nThe plane is about to take off.\n00:41 - Phrase 3:\n他买了一辆新汽车。\nHe bought a new car.\n01:01 - Phrase 4:\n请用铅笔写你的名字。\nPlease write your name with a pencil.\n01:23 - Phrase 5:\n前年北京下了一场大雪。\nIt snowed heavily in Beijing the year before last.\n01:46 - Phrase 6:\n前天我在家休息了一天。\nI rested at home the day before yesterday.\n02:07 - Phrase 7:\n这个问题已经很清楚了。\nThis issue is already very clear.\n02:30 - Phrase 8:\n他今天向老师请假了。\nHe asked the teacher for leave today.\n02:51 - Phrase 9:\n今天我请客，大家随便吃。\nI'm treating everyone today, so eat as much as you like.\n03:14 - Phrase 10:\n秋天是北京最好的季节。\nAutumn is the best season in Beijing.\n03:37 - Phrase 11:\n同学们在球场上踢足球。\nThe students are playing soccer on the sports field.\n04:01 - Phrase 12:\n她今天穿了一条红裙子。\nShe is wearing a red skirt today.\n04:23 - Phrase 13:\n我们先吃饭，然后再写作业。\nLet's eat first, and then do our homework.\n04:47 - Phrase 14:\n服务员对我们非常热情。\nThe waiter was very enthusiastic toward us.\n05:09 - Phrase 15:\n我认得这位老师。\nI recognize this teacher.\n05:29 - Phrase 16:\n我认为这个办法很好。\nI think this method is very good.\n05:51 - Phrase 17:\n请你认真听老师讲课。\nPlease listen to the teacher's lecture carefully.\n06:14 - Phrase 18:\n这个问题很容易回答。\nThis question is easy to answer.\n06:34 - Phrase 19:\n如果明天下雨，我们就不去了。\nIf it rains tomorrow, we won't go.\n06:58 - Phrase 20:\n下雨了，别忘了带伞。\nIt's raining, don't forget to bring an umbrella.\n\nFULL VOCAB LIST\n起 (qǐ) - to rise, to get up; (measure word for events)\n起飞 (qǐfēi) - to take off\n汽车 (qìchē) - car\n铅笔 (qiānbǐ) - pencil\n前年 (qiánnián) - the year before last\n前天 (qiántiān) - the day before yesterday\n清楚 (qīngchu) - clear, obvious; to understand\n请假 (qǐngjià) - to ask for leave\n请客 (qǐngkè) - to invite guests, to treat someone\n秋天 (qiūtiān) - autumn\n球场 (qiúchǎng) - sports field, court\n裙子 (qúnzi) - skirt\n然后 (ránhòu) - then, afterwards\n热情 (rèqíng) - enthusiastic\n认得 (rènde) - to recognize, to know\n认为 (rènwéi) - to think, to consider\n认真 (rènzhēn) - serious, earnest\n容易 (róngyì) - easy\n如果 (rúguǒ) - if\n伞 (sǎn) - umbrella\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-28T12:00:00-07:00",
+      "publishAt": "2026-09-25T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -642,7 +663,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 17 | New HSK 3 (2026 3.0)  | 扫 to 受到",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 扫 to 受到, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n我每天早上都要扫地。\nI sweep the floor every morning.\n00:21 - Phrase 2:\n爸爸坐在沙发上看电视。\nDad is sitting on the sofa watching TV.\n00:43 - Phrase 3:\n远处有一座很高的山。\nThere is a very high mountain in the distance.\n01:05 - Phrase 4:\n这件上衣的颜色很好看。\nThe color of this top looks very nice.\n01:26 - Phrase 5:\n请给我一把勺子。\nPlease give me a spoon.\n01:46 - Phrase 6:\n妈妈一直陪在我身边。\nMom has always stayed by my side.\n02:06 - Phrase 7:\n他身高有一米八。\nHe is 1.8 meters tall.\n02:26 - Phrase 8:\n外面突然有人喊了一声。\nSuddenly someone shouted from outside.\n02:46 - Phrase 9:\n我在北京生活了很多年。\nI have lived in Beijing for many years.\n03:08 - Phrase 10:\n妈妈因为这件事生气了。\nMom got angry because of this.\n03:29 - Phrase 11:\n他的声音很大，请小声一点。\nHis voice is very loud, please speak more quietly.\n03:53 - Phrase 12:\n这个市里有很多大学。\nThere are many universities in this city.\n04:14 - Phrase 13:\n我想试一下这件新衣服。\nI want to try on this new piece of clothing.\n04:36 - Phrase 14:\n这套房子有三室。\nThis apartment has three rooms.\n04:56 - Phrase 15:\n我想看看外面的世界。\nI want to see the outside world.\n05:17 - Phrase 16:\n我收到一封信。\nI received a letter.\n05:36 - Phrase 17:\n我已经收到你的邮件了。\nI have already received your email.\n05:56 - Phrase 18:\n他在比赛中受了很大影响。\nHe was greatly affected in the match.\n06:20 - Phrase 19:\n他生病以后瘦了很多。\nHe became much thinner after getting sick.\n06:43 - Phrase 20:\n他受到了老师的表扬。\nHe received praise from the teacher.\n\nFULL VOCAB LIST\n扫 (sǎo) - to sweep\n沙发 (shāfā) - sofa\n山 (shān) - mountain\n上衣 (shàngyī) - jacket, top garment\n勺子 (sháozi) - spoon\n身边 (shēnbiān) - by one's side\n身高 (shēngāo) - height\n声 (shēng) - sound, voice; measure word for sounds\n生活 (shēnghuó) - life; to live\n生气 (shēngqì) - to get angry\n声音 (shēngyīn) - sound\n市 (shì) - city\n试 (shì) - to try\n室 (shì) - room\n世界 (shìjiè) - world\n收 (shōu) - to receive\n收到 (shōudào) - to receive\n受 (shòu) - to receive, to be affected\n瘦 (shòu) - thin, slim\n受到 (shòudào) - to receive, to be subjected to\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-29T12:00:00-07:00",
+      "publishAt": "2026-09-28T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -657,7 +678,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 18 | New HSK 3 (2026 3.0)  | 叔叔 to 同意",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 叔叔 to 同意, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n叔叔明天要来我家做客。\nMy uncle is coming to visit our home tomorrow.\n00:22 - Phrase 2:\n学校门口有一棵大树。\nThere is a big tree at the school gate.\n00:44 - Phrase 3:\n我的数学成绩一直很好。\nMy math grades have always been good.\n01:07 - Phrase 4:\n我每天早上都要刷牙。\nI brush my teeth every morning.\n01:28 - Phrase 5:\n我在网上买了一双新鞋。\nI bought a new pair of shoes online.\n01:49 - Phrase 6:\n他的汉语水平越来越高了。\nHis Chinese level is getting higher and higher.\n02:12 - Phrase 7:\n这位出租车司机很好。\nThis taxi driver is very good.\n02:33 - Phrase 8:\n中国大部分地区都有四季。\nMost parts of China have four seasons.\n02:57 - Phrase 9:\n今天太阳很好，我们去公园吧。\nThe sun is nice today, let's go to the park.\n03:22 - Phrase 10:\n这个蛋糕没放糖，不太甜。\nThis cake has no sugar added, so it's not very sweet.\n03:46 - Phrase 11:\n今天特别热，你多喝点水。\nIt's especially hot today, drink more water.\n04:10 - Phrase 12:\n我想提高我的汉语水平。\nI want to improve my Chinese level.\n04:31 - Phrase 13:\n今天下午我们有体育课。\nWe have PE class this afternoon.\n04:53 - Phrase 14:\n体育馆里有很多学生在运动。\nThere are many students exercising in the gymnasium.\n05:17 - Phrase 15:\n这个西瓜又甜又好吃。\nThis watermelon is sweet and delicious.\n05:40 - Phrase 16:\n孩子们跳得很高。\nThe children jump very high.\n06:00 - Phrase 17:\n我听说他明天就要回国了。\nI heard that he is going back to his country tomorrow.\n06:23 - Phrase 18:\n今天挺冷的，你多穿点衣服。\nIt's quite cold today, put on more clothes.\n06:47 - Phrase 19:\n我和同事一起去公司食堂吃饭。\nI went to the company cafeteria to eat with my colleagues.\n07:12 - Phrase 20:\n老师同意了我的学习办法。\nThe teacher agreed to my study method.\n\nFULL VOCAB LIST\n叔叔 (shūshu) - uncle\n树 (shù) - tree\n数学 (shùxué) - mathematics\n刷 (shuā) - to brush, to scrub\n双 (shuāng) - pair, measure word for pairs\n水平 (shuǐpíng) - level, standard\n司机 (sījī) - driver\n四季 (sìjì) - four seasons\n太阳 (tàiyáng) - sun\n糖 (táng) - candy, sugar\n特别 (tèbié) - special; particularly\n提高 (tígāo) - to raise, to improve\n体育 (tǐyù) - physical education\n体育馆 (tǐyùguǎn) - gymnasium\n甜 (tián) - sweet\n跳 (tiào) - to jump\n听说 (tīngshuō) - to hear said\n挺 (tǐng) - quite, rather; (to endure)\n同事 (tóngshì) - colleague\n同意 (tóngyì) - to agree\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-09-30T12:00:00-07:00",
+      "publishAt": "2026-09-29T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -672,7 +693,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 19 | New HSK 3 (2026 3.0)  | 头发 to 西",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 头发 to 西, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n她的头发又黑又长。\nHer hair is black and long.\n00:21 - Phrase 2:\n刚才突然下起雨来了。\nIt suddenly started raining just now.\n00:42 - Phrase 3:\n我经常去图书馆看书。\nI often go to the library to read books.\n01:04 - Phrase 4:\n他跑完步以后腿很累。\nHis legs were very tired after he finished running.\n01:25 - Phrase 5:\n他从外地来北京工作。\nHe came to Beijing from another place to work.\n01:47 - Phrase 6:\n晚上我们点外卖吃饭吧。\nLet's order takeout for dinner tonight.\n02:09 - Phrase 7:\n我在大学学习一门外语。\nI study a foreign language at university.\n02:30 - Phrase 8:\n我已经把今天的作业完成了。\nI have already finished today's homework.\n02:53 - Phrase 9:\n请给我一碗米饭。\nPlease give me a bowl of rice.\n03:12 - Phrase 10:\n今天的火车晚点了一个小时。\nToday's train was delayed by one hour.\n03:35 - Phrase 11:\n学校举办了新年晚会。\nThe school held a New Year evening party.\n03:56 - Phrase 12:\n他每个周末都打网球。\nHe plays tennis every weekend.\n04:18 - Phrase 13:\n你可以在这个网站上学汉语。\nYou can learn Chinese on this website.\n04:41 - Phrase 14:\n我出门时忘记带手机了。\nI forgot to bring my phone when I went out.\n05:04 - Phrase 15:\n我为你准备了一份生日礼物。\nI prepared a birthday gift for you.\n05:26 - Phrase 16:\n为了准备考试，我每天都努力学习。\nIn order to prepare for the exam, I study hard every day.\n05:52 - Phrase 17:\n卫生间在走廊的左边。\nThe restroom is on the left side of the hallway.\n06:14 - Phrase 18:\n我对中国文化非常感兴趣。\nI am very interested in Chinese culture.\n06:37 - Phrase 19:\n这个屋子又干净又明亮。\nThis room is clean and bright.\n07:01 - Phrase 20:\n太阳每天从西边慢慢落下。\nThe sun slowly sets in the west every day.\n\nFULL VOCAB LIST\n头发 (tóufa) - hair\n突然 (tūrán) - sudden\n图书馆 (túshūguǎn) - library\n腿 (tuǐ) - leg\n外地 (wàidì) - other place\n外卖 (wàimài) - takeaway; to order takeout\n外语 (wàiyǔ) - foreign language\n完成 (wánchéng) - to complete\n碗 (wǎn) - bowl\n晚点 (wǎndiǎn) - to be late\n晚会 (wǎnhuì) - evening party\n网球 (wǎngqiú) - tennis\n网站 (wǎngzhàn) - website\n忘记 (wàngjì) - to forget\n为 (wèi) - for, because of, to\n为了 (wèile) - in order to\n卫生间 (wèishēngjiān) - bathroom, restroom\n文化 (wénhuà) - culture\n屋子 (wūzi) - room, house\n西 (xī) - west\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-10-01T12:00:00-07:00",
+      "publishAt": "2026-09-30T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -687,7 +708,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 20 | New HSK 3 (2026 3.0)  | 西北 to 校长",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 西北 to 校长, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n今天西北方向的风很大。\nThe wind from the northwest is strong today.\n00:22 - Phrase 2:\n他对西方的历史很感兴趣。\nHe is very interested in Western history.\n00:46 - Phrase 3:\n夏天我最喜欢吃西瓜。\nIn summer I like eating watermelon the most.\n01:08 - Phrase 4:\n我家在城市的西南地区。\nMy home is in the southwest part of the city.\n01:30 - Phrase 5:\n我已经习惯早上六点起床了。\nI am already used to getting up at six in the morning.\n01:54 - Phrase 6:\n孩子们都很喜爱这位老师。\nThe children all love this teacher very much.\n02:17 - Phrase 7:\n家里的洗衣机坏了，衣服还没洗。\nThe washing machine at home is broken, so the clothes haven't been washed.\n02:42 - Phrase 8:\n我习惯每天晚上洗澡。\nI am used to taking a bath every evening.\n03:04 - Phrase 9:\n夏天天气很热，要多喝水。\nThe weather is very hot in summer, so drink more water.\n03:28 - Phrase 10:\n你先走吧，我一会儿就到。\nYou go ahead first, I'll arrive in a little while.\n03:51 - Phrase 11:\n我每天早上都会吃一根香蕉。\nI eat a banana every morning.\n04:14 - Phrase 12:\n我相信你一定能做好这件事。\nI believe you can definitely do this well.\n04:38 - Phrase 13:\n请把这些衣服放进箱子里。\nPlease put these clothes into the box.\n05:01 - Phrase 14:\n我向老师问了一个问题。\nI asked the teacher a question.\n05:22 - Phrase 15:\n她长得像她妈妈一样漂亮。\nShe is as beautiful as her mother.\n05:44 - Phrase 16:\n他用相机拍了很多漂亮的照片。\nHe took many beautiful photos with his camera.\n06:07 - Phrase 17:\n我就住在这个小区里。\nI live in this residential community.\n06:28 - Phrase 18:\n过马路的时候一定要小心。\nYou must be careful when crossing the street.\n06:52 - Phrase 19:\n校园里到处都是学生。\nStudents are everywhere on campus.\n07:13 - Phrase 20:\n校长在会上讲了话。\nThe principal spoke at the meeting.\n\nFULL VOCAB LIST\n西北 (xīběi) - northwest\n西方 (xīfāng) - west\n西瓜 (xīguā) - watermelon\n西南 (xīnán) - southwest\n习惯 (xíguàn) - to be used to; habit\n喜爱 (xǐ’ài) - to like, to love\n洗衣机 (xǐyījī) - washing machine\n洗澡 (xǐzǎo) - to take a bath\n夏天 (xiàtiān) - summer\n先 (xiān) - first, before\n香蕉 (xiāngjiāo) - banana\n相信 (xiāngxìn) - to believe\n箱子 (xiāngzi) - box, case\n向 (xiàng) - to face, to turn toward; toward, to\n像 (xiàng) - to resemble, to be like; (as if, such as); (image, statue, portrait)\n相机 (xiàngjī) - camera\n小区 (xiǎoqū) - residential community\n小心 (xiǎoxīn) - to be careful; careful\n校园 (xiàoyuán) - campus\n校长 (xiàozhǎng) - principal, headmaster\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-10-02T12:00:00-07:00",
+      "publishAt": "2026-10-01T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -702,7 +723,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 21 | New HSK 3 (2026 3.0)  | 鞋 to 要求",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 鞋 to 要求, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n这双鞋又便宜又舒服。\nThese shoes are both cheap and comfortable.\n00:21 - Phrase 2:\n听到这个，我心里很高兴。\nI was very happy to hear this.\n00:45 - Phrase 3:\n新年的时候，大家都回家看望家人。\nDuring the New Year, everyone goes home to see family.\n01:11 - Phrase 4:\n我每天晚上都会看新闻。\nI watch the news every evening.\n01:33 - Phrase 5:\n这些水果看起来很新鲜。\nThese fruits look very fresh.\n01:55 - Phrase 6:\n我不信他今天说的话。\nI don't believe what he said today.\n02:16 - Phrase 7:\n我用信用卡买了这本词典。\nI bought this dictionary with my credit card.\n02:39 - Phrase 8:\n我们明天下午见面，行吗？\nShall we meet tomorrow afternoon?\n03:02 - Phrase 9:\n请你帮我拿一下行李。\nPlease help me carry the luggage.\n03:22 - Phrase 10:\n我对汉语很有兴趣。\nI am very interested in Chinese.\n03:42 - Phrase 11:\n下个月我打算休假一周。\nNext month I plan to take a week off.\n04:06 - Phrase 12:\n你需要我帮你做什么吗？\nDo you need me to help you with anything?\n04:28 - Phrase 13:\n请你从这三本书中选一本。\nPlease choose one book from these three.\n04:51 - Phrase 14:\n你可以自己选择想去的城市。\nYou can choose the city you want to go to.\n05:14 - Phrase 15:\n这学期我学了很多新词。\nI learned many new words this semester.\n05:38 - Phrase 16:\n我的牙有点疼，要去看医生。\nMy tooth hurts a little, so I need to see a doctor.\n06:02 - Phrase 17:\n旅游的时候别忘了带牙刷。\nDon't forget to bring your toothbrush when traveling.\n06:24 - Phrase 18:\n那个农场里养了很多羊。\nThat farm raises many sheep.\n06:46 - Phrase 19:\n我家养了一只可爱的小狗。\nMy family keeps a cute little dog.\n07:08 - Phrase 20:\n老师对我们的要求很高。\nThe teacher has high requirements for us.\n\nFULL VOCAB LIST\n鞋 (xié) - shoe\n心里 (xīnlǐ) - heart, mind\n新年 (xīnnián) - New Year\n新闻 (xīnwén) - news\n新鲜 (xīnxiān) - fresh\n信 (xìn) - to believe; letter\n信用卡 (xìnyòngkǎ) - credit card\n行 (xíng) - to go; okay, permissible\n行李 (xíngli) - luggage\n兴趣 (xìngqù) - interest\n休假 (xiūjià) - to take a holiday\n需要 (xūyào) - to need; need\n选 (xuǎn) - to choose\n选择 (xuǎnzé) - to choose\n学期 (xuéqī) - semester\n牙 (yá) - tooth\n牙刷 (yáshuā) - toothbrush\n羊 (yáng) - sheep\n养 (yǎng) - to raise, to keep\n要求 (yāoqiú) - to demand; requirement\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-10-05T12:00:00-07:00",
+      "publishAt": "2026-10-02T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -717,7 +738,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 22 | New HSK 3 (2026 3.0)  | 页 to 影响",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 页 to 影响, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n请把书翻到第十页。\nPlease turn to page ten of the book.\n00:21 - Phrase 2:\n你只要努力，一定能考好。\nAs long as you work hard, you will definitely do well on the exam.\n00:44 - Phrase 3:\n这些水果一共三十块钱。\nThese fruits cost thirty yuan altogether.\n01:08 - Phrase 4:\n咱们一块儿去看电影吧。\nLet's go watch a movie together.\n01:29 - Phrase 5:\n我们的想法跟老师的一样。\nOur ideas are the same as the teacher's.\n01:52 - Phrase 6:\n以后我会更努力学习汉语。\nI will study Chinese harder in the future.\n02:15 - Phrase 7:\n以前我住在一个小城市。\nI used to live in a small city.\n02:37 - Phrase 8:\n十八岁以上的才可以进这个房间。\nOnly people eighteen years old and above can enter this room.\n03:03 - Phrase 9:\n除了他以外，大家都到了。\nEveryone has arrived except for him.\n03:25 - Phrase 10:\n我以为今天会下雨。\nI thought it would rain today.\n03:46 - Phrase 11:\n今天的气温在零度以下。\nToday's temperature is below zero.\n04:09 - Phrase 12:\n他的汉语水平一般。\nHis Chinese level is average.\n04:29 - Phrase 13:\n她一边听音乐一边看书。\nShe listens to music while reading a book.\n04:52 - Phrase 14:\n雨一直下到下午三点。\nThe rain kept falling until three in the afternoon.\n05:14 - Phrase 15:\n我喜欢听中国音乐。\nI like listening to Chinese music.\n05:34 - Phrase 16:\n银行上午九点才开门。\nThe bank doesn't open until nine in the morning.\n05:56 - Phrase 17:\n我的银行卡放在钱包里。\nMy bank card is in my wallet.\n06:20 - Phrase 18:\n你想喝什么饮料？\nWhat drink would you like?\n06:39 - Phrase 19:\n你应该早点儿睡觉。\nYou should go to bed earlier.\n06:58 - Phrase 20:\n天气不会影响我们的旅游。\nThe weather won't affect our travel.\n\nFULL VOCAB LIST\n页 (yè) - measure word for page\n一定 (yídìng) - certain; certainly\n一共 (yígòng) - altogether, in total\n一块儿 (yíkuàir) - the same place; together\n一样 (yíyàng) - same\n以后 (yǐhòu) - later, after\n以前 (yǐqián) - before\n以上 (yǐshàng) - above, more than\n以外 (yǐwài) - except, besides\n以为 (yǐwéi) - to think, to believe\n以下 (yǐxià) - below, less than\n一般 (yìbān) - general, ordinary\n一边 (yìbiān) - at the same time\n一直 (yìzhí) - always, straight\n音乐 (yīnyuè) - music\n银行 (yínháng) - bank\n银行卡 (yínhángkǎ) - bank card\n饮料 (yǐnliào) - beverage\n应该 (yīnggāi) - should, ought to\n影响 (yǐngxiǎng) - to affect; influence\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-10-06T12:00:00-07:00",
+      "publishAt": "2026-10-05T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -732,7 +753,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 23 | New HSK 3 (2026 3.0)  | 用 to 运动会",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 用 to 运动会, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n请用中文回答这个问题。\nPlease answer this question in Chinese.\n00:22 - Phrase 2:\n我收到了一封重要的邮件。\nI received an important email.\n00:44 - Phrase 3:\n这里有很多外国游客。\nThere are many foreign tourists here.\n01:05 - Phrase 4:\n孩子们很喜欢玩这个游戏。\nThe children really like playing this game.\n01:28 - Phrase 5:\n请把文件发到我的邮箱。\nPlease send the file to my email address.\n01:50 - Phrase 6:\n这个问题跟考试有关。\nThis question has to do with the exam.\n02:11 - Phrase 7:\n长城是一个有名的地方。\nThe Great Wall is a famous place.\n02:32 - Phrase 8:\n这本词典对我很有用。\nThis dictionary is very useful to me.\n02:55 - Phrase 9:\n他又忘记带作业了。\nHe forgot to bring his homework again.\n03:15 - Phrase 10:\n我们下午去打羽毛球吧。\nLet's play badminton this afternoon.\n03:37 - Phrase 11:\n汉语是一种有趣的语言。\nChinese is an interesting language.\n03:59 - Phrase 12:\n下雨的时候请穿上雨衣。\nPlease put on a raincoat when it rains.\n04:22 - Phrase 13:\n我在路上遇到了一位老朋友。\nI ran into an old friend on the road.\n04:45 - Phrase 14:\n昨天我在商店遇见了老师。\nI met the teacher at the store yesterday.\n05:07 - Phrase 15:\n我家后面有一个小园。\nThere is a small garden behind my house.\n05:28 - Phrase 16:\n他是我们公司的一名服务员。\nHe is a waiter at our company.\n05:51 - Phrase 17:\n你愿意帮我一个忙吗？\nAre you willing to do me a favor?\n06:11 - Phrase 18:\n汉语越学越有意思。\nThe more you study Chinese, the more interesting it gets.\n06:32 - Phrase 19:\n今晚的月亮又圆又亮。\nThe moon is round and bright tonight.\n06:54 - Phrase 20:\n学校明天要开运动会。\nThe school will hold a sports meet tomorrow.\n\nFULL VOCAB LIST\n用 (yòng) - to use\n邮件 (yóujiàn) - mail\n游客 (yóukè) - tourist\n游戏 (yóuxì) - game\n邮箱 (yóuxiāng) - mailbox\n有关 (yǒuguān) - to have to do with; concerning\n有名 (yǒumíng) - famous\n有用 (yǒuyòng) - useful\n又 (yòu) - again, also\n羽毛球 (yǔmáoqiú) - badminton\n语言 (yǔyán) - language\n雨衣 (yǔyī) - raincoat\n遇到 (yùdào) - to encounter\n遇见 (yùjiàn) - to meet\n园 (yuán) - garden\n员 (yuán) - suffix for person with a certain job\n愿意 (yuànyì) - willing\n越 (yuè) - more, increasingly\n月亮 (yuèliang) - moon\n运动会 (yùndònghuì) - sports meet\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-10-07T12:00:00-07:00",
+      "publishAt": "2026-10-06T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -747,7 +768,7 @@
       "error": null,
       "title": "Chinese Listening Drills Set 24 | New HSK 3 (2026 3.0)  | 运动员 to 只有",
       "description": "Studying for the New 2026 HSK 3 test? These sentences are curated specifically for mastering the Level 3 test.\n\nThis video covers phrases for 运动员 to 只有, listen to all 500 HSK level 3 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n那个运动员跑得很快。\nThat athlete runs very fast.\n00:20 - Phrase 2:\n咱们现在就去吃饭吧。\nLet's go eat now.\n00:42 - Phrase 3:\n你的衣服太脏了，快换一件。\nYour clothes are too dirty, go change them.\n01:06 - Phrase 4:\n手机丢了，怎么办？\nI lost my phone, what should I do?\n01:28 - Phrase 5:\n你觉得这个办法怎样？\nWhat do you think of this method?\n01:48 - Phrase 6:\n请你站在我旁边。\nPlease stand next to me.\n02:08 - Phrase 7:\n请给我一张纸和一支笔。\nPlease give me a sheet of paper and a pen.\n02:30 - Phrase 8:\n他长高了。\nHe has grown taller.\n02:48 - Phrase 9:\n别着急，我们还有时间。\nDon't worry, we still have time.\n03:11 - Phrase 10:\n他照了一张照片。\nHe took a photo.\n03:30 - Phrase 11:\n妈妈在家照顾奶奶。\nMom takes care of Grandma at home.\n03:50 - Phrase 12:\n这张照片是在北京拍的。\nThis photo was taken in Beijing.\n04:13 - Phrase 13:\n我们在长城上照相了。\nWe took pictures on the Great Wall.\n04:35 - Phrase 14:\n他一直学习直到晚上十点。\nHe kept studying until ten at night.\n04:59 - Phrase 15:\n我只买了一个苹果。\nI only bought one apple.\n05:19 - Phrase 16:\n我没有纸了，请借我一张。\nI'm out of paper, please lend me a sheet.\n05:41 - Phrase 17:\n今天我只能在家休息。\nI can only rest at home today.\n06:03 - Phrase 18:\n我只是想问你一个问题。\nI just want to ask you a question.\n06:23 - Phrase 19:\n只要你努力，就能学好汉语。\nAs long as you work hard, you can learn Chinese well.\n06:48 - Phrase 20:\n只有他知道这件事。\nOnly he knows about this matter.\n\nFULL VOCAB LIST\n运动员 (yùndòngyuán) - athlete\n咱们 (zánmen) - we\n脏 (zāng) - dirty\n怎么办 (zěnme bàn) - what to do\n怎样 (zěnyàng) - how\n站 (zhàn) - to stand; station\n张 (zhāng) - to open; measure word for flat objects\n长 (zhǎng) - to grow; suffix for head\n着急 (zháojí) - anxious\n照 (zhào) - to shine, to photograph\n照顾 (zhàogù) - to take care of\n照片 (zhàopiàn) - photo\n照相 (zhàoxiàng) - to take a picture\n直到 (zhídào) - until\n只 (zhǐ) - only, merely\n纸 (zhǐ) - paper\n只能 (zhǐ néng) - can only\n只是 (zhǐshì) - only, merely; but\n只要 (zhǐyào) - as long as\n只有 (zhǐyǒu) - only if\n\nWhich word or phrase was hardest for you?\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "publishAt": "2026-10-08T12:00:00-07:00",
+      "publishAt": "2026-10-07T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
     },
@@ -765,204 +786,6 @@
       "publishAt": "2026-10-09T12:00:00-07:00",
       "videoId": null,
       "uploadedAt": null
-    },
-    {
-      "id": "grammar:Grammar_vs._2026-08-19_2df080",
-      "templateId": "grammar",
-      "setIndex": 0,
-      "title": "不(bù) vs. 没(méi) Chinese Listening Drills",
-      "status": "uploaded",
-      "packageDir": "grammar/Grammar_vs._2026-08-19_2df080",
-      "publishAt": "2026-08-22T10:01:00-07:00",
-      "error": null,
-      "hskLevel": "1",
-      "thumbnailText": "Grammar\n不 vs. 没",
-      "firstWord": "我不去学校。",
-      "lastWord": "他没听见。",
-      "videoId": "_v_Cf8Rb18M",
-      "uploadedAt": "2026-08-19T00:13:13.080Z",
-      "description": "Do you confuse 不(bù) and 没(méi)? Listen to these 20 phrases and you'll begin to internalize the differences!\n\nListen to all 300 HSK level 1 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n我不去学校。\n00:18 - Phrase 2:\n昨天我没去学校。\n00:37 - Phrase 3:\n他不是医生。\n00:55 - Phrase 4:\n他没有钱。\n01:14 - Phrase 5:\n我不喝水。\n01:32 - Phrase 6:\n我今天没喝水。\n01:51 - Phrase 7:\n我不吃米饭。\n02:09 - Phrase 8:\n早上我没吃米饭。\n02:28 - Phrase 9:\n明天我不看电影。\n02:46 - Phrase 10:\n昨天我没看电影。\n03:05 - Phrase 11:\n天气不热。\n03:23 - Phrase 12:\n他没看见老师。\n03:42 - Phrase 13:\n我不会说汉语。\n04:00 - Phrase 14:\n我没有猫。\n04:19 - Phrase 15:\n他不高兴。\n04:37 - Phrase 16:\n他昨天没来。\n04:56 - Phrase 17:\n我不想睡觉。\n05:14 - Phrase 18:\n我没买水果。\n05:33 - Phrase 19:\n这个苹果不大。\n05:51 - Phrase 20:\n他没听见。\n\nFULL VOCAB LIST\n我不去学校。\n昨天我没去学校。\n他不是医生。\n他没有钱。\n我不喝水。\n我今天没喝水。\n我不吃米饭。\n早上我没吃米饭。\n明天我不看电影。\n昨天我没看电影。\n天气不热。\n他没看见老师。\n我不会说汉语。\n我没有猫。\n他不高兴。\n他昨天没来。\n我不想睡觉。\n我没买水果。\n这个苹果不大。\n他没听见。\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "phrases": [
-        {
-          "zh": "我不去学校。",
-          "en": ""
-        },
-        {
-          "zh": "昨天我没去学校。",
-          "en": ""
-        },
-        {
-          "zh": "他不是医生。",
-          "en": ""
-        },
-        {
-          "zh": "他没有钱。",
-          "en": ""
-        },
-        {
-          "zh": "我不喝水。",
-          "en": ""
-        },
-        {
-          "zh": "我今天没喝水。",
-          "en": ""
-        },
-        {
-          "zh": "我不吃米饭。",
-          "en": ""
-        },
-        {
-          "zh": "早上我没吃米饭。",
-          "en": ""
-        },
-        {
-          "zh": "明天我不看电影。",
-          "en": ""
-        },
-        {
-          "zh": "昨天我没看电影。",
-          "en": ""
-        },
-        {
-          "zh": "天气不热。",
-          "en": ""
-        },
-        {
-          "zh": "他没看见老师。",
-          "en": ""
-        },
-        {
-          "zh": "我不会说汉语。",
-          "en": ""
-        },
-        {
-          "zh": "我没有猫。",
-          "en": ""
-        },
-        {
-          "zh": "他不高兴。",
-          "en": ""
-        },
-        {
-          "zh": "他昨天没来。",
-          "en": ""
-        },
-        {
-          "zh": "我不想睡觉。",
-          "en": ""
-        },
-        {
-          "zh": "我没买水果。",
-          "en": ""
-        },
-        {
-          "zh": "这个苹果不大。",
-          "en": ""
-        },
-        {
-          "zh": "他没听见。",
-          "en": ""
-        }
-      ]
-    },
-    {
-      "id": "grammar:Grammar_vs_2026-08-19_390f33",
-      "templateId": "grammar",
-      "setIndex": 0,
-      "title": "二(èr) vs 两(liǎng) | HSK 1 Grammar | Chinese Listening Drill",
-      "status": "uploaded",
-      "packageDir": "grammar/Grammar_vs_2026-08-19_390f33",
-      "publishAt": "2026-08-23T10:03:00-07:00",
-      "error": null,
-      "hskLevel": "1",
-      "thumbnailText": "Grammar\n二 vs 两",
-      "firstWord": "今天是二月。",
-      "lastWord": "医院里有两个医生。",
-      "videoId": "h0mKNPBZyOU",
-      "uploadedAt": "2026-08-19T00:13:52.225Z",
-      "description": "Do you confuse 二(èr) vs 两(liǎng)? Listen to these 20 phrases and you'll begin to internalize the differences! \n\nListen to all 300 HSK level 1 phrases at:\nhttps://www.youtube.com/playlist?list=PLSBjUp0GMW_c\n\nThe science behind this method:\nDuring infancy, the brain prunes away neural pathways for unfamiliar speech to optimize processing for your native tongue, effectively tuning out foreign phonetic variations. Progressive audio drills that step from 70% to 85% and finally 100% speed actively reverse this bias, forcing the adult brain to rebuild its neural pathways to easily recognize and process the foreign speech sounds. This targeted training rapidly sharpens your phonetic sensitivity, making it significantly easier to learn new vocabulary and pass the HSK exam.\n\nVIDEO TIMESTAMPS\n00:00 - Phrase 1:\n今天是二月。\n00:18 - Phrase 2:\n他在中国住了两个月。\n00:38 - Phrase 3:\n明天是星期二。\n00:57 - Phrase 4:\n我在北京住了两天。\n01:17 - Phrase 5:\n现在是十二点。\n01:37 - Phrase 6:\n现在是两点。\n01:56 - Phrase 7:\n他的家在二号。\n02:14 - Phrase 8:\n我有两个好朋友。\n02:34 - Phrase 9:\n昨天是二号。\n02:52 - Phrase 10:\n桌子上有两本书。\n03:13 - Phrase 11:\n星期二我去学校。\n03:32 - Phrase 12:\n这个苹果两块钱。\n03:52 - Phrase 13:\n他住在十二号。\n04:12 - Phrase 14:\n商店里有两个人。\n04:32 - Phrase 15:\n他数了一、二、三。\n04:53 - Phrase 16:\n他有两个女儿。\n05:12 - Phrase 17:\n星期二天气不冷。\n05:32 - Phrase 18:\n我买了两个杯子。\n05:51 - Phrase 19:\n明天是二月二号。\n06:11 - Phrase 20:\n医院里有两个医生。\n\nFULL VOCAB LIST\n今天是二月。\n他在中国住了两个月。\n明天是星期二。\n我在北京住了两天。\n现在是十二点。\n现在是两点。\n他的家在二号。\n我有两个好朋友。\n昨天是二号。\n桌子上有两本书。\n星期二我去学校。\n这个苹果两块钱。\n他住在十二号。\n商店里有两个人。\n他数了一、二、三。\n他有两个女儿。\n星期二天气不冷。\n我买了两个杯子。\n明天是二月二号。\n医院里有两个医生。\n\n#HSK #LearnChinese #ChineseListeningPractice #MandarinChinese #LearnMandarin",
-      "phrases": [
-        {
-          "zh": "今天是二月。",
-          "en": ""
-        },
-        {
-          "zh": "他在中国住了两个月。",
-          "en": ""
-        },
-        {
-          "zh": "明天是星期二。",
-          "en": ""
-        },
-        {
-          "zh": "我在北京住了两天。",
-          "en": ""
-        },
-        {
-          "zh": "现在是十二点。",
-          "en": ""
-        },
-        {
-          "zh": "现在是两点。",
-          "en": ""
-        },
-        {
-          "zh": "他的家在二号。",
-          "en": ""
-        },
-        {
-          "zh": "我有两个好朋友。",
-          "en": ""
-        },
-        {
-          "zh": "昨天是二号。",
-          "en": ""
-        },
-        {
-          "zh": "桌子上有两本书。",
-          "en": ""
-        },
-        {
-          "zh": "星期二我去学校。",
-          "en": ""
-        },
-        {
-          "zh": "这个苹果两块钱。",
-          "en": ""
-        },
-        {
-          "zh": "他住在十二号。",
-          "en": ""
-        },
-        {
-          "zh": "商店里有两个人。",
-          "en": ""
-        },
-        {
-          "zh": "他数了一、二、三。",
-          "en": ""
-        },
-        {
-          "zh": "他有两个女儿。",
-          "en": ""
-        },
-        {
-          "zh": "星期二天气不冷。",
-          "en": ""
-        },
-        {
-          "zh": "我买了两个杯子。",
-          "en": ""
-        },
-        {
-          "zh": "明天是二月二号。",
-          "en": ""
-        },
-        {
-          "zh": "医院里有两个医生。",
-          "en": ""
-        }
-      ]
     }
   ]
 }
